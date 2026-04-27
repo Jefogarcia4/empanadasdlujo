@@ -6,14 +6,20 @@ function Header({ currentPage, onNavigate }) {
   return (
     <header className="header">
       <div className="header-content">
-        <div className="logo">
+        <div className="logo" style={{ cursor: 'pointer' }} onClick={() => onNavigate('landing')}>
           <div className="logo-icon">🥟</div>
           <h1>Empanadas <span>D'Lujo</span></h1>
         </div>
         <nav className="header-nav">
           <button
-            className={`header-nav__link${currentPage === 'home' ? ' header-nav__link--active' : ''}`}
-            onClick={() => onNavigate('home')}
+            className={`header-nav__link${currentPage === 'landing' ? ' header-nav__link--active' : ''}`}
+            onClick={() => onNavigate('landing')}
+          >
+            Inicio
+          </button>
+          <button
+            className={`header-nav__link${currentPage === 'tienda' ? ' header-nav__link--active' : ''}`}
+            onClick={() => onNavigate('tienda')}
           >
             Tienda
           </button>

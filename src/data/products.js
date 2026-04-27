@@ -5,7 +5,8 @@ export const products = [
     name: "Empanada Pequeña",
     flavor: "Papa y Guiso",
     weight: 30,
-    price: 350.30,
+    unitsPerPackage: 50,
+    price: 17515,
     image: "/images/empanada-pequena.png",
     active: true
   },
@@ -15,7 +16,8 @@ export const products = [
     name: "Empanada Pequeña",
     flavor: "Papa y Carne",
     weight: 30,
-    price: 546.00,
+    unitsPerPackage: 50,
+    price: 27300,
     image: "/images/empanada-pequena.png",
     active: true
   },
@@ -25,7 +27,8 @@ export const products = [
     name: "Empanada Pequeña",
     flavor: "Papa y Pollo",
     weight: 30,
-    price: 621.40,
+    unitsPerPackage: 50,
+    price: 31070,
     image: "/images/empanada-pequena.png",
     active: true
   },
@@ -35,7 +38,8 @@ export const products = [
     name: "Empanada Grande",
     flavor: "Papa y Carne",
     weight: 130,
-    price: 2892.50,
+    unitsPerPackage: 12,
+    price: 34710,
     image: "/images/empanada-grande.png",
     active: true
   },
@@ -45,7 +49,8 @@ export const products = [
     name: "Empanada Grande",
     flavor: "Papa y Pollo",
     weight: 130,
-    price: 2892.50,
+    unitsPerPackage: 12,
+    price: 34710,
     image: "/images/empanada-grande.png",
     active: true
   },
@@ -55,7 +60,8 @@ export const products = [
     name: "Empanada Mediana",
     flavor: "Papa y Carne",
     weight: 50,
-    price: 1066.00,
+    unitsPerPackage: 30,
+    price: 31980,
     image: "/images/empanada-mediana.png",
     active: true
   },
@@ -65,7 +71,8 @@ export const products = [
     name: "Pastel Pequeño",
     flavor: "Solo Pollo",
     weight: 55,
-    price: 1560.00,
+    unitsPerPackage: 30,
+    price: 46800,
     image: "/images/pastel-pequeno.png",
     active: true
   },
@@ -75,7 +82,8 @@ export const products = [
     name: "Pastel Grande",
     flavor: "Solo Pollo",
     weight: 130,
-    price: 4550.00,
+    unitsPerPackage: 12,
+    price: 54600,
     image: "/images/pastel-grande.png",
     active: true
   },
@@ -85,7 +93,8 @@ export const products = [
     name: "Pastel Grande",
     flavor: "Solo Carne",
     weight: 130,
-    price: 4983.33,
+    unitsPerPackage: 12,
+    price: 59800,
     image: "/images/pastel-grande.png",
     active: true
   },
@@ -95,7 +104,8 @@ export const products = [
     name: "Maíz Amarillo",
     flavor: "Maíz",
     weight: 1000,
-    price: 2507.00,
+    unitsPerPackage: 1,
+    price: 2507,
     image: "/images/masa-maiz.png",
     active: true
   }
