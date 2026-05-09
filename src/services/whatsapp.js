@@ -42,6 +42,13 @@ export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice) {
     },
   };
 
+  console.log('[WhatsApp] Enviando pedido...', {
+    phoneNumberId: PHONE_NUMBER_ID,
+    recipient: RECIPIENT,
+    url: `${WHATSAPP_API_URL}/${PHONE_NUMBER_ID}/messages`,
+    body,
+  });
+
   const response = await fetch(
     `${WHATSAPP_API_URL}/${PHONE_NUMBER_ID}/messages`,
     {
@@ -54,11 +61,18 @@ export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice) {
     }
   );
 
+  const responseData = await response.json().catch(() => ({}));
+
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    const errorMsg = errorData?.error?.message || `HTTP ${response.status}`;
+    console.error('[WhatsApp] Error en la respuesta:', {
+      status: response.status,
+      statusText: response.statusText,
+      responseData,
+    });
+    const errorMsg = responseData?.error?.message || `HTTP ${response.status}`;
     throw new Error(`Error al enviar pedido por WhatsApp: ${errorMsg}`);
   }
 
-  return await response.json();
+  console.log('[WhatsApp] ✅ Mensaje enviado exitosamente:', responseData);
+  return responseData;
 }
