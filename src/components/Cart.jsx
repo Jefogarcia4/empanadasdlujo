@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { sendOrderViaWhatsAppAPI } from '../services/whatsapp';
 
 function Cart() {
   const {
@@ -10,6 +12,8 @@ function Cart() {
     totalPrice,
     clearCart,
   } = useCart();
+
+  const [orderStatus, setOrderStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('es-CO', {
@@ -33,22 +37,23 @@ function Cart() {
     }
   };
 
-  const handleWhatsAppOrder = () => {
+  const handleWhatsAppOrder = async () => {
     if (cartItems.length === 0) return;
 
-    let message = '¡Hola! Me gustaría hacer el siguiente pedido:\n\n';
-    
-    cartItems.forEach((item) => {
-      message += `• ${item.quantity}x ${item.name} (${item.flavor}) - ${formatPrice(item.price * item.quantity)}\n`;
-    });
-    
-    message += `\n*Total: ${formatPrice(totalPrice)}*`;
-    message += '\n\n¡Gracias!';
-
-    const encodedMessage = encodeURIComponent(message);
-    // Reemplaza con tu número de WhatsApp
-    const whatsappUrl = `https://wa.me/573001234567?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank');
+    setOrderStatus('sending');
+    try {
+      await sendOrderViaWhatsAppAPI(cartItems, totalPrice);
+      setOrderStatus('success');
+      clearCart();
+      setTimeout(() => {
+        setOrderStatus('idle');
+        closeCart();
+      }, 3000);
+    } catch (err) {
+      console.error(err);
+      setOrderStatus('error');
+      setTimeout(() => setOrderStatus('idle'), 4000);
+    }
   };
 
   return (
@@ -111,16 +116,30 @@ function Cart() {
               <span className="cart-total-label">Total:</span>
               <span className="cart-total-value">{formatPrice(totalPrice)}</span>
             </div>
-            <button 
-              className="checkout-btn whatsapp-btn" 
+
+            {orderStatus === 'success' && (
+              <div className="cart-order-status cart-order-success">
+                ✅ ¡Pedido enviado con éxito!
+              </div>
+            )}
+            {orderStatus === 'error' && (
+              <div className="cart-order-status cart-order-error">
+                ❌ Error al enviar el pedido. Intenta de nuevo.
+              </div>
+            )}
+
+            <button
+              className="checkout-btn whatsapp-btn"
               onClick={handleWhatsAppOrder}
+              disabled={orderStatus === 'sending' || orderStatus === 'success'}
             >
-              📱 Pedir por WhatsApp
+              {orderStatus === 'sending' ? '⏳ Enviando pedido…' : '📱 Pedir por WhatsApp'}
             </button>
             <button
               className="checkout-btn"
               style={{ marginTop: '0.75rem', background: 'transparent', border: '2px solid #800302', color: '#800302' }}
               onClick={clearCart}
+              disabled={orderStatus === 'sending'}
             >
               🗑️ Vaciar Carrito
             </button>

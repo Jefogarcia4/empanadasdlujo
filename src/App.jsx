@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -8,13 +8,23 @@ import Cart from './components/Cart';
 import Footer from './components/Footer';
 import Catalogo from './components/Catalogo';
 import LandingPage from './components/landing/LandingPage';
-import { products } from './data/products';
+import { fetchProducts } from './services/api';
 import './styles/App.css';
 import './styles/Landing.css';
 
 function App() {
   const [activeCategory, setActiveCategory] = useState('Todas');
   const [currentPage, setCurrentPage] = useState('landing');
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [errorProducts, setErrorProducts] = useState(null);
+
+  useEffect(() => {
+    fetchProducts()
+      .then((data) => setProducts(data))
+      .catch((err) => setErrorProducts(err.message))
+      .finally(() => setLoadingProducts(false));
+  }, []);
 
   const filteredProducts = activeCategory === 'Todas'
     ? products.filter(p => p.active)
@@ -56,7 +66,9 @@ function App() {
           onCategoryChange={setActiveCategory}
         />
         <main className="main-content">
-          <ProductGrid products={filteredProducts} />
+          {loadingProducts && <p className="products-status">Cargando productos...</p>}
+          {errorProducts && <p className="products-status products-status--error">Error al cargar productos: {errorProducts}</p>}
+          {!loadingProducts && !errorProducts && <ProductGrid products={filteredProducts} />}
         </main>
         <Cart />
         <Footer />
