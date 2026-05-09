@@ -18,7 +18,7 @@ function buildOrderMessage(cartItems, totalPrice) {
   );
 
   return [
-    '🥟 *Nuevo pedido - Empanadas D\' Lujo*',
+    '*Nuevo pedido - Empanadas D\' Lujo*',
     '',
     ...lines,
     '',
