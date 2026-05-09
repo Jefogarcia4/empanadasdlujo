@@ -7,8 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5090',
+        target: 'https://empanadasdlujosapi.azurewebsites.net',
         changeOrigin: true,
+        secure: true,
       },
     },
   },

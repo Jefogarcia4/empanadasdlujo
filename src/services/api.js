@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://empanadasdlujosapi.azurewebsites.net';
+const API_BASE_URL = '';
 const API_USERNAME = 'admin';
 const API_PASSWORD = 'Admin@DLujo2025!';
 
