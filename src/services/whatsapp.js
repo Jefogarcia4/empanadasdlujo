@@ -36,9 +36,12 @@ export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice) {
   const body = {
     messaging_product: 'whatsapp',
     to: RECIPIENT,
-    type: 'text',
-    text: {
-      body: buildOrderMessage(cartItems, totalPrice),
+    type: 'template',
+    template: {
+      name: 'bienvenida_dlujo',
+      language: {
+        code: 'es_CO',
+      },
     },
   };
 
