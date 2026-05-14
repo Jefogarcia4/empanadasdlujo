@@ -8,6 +8,7 @@ import Cart from './components/Cart';
 import Footer from './components/Footer';
 import Catalogo from './components/Catalogo';
 import LandingPage from './components/landing/LandingPage';
+import CartPage from './components/CartPage';
 import { fetchProducts } from './services/api';
 import './styles/App.css';
 import './styles/Landing.css';
@@ -30,6 +31,18 @@ function App() {
     ? products.filter(p => p.active)
     : products.filter(p => p.category === activeCategory && p.active);
 
+  if (currentPage === 'cart') {
+    return (
+      <CartProvider>
+        <div className="app">
+          <Header currentPage={currentPage} onNavigate={setCurrentPage} />
+          <CartPage onNavigate={setCurrentPage} />
+          <Footer />
+        </div>
+      </CartProvider>
+    );
+  }
+
   if (currentPage === 'catalogo') {
     return (
       <CartProvider>
@@ -48,7 +61,7 @@ function App() {
         <div className="app">
           <Header currentPage={currentPage} onNavigate={setCurrentPage} />
           <LandingPage onNavigate={setCurrentPage} />
-          <Cart />
+          <Cart onNavigate={setCurrentPage} />
           <Footer />
         </div>
       </CartProvider>
@@ -70,7 +83,7 @@ function App() {
           {errorProducts && <p className="products-status products-status--error">Error al cargar productos: {errorProducts}</p>}
           {!loadingProducts && !errorProducts && <ProductGrid products={filteredProducts} />}
         </main>
-        <Cart />
+        <Cart onNavigate={setCurrentPage} />
         <Footer />
       </div>
     </CartProvider>

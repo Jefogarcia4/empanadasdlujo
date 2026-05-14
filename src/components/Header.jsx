@@ -1,7 +1,7 @@
 import { useCart } from '../context/CartContext';
 
 function Header({ currentPage, onNavigate }) {
-  const { totalItems, openCart } = useCart();
+  const { totalItems } = useCart();
 
   return (
     <header className="header">
@@ -30,7 +30,7 @@ function Header({ currentPage, onNavigate }) {
             Catálogo
           </button>
         </nav>
-        <button className="cart-button" onClick={openCart}>
+        <button className="cart-button" onClick={() => onNavigate('cart')}>
           🛒 Carrito
           {totalItems > 0 && (
             <span className="cart-badge">{totalItems}</span>

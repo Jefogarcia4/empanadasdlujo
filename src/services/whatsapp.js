@@ -18,7 +18,8 @@ const formatPrice = (price) =>
     maximumFractionDigits: 0,
   }).format(price);
 
-export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice) {
+export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice, buyerInfo = {}) {
+  const { nombre = 'Cliente', contacto = '---', tipoPago = 'Efectivo' } = buyerInfo;
   const orderNumber = Math.floor(Math.random() * 900000) + 100000;
 
   const productsList = cartItems
@@ -37,7 +38,7 @@ export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice) {
           parameters: [
             { type: 'text', text: String(orderNumber) },
             { type: 'text', text: formatPrice(totalPrice) },
-            { type: 'text', text: 'Pagina Web - 00000' },
+            { type: 'text', text: `${nombre} - ${contacto} - ${tipoPago}` },
             { type: 'text', text: productsList },
           ],
         },

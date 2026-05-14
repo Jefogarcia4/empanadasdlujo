@@ -1,0 +1,319 @@
+/* =====================================================
+   CART PAGE – Página de checkout
+   ===================================================== */
+
+.cart-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+
+/* ── Encabezado ─────────────────────────────────────── */
+.cart-page__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.cart-page__back {
+  background: none;
+  border: none;
+  color: var(--color-burgundy);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.cart-page__back:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+.cart-page__title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+/* ── Grid dos columnas ──────────────────────────────── */
+.cart-page__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .cart-page__body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Encabezados de columna ─────────────────────────── */
+.cart-page__form-col h3,
+.cart-page__items-col h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-burgundy);
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--color-gold);
+}
+
+/* ── Formulario ─────────────────────────────────────── */
+.cart-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.cart-form__group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.cart-form__group input,
+.cart-form__group textarea {
+  border: 1.5px solid #e0d5b0;
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 15px;
+  font-family: inherit;
+  background: #fff;
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+}
+
+.cart-form__group input:focus,
+.cart-form__group textarea:focus {
+  outline: none;
+  border-color: var(--color-gold);
+}
+
+.cart-form__group textarea {
+  resize: vertical;
+}
+
+/* Radio buttons de método de pago */
+.cart-form__radio-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cart-form__radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 2px solid #e0d5b0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  user-select: none;
+}
+
+.cart-form__radio-label.selected {
+  border-color: var(--color-gold);
+  background: var(--color-accent);
+}
+
+.cart-form__radio-label input[type='radio'] {
+  display: none;
+}
+
+/* Mensajes de estado */
+.cart-status {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.cart-status--success {
+  background: #e6f9f0;
+  color: #1a7a4a;
+  border: 1.5px solid #a3e4c1;
+}
+
+.cart-status--error {
+  background: #fff0f0;
+  color: #c0392b;
+  border: 1.5px solid #f5a7a7;
+}
+
+/* Botón enviar */
+.cart-submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--color-burgundy), #600202);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.cart-submit-btn:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.cart-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Lista de productos ──────────────────────────────── */
+.cart-page__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.cart-page__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1.5px solid #ede4c5;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.cart-page__item-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.cart-page__item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cart-page__item-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-page__item-flavor {
+  font-size: 12px;
+  color: var(--color-text-light);
+}
+
+.cart-page__item-qty {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.cart-page__item-qty button {
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--color-gold);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--color-burgundy);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.cart-page__item-qty button:hover {
+  background: var(--color-accent);
+}
+
+.cart-page__item-qty span {
+  font-size: 14px;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+
+.cart-page__item-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-burgundy);
+  min-width: 80px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.cart-page__item-remove {
+  background: none;
+  border: none;
+  color: #bbb;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.cart-page__item-remove:hover {
+  color: #c0392b;
+}
+
+/* Total */
+.cart-page__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-top: 2px solid var(--color-gold);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+/* Carrito vacío */
+.cart-page__empty {
+  text-align: center;
+  padding: 48px 0;
+  font-size: 16px;
+  color: var(--color-text-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.cart-page__go-store {
+  background: var(--color-burgundy);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.cart-page__go-store:hover {
+  opacity: 0.88;
+}
