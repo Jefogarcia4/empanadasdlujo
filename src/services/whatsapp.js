@@ -1,68 +1,57 @@
-const WHATSAPP_API_URL = 'https://graph.facebook.com/v18.0';
-const TOKEN =  "EAAQHnEipmXwBRVBNn8gM9XMs8HmuWlgDunDlVI1JAapGWpCa5YsGPkrDKU9mJEEM47dO6NPvI8bNSCS2pkZCXC6wgiDzYC5vq4tFLjVHZBirrHA9CmhPhZCmCHRV0tYFVu4Idgs5Hf7NG0MavZArZAp1wWwHptP2kDeAoTTr3OkpC3Xb0dxBN0WnWc8KmjeHf" //import.meta.env.VITE_WHATSAPP_TOKEN;
-const PHONE_NUMBER_ID = "1095633610301436" //import.meta.env.VITE_WHATSAPP_PHONE_NUMBER_ID;
-const RECIPIENT = "573116500501" //import.meta.env.VITE_WHATSAPP_RECIPIENT_NUMBER;
+const API_BASE_URL = 'https://empanadasdlujosapi.azurewebsites.net'; //import.meta.env.VITE_API_BASE_URL || '';
+const API_USERNAME = 'admin';
+const API_PASSWORD = 'Admin@DLujo2025!';
 
-function buildOrderMessage(cartItems, totalPrice) {
-  const formatPrice = (price) =>
-    new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'COP',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-
-  const lines = cartItems.map(
-    (item) =>
-      `• ${item.quantity}x ${item.name} (${item.flavor}) - ${formatPrice(item.price * item.quantity)}`
-  );
-
-  return [
-    '*Nuevo pedido - Empanadas D\' Lujo*',
-    '',
-    ...lines,
-    '',
-    `*Total: ${formatPrice(totalPrice)}*`,
-    '',
-    '_Pedido recibido desde la tienda online_',
-  ].join('\n');
+function getAuthHeaders() {
+  const credentials = btoa(`${API_USERNAME}:${API_PASSWORD}`);
+  return {
+    Authorization: `Basic ${credentials}`,
+    'Content-Type': 'application/json',
+  };
 }
 
+const formatPrice = (price) =>
+  new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(price);
+
 export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice) {
-  if (!TOKEN || !PHONE_NUMBER_ID || !RECIPIENT) {
-    throw new Error('Faltan variables de entorno de WhatsApp (VITE_WHATSAPP_TOKEN, VITE_WHATSAPP_PHONE_NUMBER_ID, VITE_WHATSAPP_RECIPIENT_NUMBER)');
-  }
+  const orderNumber = Math.floor(Math.random() * 900000) + 100000;
+
+  const productsList = cartItems
+    .map((item) => `${item.quantity}x ${item.name} (${item.flavor})`)
+    .join(' - ');
 
   const body = {
-    messaging_product: 'whatsapp',
-    to: RECIPIENT,
-    type: 'template',
     template: {
-      name: 'bienvenida_dlujo',
+      name: 'enviar_orden',
       language: {
-        code: 'es_CO',
+        code: 'en',
       },
+      components: [
+        {
+          type: 'body',
+          parameters: [
+            { type: 'text', text: String(orderNumber) },
+            { type: 'text', text: formatPrice(totalPrice) },
+            { type: 'text', text: 'Pagina Web - 00000' },
+            { type: 'text', text: productsList },
+          ],
+        },
+      ],
     },
   };
 
-  console.log('[WhatsApp] Enviando pedido...', {
-    phoneNumberId: PHONE_NUMBER_ID,
-    recipient: RECIPIENT,
-    url: `${WHATSAPP_API_URL}/${PHONE_NUMBER_ID}/messages`,
-    body,
-  });
+  console.log('[WhatsApp] Enviando pedido...', { body });
 
-  const response = await fetch(
-    `${WHATSAPP_API_URL}/${PHONE_NUMBER_ID}/messages`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    }
-  );
+  const response = await fetch(`${API_BASE_URL}/api/whatsapp/send_message`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify(body),
+  });
 
   const responseData = await response.json().catch(() => ({}));
 
