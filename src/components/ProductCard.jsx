@@ -1,49 +1,70 @@
 import { useCart } from '../context/CartContext';
 
-function ProductCard({ product }) {
+const getBadge = (product, index) => {
+  if (index === 0) return { label: '🔥 Más vendido', variant: 'red' };
+  if (product.category === 'Empanadas') return { label: '⚡ Alta rotación', variant: 'gold' };
+  if (product.category === 'Pasteles') return { label: '⭐ Destacado', variant: 'gold' };
+  return null;
+};
+
+const getProductIcon = (category) => {
+  switch (category) {
+    case 'Empanadas': return '🥟';
+    case 'Pasteles': return '🥧';
+    case 'Masa': return '🌽';
+    default: return '🍽️';
+  }
+};
+
+function ProductCard({ product, index = 0 }) {
   const { addToCart } = useCart();
 
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('es-CO', {
+  const formatPrice = (price) =>
+    new Intl.NumberFormat('es-CO', {
       style: 'currency',
       currency: 'COP',
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
     }).format(price);
-  };
 
-  const getProductIcon = (category) => {
-    switch (category) {
-      case 'Empanadas':
-        return '🥟';
-      case 'Pasteles':
-        return '🥧';
-      case 'Masa':
-        return '🌽';
-      default:
-        return '🍽️';
-    }
-  };
-
-  const handleAddToCart = () => {
-    addToCart(product);
-  };
+  const badge = getBadge(product, index);
+  const weightLabel =
+    product.weight >= 1000
+      ? `${product.weight / 1000}kg`
+      : `${product.weight}g`;
 
   return (
-    <article className="product-card">
-      <div className="product-image">
-        {getProductIcon(product.category)}
+    <article className="pcard">
+      <div className="pcard__img-wrap">
+        {badge && (
+          <span className={`pcard__badge pcard__badge--${badge.variant}`}>
+            {badge.label}
+          </span>
+        )}
+        {product.image ? (
+          <img src={product.image} alt={product.name} className="pcard__img" />
+        ) : (
+          <div className="pcard__img-placeholder">
+            <span>{getProductIcon(product.category)}</span>
+          </div>
+        )}
       </div>
-      <div className="product-info">
-        <span className="product-category">{product.category}</span>
-        <h3 className="product-name">{product.name}</h3>
-        <p className="product-flavor">{product.flavor}</p>
-        <p className="product-weight">
-          ⚖️ {product.weight >= 1000 ? `${product.weight / 1000} kg` : `${product.weight}g`}
+
+      <div className="pcard__body">
+        <span className="pcard__category">{product.category}</span>
+        <h3 className="pcard__name">{product.name}</h3>
+        <p className="pcard__flavor">{product.flavor}</p>
+        <p className="pcard__specs">
+          Paquete × {product.unitsPerPackage} und · {weightLabel} c/u
         </p>
-        <p className="product-price">{formatPrice(product.price)}</p>
-        <button className="add-to-cart-btn" onClick={handleAddToCart}>
-          🛒 Agregar al Carrito
+        <p className="pcard__frozen">Producto congelado listo para freír</p>
+
+        <div className="pcard__price-area">
+          <span className="pcard__price">{formatPrice(product.price)}</span>
+          <span className="pcard__bulk">💚 Mayorista desde 10 paquetes combinados</span>
+        </div>
+
+        <button className="pcard__btn" onClick={() => addToCart(product)}>
+          🛒 Agregar al carrito
         </button>
       </div>
     </article>

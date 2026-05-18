@@ -13,6 +13,54 @@ import { fetchProducts } from './services/api';
 import './styles/App.css';
 import './styles/Landing.css';
 
+const WHATSAPP_BULK = 'https://wa.me/573046028579?text=Hola!%20Quiero%20armar%20un%20pedido%20por%20volumen';
+
+function TrustBlock() {
+  const items = [
+    { icon: '🏭', label: 'Fabricación profesional' },
+    { icon: '❄️', label: 'Producto congelado listo para freír' },
+    { icon: '🛵', label: 'Entregas en Medellín y Valle de Aburrá' },
+    { icon: '📦', label: 'Compra desde 2 paquetes' },
+    { icon: '🏪', label: 'Mayorista desde 10 paquetes combinados' },
+  ];
+  return (
+    <div className="tienda-trust">
+      {items.map((item, i) => (
+        <div key={i} className="tienda-trust__item">
+          <span className="tienda-trust__icon">{item.icon}</span>
+          <span>{item.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function BulkBanner() {
+  return (
+    <section className="tienda-bulk">
+      <h2 className="tienda-bulk__title">
+        Compra 10 paquetes o más<br />y accede a precio por mayor
+      </h2>
+      <p className="tienda-bulk__desc">
+        Puedes combinar referencias. Ideal para negocios, eventos, reuniones o familias que quieren ahorrar comprando más.
+      </p>
+      <div className="tienda-bulk__chips">
+        <span className="tienda-bulk__chip">🔀 Combina referencias</span>
+        <span className="tienda-bulk__chip">💰 Ahorra más</span>
+        <span className="tienda-bulk__chip">✅ Ideal para vender</span>
+      </div>
+      <a
+        href={WHATSAPP_BULK}
+        className="tienda-bulk__btn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Armar pedido por volumen
+      </a>
+    </section>
+  );
+}
+
 function App() {
   const [activeCategory, setActiveCategory] = useState('Todas');
   const [currentPage, setCurrentPage] = useState('landing');
@@ -74,6 +122,7 @@ function App() {
       <div className="app">
         <Header currentPage={currentPage} onNavigate={setCurrentPage} />
         <Hero />
+        <TrustBlock />
         <CategoryFilter
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
@@ -81,8 +130,17 @@ function App() {
         <main className="main-content">
           {loadingProducts && <p className="products-status">Cargando productos...</p>}
           {errorProducts && <p className="products-status products-status--error">Error al cargar productos: {errorProducts}</p>}
-          {!loadingProducts && !errorProducts && <ProductGrid products={filteredProducts} />}
+          {!loadingProducts && !errorProducts && (
+            <>
+              <div className="tienda-section-header">
+                <h2 className="tienda-section-header__title">Nuestros Productos Estrella</h2>
+                <p className="tienda-section-header__sub">Congelados listos para freír · Alta rotación · Excelente margen</p>
+              </div>
+              <ProductGrid products={filteredProducts} />
+            </>
+          )}
         </main>
+        <BulkBanner />
         <Cart onNavigate={setCurrentPage} />
         <Footer />
       </div>
