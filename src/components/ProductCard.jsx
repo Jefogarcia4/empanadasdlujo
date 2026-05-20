@@ -7,15 +7,6 @@ const getBadge = (product, index) => {
   return null;
 };
 
-const getProductIcon = (category) => {
-  switch (category) {
-    case 'Empanadas': return '🥟';
-    case 'Pasteles': return '🥧';
-    case 'Masa': return '🌽';
-    default: return '🍽️';
-  }
-};
-
 function ProductCard({ product, index = 0 }) {
   const { addToCart } = useCart();
 
@@ -36,13 +27,7 @@ function ProductCard({ product, index = 0 }) {
     <article className="pcard">
       <div className="pcard__img-wrap">
         {badge && <span className="pcard__badge">{badge}</span>}
-        {product.image ? (
-          <img src={product.image} alt={product.name} className="pcard__img" />
-        ) : (
-          <div className="pcard__img-placeholder">
-            <span>{getProductIcon(product.category)}</span>
-          </div>
-        )}
+        <img src="/pollo_carne.jpg" alt={product.name} className="pcard__img" />
       </div>
 
       <div className="pcard__body">
