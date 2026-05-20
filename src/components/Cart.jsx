@@ -107,7 +107,7 @@ function Cart({ onNavigate }) {
             </button>
             <button
               className="checkout-btn"
-              style={{ marginTop: '0.75rem', background: 'transparent', border: '2px solid #800302', color: '#800302' }}
+              style={{ marginTop: '0.75rem', background: 'transparent', border: '2px solid #ffb21b', color: '#ffb21b' }}
               onClick={clearCart}
             >
               🗑️ Vaciar Carrito

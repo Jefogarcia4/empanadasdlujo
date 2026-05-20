@@ -30,7 +30,7 @@
   padding: 0.35rem 1rem;
   border-radius: 50px;
   margin-bottom: 1rem;
-  border: 1px solid rgba(128, 3, 2, 0.15);
+  border: 1px solid rgba(255, 178, 27, 0.15);
 }
 
 .lp-section-title {
@@ -138,7 +138,7 @@
   background: linear-gradient(145deg,
     #1a0100 0%,
     #5c0202 25%,
-    #800302 50%,
+    #ffb21b 50%,
     #b34a00 75%,
     #e07a00 90%,
     #ffb21b 100%
@@ -327,7 +327,7 @@
   background: linear-gradient(135deg,
     #0f0000 0%,
     #3a0101 30%,
-    #800302 60%,
+    #ffb21b 60%,
     #cc4a00 85%,
     #e07a00 100%
   );
@@ -390,7 +390,7 @@
   background: #fff;
   border-radius: var(--radius-lg);
   padding: 2rem;
-  border: 1px solid rgba(128, 3, 2, 0.08);
+  border: 1px solid rgba(255, 178, 27, 0.08);
   box-shadow: var(--shadow-md);
   transition: box-shadow 0.3s, transform 0.3s;
   border-top: 5px solid var(--color-burgundy);
@@ -478,7 +478,7 @@
   background:
     radial-gradient(ellipse at 10% 50%, rgba(255,178,27,0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 90% 20%, rgba(200,80,0,0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 100%, rgba(128,3,2,0.2) 0%, transparent 60%);
+    radial-gradient(ellipse at 50% 100%, rgba(255,178,27,0.2) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -526,7 +526,7 @@
 }
 
 .lp-process__card--burgundy {
-  background: linear-gradient(135deg, rgba(128,3,2,0.5), rgba(90,2,1,0.7));
+  background: linear-gradient(135deg, rgba(255,178,27,0.5), rgba(90,2,1,0.7));
 }
 
 .lp-process__card--orange {
@@ -623,7 +623,7 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  border: 1px solid rgba(128, 3, 2, 0.06);
+  border: 1px solid rgba(255, 178, 27, 0.06);
   cursor: default;
 }
 
@@ -720,7 +720,7 @@
   padding: 2.5rem 1.5rem;
   background: #fff;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(128, 3, 2, 0.07);
+  border: 1px solid rgba(255, 178, 27, 0.07);
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
@@ -739,7 +739,7 @@
 .lp-how__step-num {
   font-size: 4rem;
   font-weight: 900;
-  color: rgba(128, 3, 2, 0.08);
+  color: rgba(255, 178, 27, 0.08);
   line-height: 1;
   margin-bottom: 0.5rem;
   font-variant-numeric: tabular-nums;
@@ -920,7 +920,7 @@
 .lp-faq__item {
   background: #fff;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(128, 3, 2, 0.08);
+  border: 1px solid rgba(255, 178, 27, 0.08);
   overflow: hidden;
 }
 
@@ -1007,7 +1007,7 @@
 .lp-cta-blob--2 {
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, #e65c00, #800302);
+  background: radial-gradient(circle, #e65c00, #ffb21b);
   bottom: -80px;
   left: -80px;
   opacity: 0.2;
@@ -1016,7 +1016,7 @@
 .lp-cta-blob--3 {
   width: 220px;
   height: 220px;
-  background: radial-gradient(circle, #800302, #500101);
+  background: radial-gradient(circle, #ffb21b, #500101);
   top: 40%;
   left: 30%;
   opacity: 0.08;
@@ -1033,8 +1033,8 @@
 
 .lp-cta__tag {
   display: inline-block;
-  background: rgba(128, 3, 2, 0.1);
-  border: 1px solid rgba(128, 3, 2, 0.25);
+  background: rgba(255, 178, 27, 0.1);
+  border: 1px solid rgba(255, 178, 27, 0.25);
   color: #5c0202;
   font-size: 0.78rem;
   font-weight: 700;

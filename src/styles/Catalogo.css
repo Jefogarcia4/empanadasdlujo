@@ -13,7 +13,7 @@
 
 /* ── Hero ─────────────────────────────────────────────────── */
 .cat-hero {
-  background: linear-gradient(160deg, #800302 0%, #5a0202 60%, #3a0101 100%);
+  background: linear-gradient(160deg, #ffb21b 0%, #5a0202 60%, #3a0101 100%);
   color: #fff;
   padding: 32px 20px 28px;
   text-align: center;
@@ -147,7 +147,7 @@
 .cat-info-card h3 {
   font-size: 15px;
   font-weight: 700;
-  color: #800302;
+  color: #ffb21b;
   margin-bottom: 4px;
 }
 
@@ -174,7 +174,7 @@
 .cat-info-card__prices-content h3 {
   font-size: 15px;
   font-weight: 700;
-  color: #800302;
+  color: #ffb21b;
   margin-bottom: 8px;
 }
 
@@ -200,7 +200,7 @@
 }
 
 .cat-info-card__bulk-highlight {
-  background: linear-gradient(135deg, #800302, #a00404);
+  background: linear-gradient(135deg, #ffb21b, #a00404);
   color: #fff;
   border-radius: 8px;
   padding: 8px 12px;
@@ -538,7 +538,7 @@
 .cat-info-importante__item h4 {
   font-size: 13px;
   font-weight: 700;
-  color: #800302;
+  color: #ffb21b;
   margin-bottom: 6px;
 }
 
@@ -597,7 +597,7 @@
 
 .cat-combos__subtitle {
   font-size: 14px;
-  color: #800302;
+  color: #ffb21b;
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -678,7 +678,7 @@
 }
 
 .cat-combo-card__price strong {
-  color: #800302;
+  color: #ffb21b;
   font-size: 16px;
 }
 

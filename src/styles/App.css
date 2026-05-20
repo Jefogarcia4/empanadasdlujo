@@ -2,12 +2,12 @@
   /* Paleta de colores de la marca Empanadas D'Lujo */
   --color-cream: #fffdf0;
   --color-gold: #ffb21b;
-  --color-burgundy: #800302;
+  --color-burgundy: #ffb21b;
   --color-light-yellow: #fff2cf;
   --color-dark-brown: #281c02;
   
   /* Colores funcionales */
-  --color-primary: #800302;
+  --color-primary: #ffb21b;
   --color-secondary: #ffb21b;
   --color-background: #fffdf0;
   --color-surface: #ffffff;
@@ -84,7 +84,7 @@ body {
 }
 
 .header-nav__link:hover {
-  background: rgba(128, 3, 2, 0.08);
+  background: rgba(255, 178, 27, 0.08);
   color: var(--color-burgundy);
 }
 
@@ -121,12 +121,12 @@ body {
   align-items: center;
   gap: 0.5rem;
   transition: all var(--transition-fast);
-  box-shadow: 0 2px 6px rgba(128, 3, 2, 0.25);
+  box-shadow: 0 2px 6px rgba(255, 178, 27, 0.25);
 }
 
 .cart-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(128, 3, 2, 0.3);
+  box-shadow: 0 6px 16px rgba(255, 178, 27, 0.3);
   background: #600202;
 }
 
@@ -520,7 +520,7 @@ body {
   padding: 0.9rem 2.5rem;
   border-radius: 50px;
   text-decoration: none;
-  box-shadow: 0 4px 16px rgba(128, 3, 2, 0.3);
+  box-shadow: 0 4px 16px rgba(255, 178, 27, 0.3);
   transition: background 0.15s, transform 0.15s;
 }
 
