@@ -27,7 +27,11 @@ function ProductCard({ product, index = 0 }) {
     <article className="pcard">
       <div className="pcard__img-wrap">
         {badge && <span className="pcard__badge">{badge}</span>}
-        <img src="/pollo_carne.jpg" alt={product.name} className="pcard__img" />
+        <img
+          src={product.image || '/pollo_carne.jpg'}
+          alt={product.name}
+          className="pcard__img"
+        />
       </div>
 
       <div className="pcard__body">

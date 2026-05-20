@@ -20,7 +20,7 @@ function mapProducto(item) {
     unitsPerPackage: item.unidadesPorPaquete,
     price: precioPVxD?.precioPaquete ?? 0,
     active: item.activo,
-    image: null,
+    image: item.urlImage ?? null,
   };
 }
 
