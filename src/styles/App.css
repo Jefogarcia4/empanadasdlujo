@@ -48,7 +48,7 @@ body {
 .header {
   background: #fff2cf;
   color: var(--color-dark-brown);
-  padding: 0.10rem 2rem;
+  padding: 0.5rem 2rem;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -101,7 +101,7 @@ body {
 }
 
 .logo-img {
-  height: 120px;
+  height: 94px;
   width: auto;
   display: block;
   object-fit: contain;
