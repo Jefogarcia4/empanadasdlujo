@@ -15,26 +15,6 @@ import './styles/Landing.css';
 
 const WHATSAPP_BULK = 'https://wa.me/573046028579?text=Hola!%20Quiero%20armar%20un%20pedido%20por%20volumen';
 
-function TrustBlock() {
-  const items = [
-    { icon: '🏭', label: 'Fabricación profesional' },
-    { icon: '❄️', label: 'Producto congelado listo para freír' },
-    { icon: '🛵', label: 'Entregas en Medellín y Valle de Aburrá' },
-    { icon: '📦', label: 'Compra desde 2 paquetes' },
-    { icon: '🏪', label: 'Mayorista desde 10 paquetes combinados' },
-  ];
-  return (
-    <div className="tienda-trust">
-      {items.map((item, i) => (
-        <div key={i} className="tienda-trust__item">
-          <span className="tienda-trust__icon">{item.icon}</span>
-          <span>{item.label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function BulkBanner() {
   return (
     <section className="tienda-bulk">
@@ -122,7 +102,6 @@ function App() {
       <div className="app">
         <Header currentPage={currentPage} onNavigate={setCurrentPage} />
         <Hero />
-        <TrustBlock />
         <CategoryFilter
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
