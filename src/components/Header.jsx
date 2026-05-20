@@ -6,9 +6,8 @@ function Header({ currentPage, onNavigate }) {
   return (
     <header className="header">
       <div className="header-content">
-        <div className="logo" style={{ cursor: 'pointer' }} onClick={() => onNavigate('landing')}>
-          <div className="logo-icon">🥟</div>
-          <h1>Empanadas <span>D'Lujo</span></h1>
+        <div className="logo" onClick={() => onNavigate('landing')}>
+          <img src="/fondo_menu.png" alt="Empanadas D'lujo" className="logo-img" />
         </div>
         <nav className="header-nav">
           <button
