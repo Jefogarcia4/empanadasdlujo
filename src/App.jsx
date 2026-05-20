@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import CategoryFilter from './components/CategoryFilter';
 import ProductGrid from './components/ProductGrid';
 import Cart from './components/Cart';
+import CartFab from './components/CartFab';
 import Footer from './components/Footer';
 import Catalogo from './components/Catalogo';
 import LandingPage from './components/landing/LandingPage';
@@ -77,6 +78,8 @@ function App() {
         <div className="app">
           <Header currentPage={currentPage} onNavigate={setCurrentPage} />
           <Catalogo />
+          <Cart onNavigate={setCurrentPage} />
+          <CartFab />
           <Footer />
         </div>
       </CartProvider>
@@ -90,6 +93,7 @@ function App() {
           <Header currentPage={currentPage} onNavigate={setCurrentPage} />
           <LandingPage onNavigate={setCurrentPage} />
           <Cart onNavigate={setCurrentPage} />
+          <CartFab />
           <Footer />
         </div>
       </CartProvider>
@@ -121,6 +125,7 @@ function App() {
         </main>
         <BulkBanner />
         <Cart onNavigate={setCurrentPage} />
+        <CartFab />
         <Footer />
       </div>
     </CartProvider>
