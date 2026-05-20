@@ -32,6 +32,7 @@ function ProductCard({ product, index = 0 }) {
 
       <div className="pcard__body">
         <h3 className="pcard__name">{product.name}</h3>
+        {product.flavor && <p className="pcard__flavor">{product.flavor}</p>}
         <p className="pcard__specs">
           Paquete x{product.unitsPerPackage} unidades · {weightLabel} c/u
         </p>
