@@ -430,7 +430,7 @@ body {
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 0.95rem;
   font-weight: 500;
-  color: var(--color-burgundy);
+  color: #800302;
   text-decoration: none;
   margin-bottom: 0.85rem;
   transition: opacity 0.15s ease;
