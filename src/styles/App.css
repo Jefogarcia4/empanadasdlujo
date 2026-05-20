@@ -48,7 +48,7 @@ body {
 .header {
   background: #fff2cf;
   color: var(--color-dark-brown);
-  padding: 1.5rem 2.5rem;
+  padding: 1rem 2rem;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -101,7 +101,7 @@ body {
 }
 
 .logo-img {
-  height: 64px;
+  height: 76px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -854,7 +854,7 @@ body {
 /* Responsive */
 @media (max-width: 900px) {
   .header {
-    padding: 1rem 1.25rem;
+    padding: 0.75rem 1rem;
   }
 
   .header-content {
@@ -879,7 +879,7 @@ body {
 
 @media (max-width: 768px) {
   .logo-img {
-    height: 52px;
+    height: 62px;
   }
 
   .cart-button {
@@ -999,7 +999,7 @@ body {
 
 @media (max-width: 480px) {
   .header {
-    padding: 0.85rem 1rem;
+    padding: 0.6rem 0.75rem;
   }
 
   .header-nav__link {
@@ -1008,7 +1008,7 @@ body {
   }
 
   .logo-img {
-    height: 44px;
+    height: 52px;
   }
 
   .cart-button {
@@ -1097,7 +1097,7 @@ body {
 
 @media (max-width: 360px) {
   .logo-img {
-    height: 32px;
+    height: 44px;
   }
 
   .header-nav {
