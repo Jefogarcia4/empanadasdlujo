@@ -1,9 +1,9 @@
 import { useCart } from '../context/CartContext';
 
 const getBadge = (product, index) => {
-  if (index === 0) return { label: '🔥 Más vendido', variant: 'red' };
-  if (product.category === 'Empanadas') return { label: '⚡ Alta rotación', variant: 'gold' };
-  if (product.category === 'Pasteles') return { label: '⭐ Destacado', variant: 'gold' };
+  if (index === 0) return 'Más vendido';
+  if (product.category === 'Empanadas') return 'Alta rotación';
+  if (product.category === 'Pasteles') return 'Destacado';
   return null;
 };
 
@@ -35,11 +35,7 @@ function ProductCard({ product, index = 0 }) {
   return (
     <article className="pcard">
       <div className="pcard__img-wrap">
-        {badge && (
-          <span className={`pcard__badge pcard__badge--${badge.variant}`}>
-            {badge.label}
-          </span>
-        )}
+        {badge && <span className="pcard__badge">{badge}</span>}
         {product.image ? (
           <img src={product.image} alt={product.name} className="pcard__img" />
         ) : (
@@ -50,21 +46,21 @@ function ProductCard({ product, index = 0 }) {
       </div>
 
       <div className="pcard__body">
-        <span className="pcard__category">{product.category}</span>
         <h3 className="pcard__name">{product.name}</h3>
-        <p className="pcard__flavor">{product.flavor}</p>
         <p className="pcard__specs">
-          Paquete × {product.unitsPerPackage} und · {weightLabel} c/u
+          Paquete x{product.unitsPerPackage} unidades · {weightLabel} c/u
         </p>
         <p className="pcard__frozen">Producto congelado listo para freír</p>
 
         <div className="pcard__price-area">
           <span className="pcard__price">{formatPrice(product.price)}</span>
-          <span className="pcard__bulk">💚 Mayorista desde 10 paquetes combinados</span>
+          <span className="pcard__bulk">Mayorista desde 10 paquetes</span>
         </div>
 
+        <a className="pcard__details" href="#">Ver detalles →</a>
+
         <button className="pcard__btn" onClick={() => addToCart(product)}>
-          🛒 Agregar al carrito
+          Agregar al carrito
         </button>
       </div>
     </article>
