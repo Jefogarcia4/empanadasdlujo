@@ -877,3 +877,83 @@
   color: rgba(255,255,255,0.4);
   line-height: 1.6;
 }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .cat-hero {
+    padding: 26px 16px 22px;
+  }
+
+  .cat-hero__title {
+    font-size: 32px;
+  }
+
+  .cat-hero__image-wrap,
+  .cat-hero__image,
+  .cat-hero__image-placeholder {
+    max-height: 180px;
+    height: 180px;
+  }
+
+  .cat-hero__image-wrap {
+    margin: 0 -16px 18px;
+  }
+
+  .cat-info-cards {
+    padding: 16px 12px;
+  }
+
+  .cat-card {
+    margin: 10px 12px;
+  }
+
+  .cat-card__image-wrap,
+  .cat-card__image-placeholder {
+    height: 170px;
+  }
+
+  .cat-card__name {
+    font-size: 18px;
+  }
+
+  .cat-info-importante {
+    margin: 12px 12px 0;
+    padding: 20px 16px;
+  }
+
+  .cat-info-importante__title {
+    font-size: 22px;
+  }
+
+  .cat-combos {
+    margin: 12px 12px 0;
+    padding: 20px 16px;
+  }
+
+  .cat-combos__title {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 360px) {
+  .cat-hero__title {
+    font-size: 26px;
+  }
+
+  .cat-card__name {
+    font-size: 16px;
+  }
+
+  .cat-card__specs {
+    grid-template-columns: 1fr;
+  }
+
+  .cat-card__price-amount {
+    font-size: 22px;
+  }
+
+  .cat-info-importante__grid,
+  .cat-brand-footer__features {
+    grid-template-columns: 1fr;
+  }
+}
