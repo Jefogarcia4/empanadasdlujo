@@ -117,8 +117,7 @@ function App() {
             <>
               <div className="tienda-section-header">
                 <h2 className="tienda-section-header__title">
-                  Nuestros productos estrella{' '}
-                  <span className="emoji-apple" role="img" aria-label="estrella">⭐</span>
+                  Vitrina digital
                 </h2>
                 <p className="tienda-section-header__sub">Congelados listos para freír · Alta rotación · Excelente margen</p>
               </div>
