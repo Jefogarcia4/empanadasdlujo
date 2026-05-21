@@ -44,7 +44,7 @@ function BulkBanner() {
 
 function App() {
   const [activeCategory, setActiveCategory] = useState('Todas');
-  const [currentPage, setCurrentPage] = useState('landing');
+  const [currentPage, setCurrentPage] = useState('tienda');
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [errorProducts, setErrorProducts] = useState(null);
