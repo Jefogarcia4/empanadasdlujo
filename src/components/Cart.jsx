@@ -20,19 +20,6 @@ function Cart({ onNavigate }) {
     }).format(price);
   };
 
-  const getProductIcon = (category) => {
-    switch (category) {
-      case 'Empanadas':
-        return '🥟';
-      case 'Pasteles':
-        return '🥧';
-      case 'Masa':
-        return '🌽';
-      default:
-        return '🍽️';
-    }
-  };
-
   const handleCheckout = () => {
     closeCart();
     onNavigate('cart');
@@ -63,7 +50,7 @@ function Cart({ onNavigate }) {
             cartItems.map((item) => (
               <div key={item.id} className="cart-item">
                 <div className="cart-item-image">
-                  {getProductIcon(item.category)}
+                  <img src={item.image || '/pollo_carne.jpg'} alt={item.name} />
                 </div>
                 <div className="cart-item-details">
                   <h4 className="cart-item-name">{item.name}</h4>

@@ -11,15 +11,6 @@ const formatPrice = (price) =>
     maximumFractionDigits: 0,
   }).format(price);
 
-const getProductIcon = (category) => {
-  switch (category) {
-    case 'Empanadas': return '🥟';
-    case 'Pasteles': return '🥧';
-    case 'Masa': return '🌽';
-    default: return '🍽️';
-  }
-};
-
 function CartPage({ onNavigate }) {
   const { cartItems, totalPrice, clearCart, updateQuantity, removeFromCart } = useCart();
 
@@ -170,7 +161,11 @@ function CartPage({ onNavigate }) {
               <ul className="cart-page__list">
                 {cartItems.map((item) => (
                   <li key={item.id} className="cart-page__item">
-                    <span className="cart-page__item-icon">{getProductIcon(item.category)}</span>
+                    <img
+                      className="cart-page__item-icon"
+                      src={item.image || '/pollo_carne.jpg'}
+                      alt={item.name}
+                    />
                     <div className="cart-page__item-info">
                       <span className="cart-page__item-name">{item.name}</span>
                       <span className="cart-page__item-flavor">{item.flavor}</span>

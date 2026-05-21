@@ -153,7 +153,8 @@
   }
 
   .cart-page__item-icon {
-    font-size: 20px;
+    width: 20px;
+    height: 20px;
   }
 
   .cart-page__item-qty button {
@@ -304,8 +305,11 @@
 }
 
 .cart-page__item-icon {
-  font-size: 22px;
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 .cart-page__item-info {
