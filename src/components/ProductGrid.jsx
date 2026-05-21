@@ -1,6 +1,6 @@
 import ProductCard from './ProductCard';
 
-function ProductGrid({ products }) {
+function ProductGrid({ products, onSelectProduct }) {
   if (products.length === 0) {
     return (
       <div className="no-products">
@@ -12,7 +12,12 @@ function ProductGrid({ products }) {
   return (
     <div className="products-grid">
       {products.map((product, index) => (
-        <ProductCard key={product.id} product={product} index={index} />
+        <ProductCard
+          key={product.id}
+          product={product}
+          index={index}
+          onSelectProduct={onSelectProduct}
+        />
       ))}
     </div>
   );

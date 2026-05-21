@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Catalogo from './components/Catalogo';
 import LandingPage from './components/landing/LandingPage';
 import CartPage from './components/CartPage';
+import ProductDetail from './components/ProductDetail';
 import { fetchProducts } from './services/api';
 import './styles/App.css';
 import './styles/Landing.css';
@@ -48,6 +49,12 @@ function App() {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [errorProducts, setErrorProducts] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const handleSelectProduct = (product) => {
+    setSelectedProduct(product);
+    setCurrentPage('product_detail');
+  };
 
   useEffect(() => {
     fetchProducts()
@@ -66,6 +73,20 @@ function App() {
         <div className="app">
           <Header currentPage={currentPage} onNavigate={setCurrentPage} />
           <CartPage onNavigate={setCurrentPage} />
+          <Footer />
+        </div>
+      </CartProvider>
+    );
+  }
+
+  if (currentPage === 'product_detail') {
+    return (
+      <CartProvider>
+        <div className="app">
+          <Header currentPage={currentPage} onNavigate={setCurrentPage} />
+          <ProductDetail product={selectedProduct} onNavigate={setCurrentPage} />
+          <Cart onNavigate={setCurrentPage} />
+          <CartFab />
           <Footer />
         </div>
       </CartProvider>
@@ -121,7 +142,7 @@ function App() {
                 </h2>
                 <p className="tienda-section-header__sub">Congelados listos para freír · Alta rotación · Excelente margen</p>
               </div>
-              <ProductGrid products={filteredProducts} />
+              <ProductGrid products={filteredProducts} onSelectProduct={handleSelectProduct} />
             </>
           )}
         </main>

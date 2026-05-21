@@ -7,8 +7,13 @@ const getBadge = (product, index) => {
   return null;
 };
 
-function ProductCard({ product, index = 0 }) {
+function ProductCard({ product, index = 0, onSelectProduct }) {
   const { addToCart } = useCart();
+
+  const handleDetailsClick = (e) => {
+    e.preventDefault();
+    if (onSelectProduct) onSelectProduct(product);
+  };
 
   const formatPrice = (price) =>
     new Intl.NumberFormat('es-CO', {
@@ -47,7 +52,7 @@ function ProductCard({ product, index = 0 }) {
           <span className="pcard__bulk">Mayorista desde 10 paquetes</span>
         </div>
 
-        <a className="pcard__details" href="#">Ver detalles →</a>
+        <a className="pcard__details" href="#" onClick={handleDetailsClick}>Ver detalles →</a>
 
         <button className="pcard__btn" onClick={() => addToCart(product)}>
           Agregar al carrito
