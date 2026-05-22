@@ -10,7 +10,7 @@ function getAuthHeaders() {
 }
 
 function mapProducto(item) {
-  const precioPVxD = item.precios?.find((p) => p.nombreLista === 'PVxD');
+  const precioWeb = item.precios?.find((p) => p.nombreLista === 'Web');
   return {
     id: item.codigoSku,
     category: item.categoria === 'Pastel' ? 'Pasteles' : item.categoria,
@@ -18,7 +18,7 @@ function mapProducto(item) {
     flavor: item.sabor,
     weight: item.gramajeG,
     unitsPerPackage: item.unidadesPorPaquete,
-    price: precioPVxD?.precioPaquete ?? 0,
+    price: precioWeb?.precioPaquete ?? 0,
     active: item.activo,
     image: item.urlImage ?? null,
   };
