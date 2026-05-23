@@ -11,11 +11,10 @@ function ProductGrid({ products, onSelectProduct }) {
 
   return (
     <div className="products-grid">
-      {products.map((product, index) => (
+      {products.map((product) => (
         <ProductCard
           key={product.id}
           product={product}
-          index={index}
           onSelectProduct={onSelectProduct}
         />
       ))}

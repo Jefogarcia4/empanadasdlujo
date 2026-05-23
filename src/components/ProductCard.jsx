@@ -1,13 +1,6 @@
 import { useCart } from '../context/CartContext';
 
-const getBadge = (product, index) => {
-  if (index === 0) return 'Más vendido';
-  if (product.category === 'Empanadas') return 'Alta rotación';
-  if (product.category === 'Pasteles') return 'Destacado';
-  return null;
-};
-
-function ProductCard({ product, index = 0, onSelectProduct }) {
+function ProductCard({ product, onSelectProduct }) {
   const { addToCart } = useCart();
 
   const handleDetailsClick = (e) => {
@@ -22,7 +15,7 @@ function ProductCard({ product, index = 0, onSelectProduct }) {
       minimumFractionDigits: 0,
     }).format(price);
 
-  const badge = getBadge(product, index);
+  const badge = product.badge ?? null;
   const weightLabel =
     product.weight >= 1000
       ? `${product.weight / 1000}kg`

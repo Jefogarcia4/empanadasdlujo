@@ -92,12 +92,7 @@ function ProductDetail({ product, onNavigate }) {
       : Math.round((product.price * 0.8) / 500) * 500;
   const caracteristicas = buildCaracteristicas(product.flavor);
 
-  const badge =
-    product.category === 'Empanadas'
-      ? 'Alta rotación'
-      : product.category === 'Pasteles'
-      ? 'Destacado'
-      : 'Disponible';
+  const badge = product.badge ?? null;
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) addToCart(product);
@@ -112,14 +107,18 @@ function ProductDetail({ product, onNavigate }) {
         {/* ── Top: imagen + info en 2 columnas ─────────── */}
         <div className="pdetail__top">
           <section className="pdetail__hero">
-            <span className="pdetail__hero-badge pdetail__hero-badge--left">
-              <small>Badge:</small>
-              <strong>{badge}</strong>
-            </span>
-            <span className="pdetail__hero-badge pdetail__hero-badge--right">
-              <small>Badge:</small>
-              <strong>{badge}</strong>
-            </span>
+            {badge && (
+              <>
+                <span className="pdetail__hero-badge pdetail__hero-badge--left">
+                  <small>Badge:</small>
+                  <strong>{badge}</strong>
+                </span>
+                <span className="pdetail__hero-badge pdetail__hero-badge--right">
+                  <small>Badge:</small>
+                  <strong>{badge}</strong>
+                </span>
+              </>
+            )}
             <img
               src={product.image || '/pollo_carne.jpg'}
               alt={product.name}
@@ -155,7 +154,7 @@ function ProductDetail({ product, onNavigate }) {
             <div className="pdetail__chips">
               <span className="pdetail__chip">Desde 2 paquetes</span>
               <span className="pdetail__chip">Mayorista desde 10 paquetes</span>
-              <span className="pdetail__chip">{badge}</span>
+              {badge && <span className="pdetail__chip">{badge}</span>}
               <span className="pdetail__chip">Listo para freír</span>
             </div>
 

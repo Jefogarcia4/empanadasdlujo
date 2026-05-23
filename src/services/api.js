@@ -23,6 +23,8 @@ function mapProducto(item) {
     wholesalePrice: precioMayor?.precioPaquete ?? 0,
     active: item.activo,
     image: item.urlImage ?? null,
+    orden: item.orden ?? null,
+    badge: item.badgeDescripcion ?? null,
   };
 }
 
