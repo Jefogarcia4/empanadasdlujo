@@ -18,8 +18,33 @@ const formatPrice = (price) =>
     maximumFractionDigits: 0,
   }).format(price);
 
+function buildClientSummary(buyerInfo) {
+  const {
+    nombre = '',
+    apellidos = '',
+    telefono = '',
+    email = '',
+    direccion = '',
+    casaApartamento = '',
+    ciudad = '',
+    departamento = '',
+    codigoPostal = '',
+    pais = 'Colombia',
+    tipoPago = 'Efectivo',
+  } = buyerInfo;
+
+  const nombreCompleto = `${nombre} ${apellidos}`.trim() || 'Cliente';
+
+  const direccionCompleta = [direccion, casaApartamento, ciudad, departamento, codigoPostal, pais]
+    .filter((part) => part && String(part).trim().length > 0)
+    .join(', ');
+
+  const contacto = [telefono, email].filter(Boolean).join(' / ') || '---';
+
+  return `${nombreCompleto} | ${contacto} | ${direccionCompleta} | Pago: ${tipoPago}`;
+}
+
 export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice, buyerInfo = {}) {
-  const { nombre = 'Cliente', contacto = '---', tipoPago = 'Efectivo' } = buyerInfo;
   const orderNumber = Math.floor(Math.random() * 900000) + 100000;
 
   const productsList = cartItems
@@ -38,7 +63,7 @@ export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice, buyerInfo =
           parameters: [
             { type: 'text', text: String(orderNumber) },
             { type: 'text', text: formatPrice(totalPrice) },
-            { type: 'text', text: `${nombre} - ${contacto} - ${tipoPago}` },
+            { type: 'text', text: buildClientSummary(buyerInfo) },
             { type: 'text', text: productsList },
           ],
         },

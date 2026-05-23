@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { sendOrderViaWhatsAppAPI } from '../services/whatsapp';
+import { fetchDepartamentosColombia, DEPARTAMENTOS_FALLBACK } from '../services/colombia';
 import '../styles/CartPage.css';
 
 const formatPrice = (price) =>
@@ -15,13 +16,32 @@ function CartPage({ onNavigate }) {
   const { cartItems, totalPrice, clearCart, updateQuantity, removeFromCart } = useCart();
 
   const [form, setForm] = useState({
+    pais: 'Colombia',
     nombre: '',
-    contacto: '',
+    apellidos: '',
+    direccion: '',
+    casaApartamento: '',
+    ciudad: '',
+    departamento: 'Antioquia',
+    codigoPostal: '',
+    telefono: '',
+    email: '',
     comentarios: '',
     tipoPago: 'Efectivo',
   });
 
+  const [departamentos, setDepartamentos] = useState(DEPARTAMENTOS_FALLBACK);
   const [orderStatus, setOrderStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
+
+  useEffect(() => {
+    let mounted = true;
+    fetchDepartamentosColombia().then((deps) => {
+      if (mounted && deps?.length) setDepartamentos(deps);
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -59,46 +79,165 @@ function CartPage({ onNavigate }) {
       <div className="cart-page__body">
         {/* ── Columna izquierda: formulario ── */}
         <section className="cart-page__form-col">
-          <h3>Datos del pedido</h3>
+          <h3>Entrega</h3>
           <form className="cart-form" onSubmit={handleSubmit}>
-            <div className="cart-form__group">
-              <label htmlFor="nombre">Nombre</label>
+            {/* País */}
+            <div className="cart-form__group cart-form__group--floating">
+              <select
+                id="pais"
+                name="pais"
+                value={form.pais}
+                onChange={handleChange}
+                required
+              >
+                <option value="Colombia">Colombia</option>
+              </select>
+              <label htmlFor="pais">País / Región</label>
+            </div>
+
+            {/* Nombre + Apellidos */}
+            <div className="cart-form__row">
+              <div className="cart-form__group cart-form__group--floating">
+                <input
+                  id="nombre"
+                  name="nombre"
+                  type="text"
+                  placeholder=" "
+                  value={form.nombre}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="nombre">Nombre</label>
+              </div>
+
+              <div className="cart-form__group cart-form__group--floating">
+                <input
+                  id="apellidos"
+                  name="apellidos"
+                  type="text"
+                  placeholder=" "
+                  value={form.apellidos}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="apellidos">Apellidos</label>
+              </div>
+            </div>
+
+            {/* Dirección */}
+            <div className="cart-form__group cart-form__group--floating">
               <input
-                id="nombre"
-                name="nombre"
+                id="direccion"
+                name="direccion"
                 type="text"
-                placeholder="Tu nombre completo"
-                value={form.nombre}
+                placeholder=" "
+                value={form.direccion}
                 onChange={handleChange}
                 required
               />
+              <label htmlFor="direccion">Dirección</label>
             </div>
 
-            <div className="cart-form__group">
-              <label htmlFor="contacto">Contacto (teléfono o correo)</label>
+            {/* Casa, apartamento (opcional) */}
+            <div className="cart-form__group cart-form__group--floating">
               <input
-                id="contacto"
-                name="contacto"
+                id="casaApartamento"
+                name="casaApartamento"
                 type="text"
-                placeholder="3100000000"
-                value={form.contacto}
+                placeholder=" "
+                value={form.casaApartamento}
+                onChange={handleChange}
+              />
+              <label htmlFor="casaApartamento">Casa, apartamento, etc. (opcional)</label>
+            </div>
+
+            {/* Ciudad + Departamento + Código postal */}
+            <div className="cart-form__row cart-form__row--3">
+              <div className="cart-form__group cart-form__group--floating">
+                <input
+                  id="ciudad"
+                  name="ciudad"
+                  type="text"
+                  placeholder=" "
+                  value={form.ciudad}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="ciudad">Ciudad</label>
+              </div>
+
+              <div className="cart-form__group cart-form__group--floating">
+                <select
+                  id="departamento"
+                  name="departamento"
+                  value={form.departamento}
+                  onChange={handleChange}
+                  required
+                >
+                  {departamentos.map((d) => (
+                    <option key={d} value={d}>
+                      {d}
+                    </option>
+                  ))}
+                </select>
+                <label htmlFor="departamento">Provincia / Estado</label>
+              </div>
+
+              <div className="cart-form__group cart-form__group--floating">
+                <input
+                  id="codigoPostal"
+                  name="codigoPostal"
+                  type="text"
+                  placeholder=" "
+                  value={form.codigoPostal}
+                  onChange={handleChange}
+                />
+                <label htmlFor="codigoPostal">Código postal (opcional)</label>
+              </div>
+            </div>
+
+            {/* Teléfono */}
+            <div className="cart-form__group cart-form__group--floating">
+              <input
+                id="telefono"
+                name="telefono"
+                type="tel"
+                placeholder=" "
+                value={form.telefono}
                 onChange={handleChange}
                 required
               />
+              <label htmlFor="telefono">Teléfono</label>
             </div>
 
+            {/* Email */}
+            <div className="cart-form__group cart-form__group--floating">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder=" "
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="email">Email</label>
+            </div>
+
+            {/* Comentarios */}
             <div className="cart-form__group">
               <label htmlFor="comentarios">Comentarios</label>
               <textarea
                 id="comentarios"
                 name="comentarios"
-                placeholder="Instrucciones adicionales, dirección de entrega, etc."
+                placeholder="Instrucciones adicionales para la entrega."
                 value={form.comentarios}
                 onChange={handleChange}
                 rows={4}
               />
             </div>
 
+            {/* Método de pago */}
             <div className="cart-form__group">
               <label>Método de pago</label>
               <div className="cart-form__radio-group">

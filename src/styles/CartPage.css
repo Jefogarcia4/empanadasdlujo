@@ -142,9 +142,15 @@
   }
 
   .cart-form__group input,
-  .cart-form__group textarea {
+  .cart-form__group textarea,
+  .cart-form__group select {
     font-size: 14px;
-    padding: 9px 11px;
+  }
+
+  .cart-form__group--floating input,
+  .cart-form__group--floating select {
+    height: 52px;
+    padding: 20px 12px 6px 12px;
   }
 
   .cart-form__radio-label {
@@ -180,7 +186,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .cart-form__group label {
@@ -190,7 +196,8 @@
 }
 
 .cart-form__group input,
-.cart-form__group textarea {
+.cart-form__group textarea,
+.cart-form__group select {
   border: 1.5px solid #e0d5b0;
   border-radius: var(--radius-sm);
   padding: 10px 12px;
@@ -202,13 +209,96 @@
 }
 
 .cart-form__group input:focus,
-.cart-form__group textarea:focus {
+.cart-form__group textarea:focus,
+.cart-form__group select:focus {
   outline: none;
   border-color: var(--color-gold);
 }
 
 .cart-form__group textarea {
   resize: vertical;
+}
+
+/* ── Filas para campos en línea ──────────────────────── */
+.cart-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.cart-form__row--3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 600px) {
+  .cart-form__row,
+  .cart-form__row--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Label flotante estilo Shopify ───────────────────── */
+.cart-form__group--floating {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.cart-form__group--floating input,
+.cart-form__group--floating select {
+  width: 100%;
+  height: 56px;
+  padding: 22px 12px 8px 14px;
+  border: 1.5px solid #d9cfb4;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 15px;
+  color: var(--color-text);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.cart-form__group--floating select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23555' stroke-width='1.6' d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.cart-form__group--floating label {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: 400;
+  color: #888;
+  pointer-events: none;
+  transition: top 0.15s ease, font-size 0.15s ease, color 0.15s ease;
+  background: transparent;
+  padding: 0;
+}
+
+/* Label en posición elevada cuando hay valor o foco */
+.cart-form__group--floating input:focus + label,
+.cart-form__group--floating input:not(:placeholder-shown) + label,
+.cart-form__group--floating select + label {
+  top: 14px;
+  transform: translateY(0);
+  font-size: 11px;
+  color: #666;
+}
+
+/* Para selects: la etiqueta siempre va arriba (el valor mostrado queda debajo) */
+.cart-form__group--floating select {
+  padding-top: 22px;
+  padding-bottom: 6px;
+}
+
+.cart-form__group--floating input:focus,
+.cart-form__group--floating select:focus {
+  border-color: var(--color-burgundy);
+  outline: none;
+  box-shadow: 0 0 0 1px var(--color-burgundy);
 }
 
 /* Radio buttons de método de pago */
