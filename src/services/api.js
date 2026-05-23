@@ -11,6 +11,7 @@ function getAuthHeaders() {
 
 function mapProducto(item) {
   const precioWeb = item.precios?.find((p) => p.nombreLista === 'Web');
+  const precioMayor = item.precios?.find((p) => p.nombreLista === 'PVxM');
   return {
     id: item.codigoSku,
     category: item.categoria === 'Pastel' ? 'Pasteles' : item.categoria,
@@ -19,6 +20,7 @@ function mapProducto(item) {
     weight: item.gramajeG,
     unitsPerPackage: item.unidadesPorPaquete,
     price: precioWeb?.precioPaquete ?? 0,
+    wholesalePrice: precioMayor?.precioPaquete ?? 0,
     active: item.activo,
     image: item.urlImage ?? null,
   };

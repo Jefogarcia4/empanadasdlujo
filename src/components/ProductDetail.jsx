@@ -58,9 +58,9 @@ const TESTIMONIOS = [
   },
 ];
 
-const CARACTERISTICAS = [
+const buildCaracteristicas = (flavor) => [
   'Masa amarilla de maíz',
-  'Relleno de papa y guiso',
+  `Relleno de ${flavor?.toLowerCase() || 'sabor tradicional'}`,
   'Producto congelado',
   'Listo para freír',
   'Ideal para alta rotación',
@@ -86,7 +86,11 @@ function ProductDetail({ product, onNavigate }) {
   const weightLabel =
     product.weight >= 1000 ? `${product.weight / 1000}kg` : `${product.weight}g`;
 
-  const bulkPrice = Math.round((product.price * 0.8) / 500) * 500;
+  const bulkPrice =
+    product.wholesalePrice && product.wholesalePrice > 0
+      ? product.wholesalePrice
+      : Math.round((product.price * 0.8) / 500) * 500;
+  const caracteristicas = buildCaracteristicas(product.flavor);
 
   const badge =
     product.category === 'Empanadas'
@@ -248,7 +252,7 @@ function ProductDetail({ product, onNavigate }) {
               Maíz amarillo colombiano y relleno tradicional
             </h2>
             <ul className="pdetail__list">
-              {CARACTERISTICAS.map((c) => (
+              {caracteristicas.map((c) => (
                 <li key={c}>{c}</li>
               ))}
             </ul>
