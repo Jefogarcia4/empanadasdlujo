@@ -24,16 +24,17 @@
   background: #fff7d6;
   border-radius: 18px;
   overflow: hidden;
-  margin-bottom: 28px;
   box-shadow: 0 4px 18px rgba(40, 28, 2, 0.1);
+  align-self: start;
 }
 
 .pdetail__hero-img {
   width: 100%;
-  height: auto;
-  max-height: 420px;
+  height: 100%;
+  max-height: 360px;
   object-fit: cover;
   display: block;
+  aspect-ratio: 4 / 3;
 }
 
 .pdetail__hero-badge {
@@ -74,12 +75,13 @@
   right: 16px;
 }
 
-/* ── Main grid ──────────────────────────────────────────── */
-.pdetail__grid {
+/* ── Top: imagen + info ─────────────────────────────────── */
+.pdetail__top {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   gap: 28px;
-  margin-bottom: 36px;
+  align-items: start;
+  margin-bottom: 24px;
 }
 
 .pdetail__main {
@@ -276,14 +278,28 @@
   background: #fff7d6;
 }
 
-/* ── Aside ───────────────────────────────────────────────── */
+/* ── Aside (banner mayorista) ────────────────────────────── */
 .pdetail__aside-card {
   background: #fffaea;
   border: 1px solid #f0e2a3;
   border-radius: 14px;
   padding: 18px;
-  position: sticky;
-  top: 84px;
+}
+
+.pdetail__aside-card--banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 22px;
+  margin-bottom: 32px;
+}
+
+.pdetail__aside-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
 }
 
 .pdetail__aside-card h4 {
@@ -291,7 +307,7 @@
   font-size: 1rem;
   font-weight: 700;
   color: #281c02;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .pdetail__aside-card p {
@@ -299,7 +315,14 @@
   font-size: 13px;
   color: #444;
   line-height: 1.5;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+}
+
+.pdetail__aside-card--banner .pdetail__add-btn--sm {
+  width: auto;
+  min-width: 200px;
+  margin-top: 0;
+  flex-shrink: 0;
 }
 
 .pdetail__aside-link {
@@ -447,12 +470,25 @@
 
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .pdetail__grid {
+  .pdetail__top {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
-  .pdetail__aside-card {
-    position: static;
+  .pdetail__hero-img {
+    max-height: 320px;
+    aspect-ratio: 16 / 10;
+  }
+
+  .pdetail__aside-card--banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .pdetail__aside-card--banner .pdetail__add-btn--sm {
+    width: 100%;
+    min-width: 0;
   }
 
   .pdetail__two-col {
@@ -470,7 +506,8 @@
   }
 
   .pdetail__hero-img {
-    max-height: 280px;
+    max-height: 260px;
+    aspect-ratio: 16 / 10;
   }
 
   .pdetail__title {

@@ -105,25 +105,24 @@ function ProductDetail({ product, onNavigate }) {
   return (
     <main className="pdetail">
       <div className="pdetail__container">
-        {/* ── Hero image ───────────────────────────────── */}
-        <section className="pdetail__hero">
-          <span className="pdetail__hero-badge pdetail__hero-badge--left">
-            <small>Badge:</small>
-            <strong>{badge}</strong>
-          </span>
-          <span className="pdetail__hero-badge pdetail__hero-badge--right">
-            <small>Badge:</small>
-            <strong>{badge}</strong>
-          </span>
-          <img
-            src={product.image || '/pollo_carne.jpg'}
-            alt={product.name}
-            className="pdetail__hero-img"
-          />
-        </section>
+        {/* ── Top: imagen + info en 2 columnas ─────────── */}
+        <div className="pdetail__top">
+          <section className="pdetail__hero">
+            <span className="pdetail__hero-badge pdetail__hero-badge--left">
+              <small>Badge:</small>
+              <strong>{badge}</strong>
+            </span>
+            <span className="pdetail__hero-badge pdetail__hero-badge--right">
+              <small>Badge:</small>
+              <strong>{badge}</strong>
+            </span>
+            <img
+              src={product.image || '/pollo_carne.jpg'}
+              alt={product.name}
+              className="pdetail__hero-img"
+            />
+          </section>
 
-        {/* ── Main grid ────────────────────────────────── */}
-        <div className="pdetail__grid">
           <div className="pdetail__main">
             <h1 className="pdetail__title">{product.name}</h1>
             <p className="pdetail__specs">
@@ -190,27 +189,28 @@ function ProductDetail({ product, onNavigate }) {
               </button>
             </div>
           </div>
-
-          <aside className="pdetail__aside">
-            <div className="pdetail__aside-card">
-              <h4>¿Compras para vender?</h4>
-              <p>
-                Compra al mayorista desde <strong>10 paquetes combinados</strong> y
-                accede al mejor precio.
-              </p>
-              <a className="pdetail__aside-link" href="#">
-                Consulta precios y volumen
-              </a>
-              <button
-                type="button"
-                className="pdetail__add-btn pdetail__add-btn--sm"
-                onClick={handleAddToCart}
-              >
-                Agregar al carrito
-              </button>
-            </div>
-          </aside>
         </div>
+
+        {/* ── Banner mayorista ─────────────────────────── */}
+        <aside className="pdetail__aside-card pdetail__aside-card--banner">
+          <div className="pdetail__aside-text">
+            <h4>¿Compras para vender?</h4>
+            <p>
+              Compra al mayorista desde <strong>10 paquetes combinados</strong> y
+              accede al mejor precio.
+            </p>
+            <a className="pdetail__aside-link" href="#">
+              Consulta precios y volumen
+            </a>
+          </div>
+          <button
+            type="button"
+            className="pdetail__add-btn pdetail__add-btn--sm"
+            onClick={handleAddToCart}
+          >
+            Agregar al carrito
+          </button>
+        </aside>
 
         {/* ── Ficha técnica ────────────────────────────── */}
         <section className="pdetail__section">
