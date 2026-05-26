@@ -2,12 +2,14 @@ import { useCart } from '../context/CartContext';
 
 function Cart({ onNavigate }) {
   const {
-    cartItems,
+    cartItemsPricing,
     isCartOpen,
     closeCart,
     updateQuantity,
-    removeFromCart,
-    totalPrice,
+    subtotal,
+    discount,
+    totalToPay,
+    hasDiscount,
     clearCart,
   } = useCart();
 
@@ -27,8 +29,8 @@ function Cart({ onNavigate }) {
 
   return (
     <>
-      <div 
-        className={`cart-overlay ${isCartOpen ? 'open' : ''}`} 
+      <div
+        className={`cart-overlay ${isCartOpen ? 'open' : ''}`}
         onClick={closeCart}
       />
       <aside className={`cart-sidebar ${isCartOpen ? 'open' : ''}`}>
@@ -40,14 +42,14 @@ function Cart({ onNavigate }) {
         </div>
 
         <div className="cart-items">
-          {cartItems.length === 0 ? (
+          {cartItemsPricing.length === 0 ? (
             <div className="cart-empty">
               <div className="cart-empty-icon">🛒</div>
               <p>Tu carrito está vacío</p>
               <p>¡Agrega algunas deliciosas empanadas!</p>
             </div>
           ) : (
-            cartItems.map((item) => (
+            cartItemsPricing.map((item) => (
               <div key={item.id} className="cart-item">
                 <div className="cart-item-image">
                   <img src={item.image || '/pollo_carne.jpg'} alt={item.name} />
@@ -56,7 +58,14 @@ function Cart({ onNavigate }) {
                   <h4 className="cart-item-name">{item.name}</h4>
                   <p className="cart-item-flavor">{item.flavor}</p>
                   <p className="cart-item-price">
-                    {formatPrice(item.price * item.quantity)}
+                    {item.appliesWholesale && (
+                      <span className="cart-item-price-old">
+                        {formatPrice(item.lineRetail)}
+                      </span>
+                    )}
+                    <span className="cart-item-price-current">
+                      {formatPrice(item.lineTotal)}
+                    </span>
                   </p>
                 </div>
                 <div className="cart-item-quantity">
@@ -79,11 +88,23 @@ function Cart({ onNavigate }) {
           )}
         </div>
 
-        {cartItems.length > 0 && (
+        {cartItemsPricing.length > 0 && (
           <div className="cart-footer">
-            <div className="cart-total">
-              <span className="cart-total-label">Total:</span>
-              <span className="cart-total-value">{formatPrice(totalPrice)}</span>
+            <div className="cart-totals">
+              <div className="cart-totals-row">
+                <span>Subtotal</span>
+                <span>{formatPrice(subtotal)}</span>
+              </div>
+              {hasDiscount && (
+                <div className="cart-totals-row cart-totals-row--discount">
+                  <span>Descuento mayorista</span>
+                  <span>−{formatPrice(discount)}</span>
+                </div>
+              )}
+              <div className="cart-totals-row cart-totals-row--total">
+                <span>Total a pagar</span>
+                <span>{formatPrice(totalToPay)}</span>
+              </div>
             </div>
 
             <button

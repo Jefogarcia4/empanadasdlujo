@@ -13,7 +13,17 @@ const formatPrice = (price) =>
   }).format(price);
 
 function CartPage({ onNavigate }) {
-  const { cartItems, totalPrice, clearCart, updateQuantity, removeFromCart } = useCart();
+  const {
+    cartItems,
+    cartItemsPricing,
+    subtotal,
+    discount,
+    totalToPay,
+    hasDiscount,
+    clearCart,
+    updateQuantity,
+    removeFromCart,
+  } = useCart();
 
   const [form, setForm] = useState({
     pais: 'Colombia',
@@ -53,7 +63,7 @@ function CartPage({ onNavigate }) {
 
     setOrderStatus('sending');
     try {
-      await sendOrderViaWhatsAppAPI(cartItems, totalPrice, form);
+      await sendOrderViaWhatsAppAPI(cartItems, totalToPay, form);
       setOrderStatus('success');
       clearCart();
       setTimeout(() => {
@@ -298,7 +308,7 @@ function CartPage({ onNavigate }) {
           ) : (
             <>
               <ul className="cart-page__list">
-                {cartItems.map((item) => (
+                {cartItemsPricing.map((item) => (
                   <li key={item.id} className="cart-page__item">
                     <img
                       className="cart-page__item-icon"
@@ -315,7 +325,14 @@ function CartPage({ onNavigate }) {
                       <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
                     </div>
                     <span className="cart-page__item-price">
-                      {formatPrice(item.price * item.quantity)}
+                      {item.appliesWholesale && (
+                        <span className="cart-page__item-price-old">
+                          {formatPrice(item.lineRetail)}
+                        </span>
+                      )}
+                      <span className="cart-page__item-price-current">
+                        {formatPrice(item.lineTotal)}
+                      </span>
                     </span>
                     <button
                       className="cart-page__item-remove"
@@ -328,9 +345,21 @@ function CartPage({ onNavigate }) {
                 ))}
               </ul>
 
-              <div className="cart-page__total">
-                <span>Total</span>
-                <span>{formatPrice(totalPrice)}</span>
+              <div className="cart-page__totals">
+                <div className="cart-page__totals-row">
+                  <span>Subtotal</span>
+                  <span>{formatPrice(subtotal)}</span>
+                </div>
+                {hasDiscount && (
+                  <div className="cart-page__totals-row cart-page__totals-row--discount">
+                    <span>Descuento mayorista</span>
+                    <span>−{formatPrice(discount)}</span>
+                  </div>
+                )}
+                <div className="cart-page__totals-row cart-page__totals-row--total">
+                  <span>Total a pagar</span>
+                  <span>{formatPrice(totalToPay)}</span>
+                </div>
               </div>
             </>
           )}

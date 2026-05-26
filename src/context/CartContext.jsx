@@ -1,6 +1,12 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useMemo } from 'react';
 
 const CartContext = createContext();
+
+const WHOLESALE_THRESHOLD = 10;
+
+function isCoctelera(item) {
+  return item?.name === 'Empanada Pequeña';
+}
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
@@ -41,10 +47,46 @@ export function CartProvider({ children }) {
   }, []);
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+
+  const pricing = useMemo(() => {
+    let cocteleraQty = 0;
+    let combinableQty = 0;
+    for (const item of cartItems) {
+      if (isCoctelera(item)) cocteleraQty += item.quantity;
+      else combinableQty += item.quantity;
+    }
+
+    const cocteleraQualifies = cocteleraQty >= WHOLESALE_THRESHOLD;
+    const combinableQualifies = combinableQty >= WHOLESALE_THRESHOLD;
+
+    const items = cartItems.map((item) => {
+      const coctelera = isCoctelera(item);
+      const groupQualifies = coctelera ? cocteleraQualifies : combinableQualifies;
+      const canUseWholesale = groupQualifies && item.wholesalePrice > 0;
+      const effectivePrice = canUseWholesale ? item.wholesalePrice : item.price;
+      return {
+        ...item,
+        appliesWholesale: canUseWholesale,
+        effectivePrice,
+        lineRetail: item.price * item.quantity,
+        lineTotal: effectivePrice * item.quantity,
+      };
+    });
+
+    const subtotal = items.reduce((sum, it) => sum + it.lineRetail, 0);
+    const totalToPay = items.reduce((sum, it) => sum + it.lineTotal, 0);
+    const discount = subtotal - totalToPay;
+
+    return {
+      items,
+      subtotal,
+      totalToPay,
+      discount,
+      hasDiscount: discount > 0,
+      cocteleraQty,
+      combinableQty,
+    };
+  }, [cartItems]);
 
   const openCart = useCallback(() => setIsCartOpen(true), []);
   const closeCart = useCallback(() => setIsCartOpen(false), []);
@@ -52,12 +94,18 @@ export function CartProvider({ children }) {
 
   const value = {
     cartItems,
+    cartItemsPricing: pricing.items,
+    subtotal: pricing.subtotal,
+    totalToPay: pricing.totalToPay,
+    discount: pricing.discount,
+    hasDiscount: pricing.hasDiscount,
+    cocteleraQty: pricing.cocteleraQty,
+    combinableQty: pricing.combinableQty,
     addToCart,
     removeFromCart,
     updateQuantity,
     clearCart,
     totalItems,
-    totalPrice,
     isCartOpen,
     openCart,
     closeCart,
