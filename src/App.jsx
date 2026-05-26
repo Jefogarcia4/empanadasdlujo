@@ -11,6 +11,7 @@ import Catalogo from './components/Catalogo';
 import LandingPage from './components/landing/LandingPage';
 import CartPage from './components/CartPage';
 import ProductDetail from './components/ProductDetail';
+import PedidoDetailPage from './components/PedidoDetailPage';
 import { fetchProducts } from './services/api';
 import './styles/App.css';
 import './styles/Landing.css';
@@ -43,9 +44,20 @@ function BulkBanner() {
   );
 }
 
+function parseRoute() {
+  const path = window.location.pathname;
+  const match = path.match(/^\/pedido\/(\d+)\/?$/i);
+  if (match) {
+    return { page: 'pedido_detail', pedidoId: Number(match[1]) };
+  }
+  return { page: 'tienda', pedidoId: null };
+}
+
 function App() {
+  const initial = parseRoute();
   const [activeCategory, setActiveCategory] = useState('Todas');
-  const [currentPage, setCurrentPage] = useState('tienda');
+  const [currentPage, setCurrentPage] = useState(initial.page);
+  const [selectedPedidoId, setSelectedPedidoId] = useState(initial.pedidoId);
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [errorProducts, setErrorProducts] = useState(null);
@@ -56,6 +68,16 @@ function App() {
     setCurrentPage('product_detail');
   };
 
+  const handleNavigate = (page, opts) => {
+    if (page === 'pedido_detail' && opts?.pedidoId) {
+      setSelectedPedidoId(opts.pedidoId);
+      window.history.pushState({}, '', `/pedido/${opts.pedidoId}`);
+    } else if (currentPage === 'pedido_detail' && page !== 'pedido_detail') {
+      window.history.pushState({}, '', '/');
+    }
+    setCurrentPage(page);
+  };
+
   useEffect(() => {
     fetchProducts()
       .then((data) => setProducts(data))
@@ -63,16 +85,38 @@ function App() {
       .finally(() => setLoadingProducts(false));
   }, []);
 
+  useEffect(() => {
+    const onPop = () => {
+      const r = parseRoute();
+      setCurrentPage(r.page);
+      setSelectedPedidoId(r.pedidoId);
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
   const filteredProducts = activeCategory === 'Todas'
     ? products.filter(p => p.active)
     : products.filter(p => p.category === activeCategory && p.active);
+
+  if (currentPage === 'pedido_detail') {
+    return (
+      <CartProvider>
+        <div className="app">
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          <PedidoDetailPage pedidoId={selectedPedidoId} onNavigate={handleNavigate} />
+          <Footer />
+        </div>
+      </CartProvider>
+    );
+  }
 
   if (currentPage === 'cart') {
     return (
       <CartProvider>
         <div className="app">
-          <Header currentPage={currentPage} onNavigate={setCurrentPage} />
-          <CartPage onNavigate={setCurrentPage} />
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          <CartPage onNavigate={handleNavigate} />
           <Footer />
         </div>
       </CartProvider>
@@ -83,9 +127,9 @@ function App() {
     return (
       <CartProvider>
         <div className="app">
-          <Header currentPage={currentPage} onNavigate={setCurrentPage} />
-          <ProductDetail product={selectedProduct} onNavigate={setCurrentPage} />
-          <Cart onNavigate={setCurrentPage} />
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          <ProductDetail product={selectedProduct} onNavigate={handleNavigate} />
+          <Cart onNavigate={handleNavigate} />
           <CartFab />
           <Footer />
         </div>
@@ -97,9 +141,9 @@ function App() {
     return (
       <CartProvider>
         <div className="app">
-          <Header currentPage={currentPage} onNavigate={setCurrentPage} />
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
           <Catalogo />
-          <Cart onNavigate={setCurrentPage} />
+          <Cart onNavigate={handleNavigate} />
           <CartFab />
           <Footer />
         </div>
@@ -111,9 +155,9 @@ function App() {
     return (
       <CartProvider>
         <div className="app">
-          <Header currentPage={currentPage} onNavigate={setCurrentPage} />
-          <LandingPage onNavigate={setCurrentPage} />
-          <Cart onNavigate={setCurrentPage} />
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          <LandingPage onNavigate={handleNavigate} />
+          <Cart onNavigate={handleNavigate} />
           <CartFab />
           <Footer />
         </div>
@@ -125,7 +169,7 @@ function App() {
   return (
     <CartProvider>
       <div className="app">
-        <Header currentPage={currentPage} onNavigate={setCurrentPage} />
+        <Header currentPage={currentPage} onNavigate={handleNavigate} />
         <Hero />
         <CategoryFilter
           activeCategory={activeCategory}
@@ -147,7 +191,7 @@ function App() {
           )}
         </main>
         <BulkBanner />
-        <Cart onNavigate={setCurrentPage} />
+        <Cart onNavigate={handleNavigate} />
         <CartFab />
         <Footer />
       </div>

@@ -66,7 +66,7 @@ function CartPage({ onNavigate }) {
 
     setOrderStatus('sending');
     try {
-      await createPedido({
+      const result = await createPedido({
         cliente: {
           nombre: form.nombre,
           apellidos: form.apellidos,
@@ -83,13 +83,22 @@ function CartPage({ onNavigate }) {
         observaciones: form.comentarios,
         items: cartItems,
       });
-      await sendOrderViaWhatsAppAPI(cartItems, totalToPay, form);
+      try {
+        await sendOrderViaWhatsAppAPI(cartItems, totalToPay, form);
+      } catch (waErr) {
+        console.warn('WhatsApp notification failed, order still saved:', waErr);
+      }
       setOrderStatus('success');
       clearCart();
-      setTimeout(() => {
-        setOrderStatus('idle');
-        onNavigate('tienda');
-      }, 3000);
+      const pedidoId = result?.orden?.idOrden;
+      if (pedidoId) {
+        onNavigate('pedido_detail', { pedidoId });
+      } else {
+        setTimeout(() => {
+          setOrderStatus('idle');
+          onNavigate('tienda');
+        }, 3000);
+      }
     } catch (err) {
       console.error(err);
       setOrderStatus('error');

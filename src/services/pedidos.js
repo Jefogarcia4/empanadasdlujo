@@ -10,6 +10,17 @@ function getAuthHeaders() {
   };
 }
 
+export async function fetchPedido(id) {
+  const response = await fetch(`${API_BASE_URL}/api/ordenes/${id}`, {
+    headers: getAuthHeaders(),
+  });
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`No se pudo cargar el pedido: HTTP ${response.status}`);
+  }
+  return response.json();
+}
+
 export async function createPedido({ cliente, observaciones, items }) {
   const body = {
     cliente: {
