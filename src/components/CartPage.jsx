@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { sendOrderViaWhatsAppAPI } from '../services/whatsapp';
+import { createPedido } from '../services/pedidos';
 import { fetchDepartamentosColombia, DEPARTAMENTOS_FALLBACK } from '../services/colombia';
 import '../styles/CartPage.css';
 
@@ -38,6 +39,7 @@ function CartPage({ onNavigate }) {
     email: '',
     comentarios: '',
     tipoPago: 'Efectivo',
+    guardarInfo: false,
   });
 
   const [departamentos, setDepartamentos] = useState(DEPARTAMENTOS_FALLBACK);
@@ -54,7 +56,8 @@ function CartPage({ onNavigate }) {
   }, []);
 
   const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, type, value, checked } = e.target;
+    setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
   const handleSubmit = async (e) => {
@@ -63,6 +66,23 @@ function CartPage({ onNavigate }) {
 
     setOrderStatus('sending');
     try {
+      await createPedido({
+        cliente: {
+          nombre: form.nombre,
+          apellidos: form.apellidos,
+          telefono: form.telefono,
+          email: form.email,
+          direccion: form.direccion,
+          casaApartamento: form.casaApartamento,
+          ciudad: form.ciudad,
+          departamento: form.departamento,
+          codigoPostal: form.codigoPostal,
+          pais: form.pais,
+          guardarInfo: form.guardarInfo,
+        },
+        observaciones: form.comentarios,
+        items: cartItems,
+      });
       await sendOrderViaWhatsAppAPI(cartItems, totalToPay, form);
       setOrderStatus('success');
       clearCart();
@@ -272,6 +292,18 @@ function CartPage({ onNavigate }) {
                   🏦 Transferencia
                 </label>
               </div>
+            </div>
+
+            <div className="cart-form__group cart-form__group--checkbox">
+              <label className="cart-form__checkbox-label">
+                <input
+                  type="checkbox"
+                  name="guardarInfo"
+                  checked={form.guardarInfo}
+                  onChange={handleChange}
+                />
+                <span>Deseo guardar mi información para futuras compras</span>
+              </label>
             </div>
 
             {orderStatus === 'success' && (

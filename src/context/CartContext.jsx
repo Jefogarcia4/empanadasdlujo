@@ -4,10 +4,6 @@ const CartContext = createContext();
 
 const WHOLESALE_THRESHOLD = 10;
 
-function isCoctelera(item) {
-  return item?.name === 'Empanada Pequeña';
-}
-
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -49,20 +45,11 @@ export function CartProvider({ children }) {
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const pricing = useMemo(() => {
-    let cocteleraQty = 0;
-    let combinableQty = 0;
-    for (const item of cartItems) {
-      if (isCoctelera(item)) cocteleraQty += item.quantity;
-      else combinableQty += item.quantity;
-    }
-
-    const cocteleraQualifies = cocteleraQty >= WHOLESALE_THRESHOLD;
-    const combinableQualifies = combinableQty >= WHOLESALE_THRESHOLD;
+    const totalQty = cartItems.reduce((sum, it) => sum + it.quantity, 0);
+    const qualifiesWholesale = totalQty >= WHOLESALE_THRESHOLD;
 
     const items = cartItems.map((item) => {
-      const coctelera = isCoctelera(item);
-      const groupQualifies = coctelera ? cocteleraQualifies : combinableQualifies;
-      const canUseWholesale = groupQualifies && item.wholesalePrice > 0;
+      const canUseWholesale = qualifiesWholesale && item.wholesalePrice > 0;
       const effectivePrice = canUseWholesale ? item.wholesalePrice : item.price;
       return {
         ...item,
@@ -83,8 +70,7 @@ export function CartProvider({ children }) {
       totalToPay,
       discount,
       hasDiscount: discount > 0,
-      cocteleraQty,
-      combinableQty,
+      qualifiesWholesale,
     };
   }, [cartItems]);
 
@@ -99,8 +85,7 @@ export function CartProvider({ children }) {
     totalToPay: pricing.totalToPay,
     discount: pricing.discount,
     hasDiscount: pricing.hasDiscount,
-    cocteleraQty: pricing.cocteleraQty,
-    combinableQty: pricing.combinableQty,
+    qualifiesWholesale: pricing.qualifiesWholesale,
     addToCart,
     removeFromCart,
     updateQuantity,
