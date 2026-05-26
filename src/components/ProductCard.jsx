@@ -57,9 +57,6 @@ function ProductCard({ product, onSelectProduct }) {
       <header className="pcard__header">
         <div className="pcard__header-text">
           <h3 className="pcard__name">{product.name}</h3>
-          <p className="pcard__subtitle">
-            Sabor {product.flavor} • Perfectas para eventos
-          </p>
         </div>
         {badge && (
           <span className="pcard__badge">
