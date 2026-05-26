@@ -33,7 +33,10 @@ function ProductCard({ product, onSelectProduct }) {
       ? `${product.weight / 1000} kg`
       : `${product.weight} g`;
 
-  const sizeWord = product.name?.split(' ').slice(1).join(' ') || product.category;
+  const nameParts = product.name?.split(' ') ?? [];
+  const nameFirst = nameParts[0] ?? '';
+  const nameRest = nameParts.slice(1).join(' ');
+  const sizeWord = nameRest || product.category;
 
   const isMasa = product.category === 'Masa';
   const fillingLabel = isMasa ? 'Tipo' : 'Relleno';
@@ -56,7 +59,10 @@ function ProductCard({ product, onSelectProduct }) {
     <article className="pcard">
       <header className="pcard__header">
         <div className="pcard__header-text">
-          <h3 className="pcard__name">{product.name}</h3>
+          <h3 className="pcard__name">
+            <span>{nameFirst}</span>
+            {nameRest && <span>{nameRest}</span>}
+          </h3>
         </div>
         {badge && (
           <span className="pcard__badge">
