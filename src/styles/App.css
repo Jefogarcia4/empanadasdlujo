@@ -326,18 +326,15 @@ body {
 }
 
 .pcard__header {
+  position: relative;
   background: linear-gradient(135deg, #fff8dc 0%, #fff2b0 100%);
   padding: 1rem 1.1rem;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.75rem;
   border-bottom: 1px solid rgba(40, 28, 2, 0.06);
 }
 
 .pcard__header-text {
-  flex: 1;
   min-width: 0;
+  padding-right: 88px;
 }
 
 .pcard__name {
@@ -351,14 +348,20 @@ body {
 }
 
 .pcard__subtitle {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: #7a6a3a;
   line-height: 1.3;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pcard__badge {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.9rem;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -370,7 +373,6 @@ body {
   border-radius: 999px;
   white-space: nowrap;
   letter-spacing: 0.01em;
-  flex-shrink: 0;
 }
 
 .pcard__badge svg {
