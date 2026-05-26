@@ -76,7 +76,7 @@ body {
 
 /* Nav links */
 .header-nav {
-  display: flex;
+  display: none;
   gap: 4px;
 }
 
