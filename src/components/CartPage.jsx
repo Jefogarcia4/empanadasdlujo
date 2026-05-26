@@ -83,14 +83,14 @@ function CartPage({ onNavigate }) {
         observaciones: form.comentarios,
         items: cartItems,
       });
+      const pedidoId = result?.orden?.idOrden;
       try {
-        await sendOrderViaWhatsAppAPI(cartItems, totalToPay, form);
+        await sendOrderViaWhatsAppAPI(cartItems, totalToPay, form, pedidoId);
       } catch (waErr) {
         console.warn('WhatsApp notification failed, order still saved:', waErr);
       }
       setOrderStatus('success');
       clearCart();
-      const pedidoId = result?.orden?.idOrden;
       if (pedidoId) {
         onNavigate('pedido_detail', { pedidoId });
       } else {

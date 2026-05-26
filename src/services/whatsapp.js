@@ -18,6 +18,11 @@ const formatPrice = (price) =>
     maximumFractionDigits: 0,
   }).format(price);
 
+const formatWeight = (weight) => {
+  if (!weight) return '';
+  return weight >= 1000 ? `${weight / 1000}kg` : `${weight}g`;
+};
+
 function buildClientSummary(buyerInfo) {
   const {
     nombre = '',
@@ -44,11 +49,15 @@ function buildClientSummary(buyerInfo) {
   return `${nombreCompleto} | ${contacto} | ${direccionCompleta} | Pago: ${tipoPago}`;
 }
 
-export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice, buyerInfo = {}) {
-  const orderNumber = Math.floor(Math.random() * 900000) + 100000;
+export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice, buyerInfo = {}, orderId = null) {
+  const orderNumber = orderId ?? Math.floor(Math.random() * 900000) + 100000;
 
   const productsList = cartItems
-    .map((item) => `${item.quantity}x ${item.name} (${item.flavor})`)
+    .map((item) => {
+      const weight = formatWeight(item.weight);
+      const details = [item.flavor, weight].filter(Boolean).join(', ');
+      return `${item.quantity}x ${item.name}${details ? ` (${details})` : ''}`;
+    })
     .join(' - ');
 
   const body = {
