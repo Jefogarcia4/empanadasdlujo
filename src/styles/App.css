@@ -445,115 +445,76 @@ body {
   flex-shrink: 0;
 }
 
-.pcard__price-block {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.pcard__prices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
   margin: 0.4rem 1.1rem;
-  padding: 0.85rem 1rem;
-  background: linear-gradient(135deg, #fff2c2 0%, #ffe488 100%);
+  background: #fff7d6;
   border-radius: 12px;
+  overflow: hidden;
 }
 
-.pcard__price-icon {
-  color: #b8860b;
-  font-size: 1.4rem;
-  flex-shrink: 0;
+.pcard__prices:has(.pcard__price-col:only-child) {
+  grid-template-columns: 1fr;
 }
 
-.pcard__price {
+.pcard__price-col {
+  padding: 0.55rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.15;
+}
+
+.pcard__price-col + .pcard__price-col {
+  border-left: 1px solid rgba(40, 28, 2, 0.1);
+}
+
+.pcard__price-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #7a6a3a;
+}
+
+.pcard__price-value {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 1.45rem;
+  font-size: 1.05rem;
   font-weight: 800;
   color: var(--color-dark-brown);
-  line-height: 1.1;
-  margin: 0;
-  letter-spacing: -0.02em;
-}
-
-.pcard__price-suffix {
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: #6b5a2a;
-  letter-spacing: 0;
-}
-
-.pcard__price-note {
-  font-size: 0.74rem;
-  color: #7a6a3a;
-  margin: 2px 0 0;
-}
-
-.pcard__promo {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin: 0.4rem 1.1rem;
-  padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #1f8a4d 0%, #15703d 100%);
-  color: #fff;
-  border-radius: 12px;
-}
-
-.pcard__promo-icon {
-  background: rgba(255, 255, 255, 0.18);
-  border-radius: 50%;
-  padding: 5px;
-  font-size: 0.7rem;
-  flex-shrink: 0;
-}
-
-.pcard__promo-title {
-  font-size: 0.92rem;
-  font-weight: 700;
-  margin: 0;
-  line-height: 1.2;
-}
-
-.pcard__promo-sub {
-  font-size: 0.76rem;
-  margin: 2px 0 0;
-  opacity: 0.9;
+  letter-spacing: -0.01em;
 }
 
 .pcard__resell {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 0.85rem;
   margin: 0.4rem 1.1rem 0.6rem;
-  padding: 0.7rem 0.85rem;
+  padding: 0.5rem 0.75rem;
   background: #f6f3ed;
-  border-radius: 12px;
+  border-radius: 10px;
+  font-size: 0.74rem;
+  color: #6b6b6b;
 }
 
 .pcard__resell-item {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
-}
-
-.pcard__resell-item > div {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-  min-width: 0;
-}
-
-.pcard__resell-item span {
-  color: #6b6b6b;
-  font-size: 0.72rem;
-  font-weight: 500;
+  gap: 5px;
+  white-space: nowrap;
 }
 
 .pcard__resell-item strong {
   color: var(--color-dark-brown);
   font-weight: 700;
+  margin-left: 2px;
 }
 
 .pcard__resell-icon {
   color: var(--color-burgundy);
-  font-size: 1rem;
+  font-size: 0.85rem;
   flex-shrink: 0;
 }
 
@@ -1201,15 +1162,18 @@ body {
     font-size: 0.76rem;
   }
 
-  .pcard__price-block,
-  .pcard__promo,
+  .pcard__prices,
   .pcard__resell {
     margin-left: 0.95rem;
     margin-right: 0.95rem;
   }
 
-  .pcard__price {
-    font-size: 1.25rem;
+  .pcard__price-value {
+    font-size: 0.95rem;
+  }
+
+  .pcard__price-label {
+    font-size: 0.7rem;
   }
 
   .pcard__actions {
@@ -1294,8 +1258,8 @@ body {
     font-size: 1.25rem;
   }
 
-  .pcard__price {
-    font-size: 1.55rem;
+  .pcard__price-value {
+    font-size: 1.15rem;
   }
 
   .tienda-section-header__title {

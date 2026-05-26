@@ -4,10 +4,8 @@ import {
   FaPepperHot,
   FaWeightHanging,
   FaRulerCombined,
-  FaMoneyBillAlt,
   FaTag,
   FaChartLine,
-  FaCheck,
 } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 
@@ -112,45 +110,29 @@ function ProductCard({ product, onSelectProduct }) {
         </li>
       </ul>
 
-      <div className="pcard__price-block">
-        <FaMoneyBillAlt className="pcard__price-icon" aria-hidden="true" />
-        <div>
-          <p className="pcard__price">
-            {formatPrice(product.price)}
-            <span className="pcard__price-suffix"> por paquete</span>
-          </p>
-          <p className="pcard__price-note">(precio por menor)</p>
+      <div className="pcard__prices">
+        <div className="pcard__price-col">
+          <span className="pcard__price-label">Precio por menor:</span>
+          <span className="pcard__price-value">{formatPrice(product.price)}</span>
         </div>
-      </div>
-
-      {hasWholesale && (
-        <div className="pcard__promo">
-          <FaCheck className="pcard__promo-icon" aria-hidden="true" />
-          <div>
-            <p className="pcard__promo-title">
-              Ahorra y paga solo {formatPrice(product.wholesalePrice)}
-            </p>
-            <p className="pcard__promo-sub">Compra 10 paquetes o más</p>
+        {hasWholesale && (
+          <div className="pcard__price-col pcard__price-col--mayor">
+            <span className="pcard__price-label">Precio por mayor:</span>
+            <span className="pcard__price-value">{formatPrice(product.wholesalePrice)}</span>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {!isMasa && (
         <div className="pcard__resell">
-          <div className="pcard__resell-item">
+          <span className="pcard__resell-item">
             <FaTag className="pcard__resell-icon" aria-hidden="true" />
-            <div>
-              <span>Vende desde</span>
-              <strong>{formatPrice(suggestedRetailUnit)} c/u</strong>
-            </div>
-          </div>
-          <div className="pcard__resell-item">
+            Vende desde <strong>{formatPrice(suggestedRetailUnit)} c/u</strong>
+          </span>
+          <span className="pcard__resell-item">
             <FaChartLine className="pcard__resell-icon" aria-hidden="true" />
-            <div>
-              <span>Margen estimado</span>
-              <strong className="pcard__margin">+{estimatedMargin}%</strong>
-            </div>
-          </div>
+            Margen estimado <strong className="pcard__margin">+{estimatedMargin}%</strong>
+          </span>
         </div>
       )}
 
