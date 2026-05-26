@@ -325,11 +325,67 @@ body {
   box-shadow: 0 4px 8px rgba(40, 28, 2, 0.08), 0 14px 30px rgba(40, 28, 2, 0.1);
 }
 
+.pcard__header {
+  background: linear-gradient(135deg, #fff8dc 0%, #fff2b0 100%);
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(40, 28, 2, 0.06);
+}
+
+.pcard__header-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.pcard__name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-dark-brown);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.25rem;
+}
+
+.pcard__subtitle {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #7a6a3a;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.pcard__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--color-burgundy);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+}
+
+.pcard__badge svg {
+  font-size: 0.78rem;
+}
+
 .pcard__img-wrap {
   position: relative;
-  height: 220px;
+  height: 170px;
   overflow: hidden;
   flex-shrink: 0;
+  background: linear-gradient(160deg, #5a3a1a 0%, #3d2710 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pcard__img {
@@ -339,109 +395,187 @@ body {
 }
 
 .pcard__img-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #fff2cf 0%, #ffe08a 50%, #ffd060 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 5rem;
-}
-
-.pcard__badge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.88rem;
   font-weight: 500;
-  color: var(--color-dark-brown);
-  background: #fff7d6;
-  padding: 6px 14px;
-  border-radius: 999px;
-  z-index: 1;
-  letter-spacing: 0;
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 
-.pcard__body {
-  padding: 1.4rem 1.4rem 1.5rem;
+.pcard__info-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0.95rem 1.1rem 0.7rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem 0.85rem;
+}
+
+.pcard__info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  color: #4a4a4a;
+}
+
+.pcard__info > div {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  text-align: left;
+  min-width: 0;
 }
 
-.pcard__name {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 1.5rem;
+.pcard__info strong {
+  color: var(--color-dark-brown);
   font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 0.35rem;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
 }
 
-.pcard__flavor {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--color-burgundy);
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-}
-
-.pcard__specs {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.95rem;
-  font-weight: 400;
+.pcard__info span {
   color: #6b6b6b;
-  margin-bottom: 0.25rem;
-  line-height: 1.4;
+  font-weight: 500;
 }
 
-.pcard__frozen {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: #8a8a8a;
-  margin-bottom: 1.25rem;
-  line-height: 1.4;
-  font-style: normal;
+.pcard__info-icon {
+  color: var(--color-burgundy);
+  font-size: 0.95rem;
+  margin-top: 2px;
+  flex-shrink: 0;
 }
 
-.pcard__price-area {
-  margin-bottom: 1rem;
-  margin-top: auto;
+.pcard__price-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.4rem 1.1rem;
+  padding: 0.85rem 1rem;
+  background: linear-gradient(135deg, #fff2c2 0%, #ffe488 100%);
+  border-radius: 12px;
+}
+
+.pcard__price-icon {
+  color: #b8860b;
+  font-size: 1.4rem;
+  flex-shrink: 0;
 }
 
 .pcard__price {
-  display: block;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 1.85rem;
-  font-weight: 700;
-  color: #1a1a1a;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--color-dark-brown);
   line-height: 1.1;
-  margin-bottom: 0.35rem;
+  margin: 0;
   letter-spacing: -0.02em;
 }
 
-.pcard__bulk {
-  display: block;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.88rem;
+.pcard__price-suffix {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #6b5a2a;
+  letter-spacing: 0;
+}
+
+.pcard__price-note {
+  font-size: 0.74rem;
+  color: #7a6a3a;
+  margin: 2px 0 0;
+}
+
+.pcard__promo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0.4rem 1.1rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #1f8a4d 0%, #15703d 100%);
+  color: #fff;
+  border-radius: 12px;
+}
+
+.pcard__promo-icon {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+
+.pcard__promo-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.pcard__promo-sub {
+  font-size: 0.76rem;
+  margin: 2px 0 0;
+  opacity: 0.9;
+}
+
+.pcard__resell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin: 0.4rem 1.1rem 0.6rem;
+  padding: 0.7rem 0.85rem;
+  background: #f6f3ed;
+  border-radius: 12px;
+}
+
+.pcard__resell-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+
+.pcard__resell-item > div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  min-width: 0;
+}
+
+.pcard__resell-item span {
   color: #6b6b6b;
-  font-weight: 400;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.pcard__resell-item strong {
+  color: var(--color-dark-brown);
+  font-weight: 700;
+}
+
+.pcard__resell-icon {
+  color: var(--color-burgundy);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.pcard__margin {
+  color: #1f8a4d !important;
+}
+
+.pcard__actions {
+  margin-top: auto;
+  padding: 0.4rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .pcard__details {
-  display: block;
   text-align: center;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: #800302;
   text-decoration: none;
-  margin-bottom: 0.85rem;
   transition: opacity 0.15s ease;
 }
 
@@ -451,21 +585,15 @@ body {
 
 .pcard__btn {
   width: 100%;
-  padding: 0.95rem;
+  padding: 0.85rem;
   background: var(--color-burgundy);
   color: #fff;
   border: none;
   border-radius: 12px;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s ease, transform 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  letter-spacing: 0;
 }
 
 .pcard__btn:hover {
@@ -1003,29 +1131,48 @@ body {
   }
 
   .pcard__img-wrap {
-    height: 170px;
+    height: 150px;
   }
 
-  .pcard__body {
-    padding: 1.1rem 1.1rem 1.2rem;
+  .pcard__header {
+    padding: 0.85rem 0.95rem;
   }
 
   .pcard__name {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
   }
 
-  .pcard__specs,
-  .pcard__frozen {
-    font-size: 0.85rem;
+  .pcard__subtitle {
+    font-size: 0.76rem;
+  }
+
+  .pcard__info-grid {
+    padding: 0.8rem 0.95rem 0.55rem;
+    gap: 0.55rem 0.7rem;
+  }
+
+  .pcard__info {
+    font-size: 0.76rem;
+  }
+
+  .pcard__price-block,
+  .pcard__promo,
+  .pcard__resell {
+    margin-left: 0.95rem;
+    margin-right: 0.95rem;
   }
 
   .pcard__price {
-    font-size: 1.55rem;
+    font-size: 1.25rem;
+  }
+
+  .pcard__actions {
+    padding: 0.4rem 0.95rem 0.95rem;
   }
 
   .pcard__btn {
-    padding: 0.85rem;
-    font-size: 0.95rem;
+    padding: 0.8rem;
+    font-size: 0.9rem;
   }
 
   .tienda-section-header__title {
@@ -1094,15 +1241,15 @@ body {
   }
 
   .pcard__img-wrap {
-    height: 220px;
+    height: 200px;
   }
 
   .pcard__name {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
   }
 
   .pcard__price {
-    font-size: 1.75rem;
+    font-size: 1.55rem;
   }
 
   .tienda-section-header__title {
