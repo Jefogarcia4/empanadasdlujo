@@ -37,13 +37,8 @@ function ProductCard({ product, onSelectProduct }) {
   const isMasa = product.category === 'Masa';
   const fillingLabel = isMasa ? 'Tipo' : 'Relleno';
 
-  const costPerUnit = product.unitsPerPackage > 0
-    ? product.price / product.unitsPerPackage
-    : 0;
   const suggestedRetailUnit = product.suggestedRetailUnit ?? 0;
-  const estimatedMargin = suggestedRetailUnit > 0
-    ? Math.round(((suggestedRetailUnit - costPerUnit) / suggestedRetailUnit) * 100)
-    : 0;
+  const estimatedMargin = product.estimatedMargin;
 
   const hasWholesale =
     product.wholesalePrice > 0 && product.wholesalePrice < product.price;
@@ -126,10 +121,12 @@ function ProductCard({ product, onSelectProduct }) {
             <FaTag className="pcard__resell-icon" aria-hidden="true" />
             Vende desde <strong>{formatPrice(suggestedRetailUnit)} c/u</strong>
           </span>
-          <span className="pcard__resell-item">
-            <FaChartLine className="pcard__resell-icon" aria-hidden="true" />
-            Margen estimado <strong className="pcard__margin">+{estimatedMargin}%</strong>
-          </span>
+          {estimatedMargin != null && (
+            <span className="pcard__resell-item">
+              <FaChartLine className="pcard__resell-icon" aria-hidden="true" />
+              Margen estimado <strong className="pcard__margin">+{estimatedMargin}%</strong>
+            </span>
+          )}
         </div>
       )}
 

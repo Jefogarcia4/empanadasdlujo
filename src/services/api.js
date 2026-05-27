@@ -21,6 +21,7 @@ function mapProducto(item) {
     unitsPerPackage: item.unidadesPorPaquete,
     price: precioWeb?.precioPaquete ?? 0,
     suggestedRetailUnit: precioWeb?.precioPorUnidad ?? 0,
+    estimatedMargin: precioWeb?.margen ?? null,
     wholesalePrice: precioMayor?.precioPaquete ?? 0,
     active: item.activo,
     image: item.urlImage ?? null,
