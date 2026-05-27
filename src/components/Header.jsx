@@ -5,8 +5,14 @@ function Header({ currentPage, onNavigate }) {
 
   return (
     <header className="header">
+      <div className="header-banner" role="note">
+        <span className="header-banner__icon" aria-hidden="true">📦</span>
+        <span className="header-banner__text">
+          Compra <strong>10 paquetes o más</strong> y accede a precio por mayor
+        </span>
+      </div>
       <div className="header-content">
-        <div className="logo" onClick={() => onNavigate('landing')}>
+        <div className="logo" onClick={() => onNavigate('tienda')}>
           <img src="/fondo_menu.png" alt="Empanadas D'lujo" className="logo-img" />
         </div>
         <nav className="header-nav">
