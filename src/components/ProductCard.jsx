@@ -9,8 +9,6 @@ import {
 } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 
-const TARGET_MARGIN = 0.6;
-
 function ProductCard({ product, onSelectProduct }) {
   const { addToCart } = useCart();
 
@@ -42,8 +40,7 @@ function ProductCard({ product, onSelectProduct }) {
   const costPerUnit = product.unitsPerPackage > 0
     ? product.price / product.unitsPerPackage
     : 0;
-  const rawRetailUnit = costPerUnit / (1 - TARGET_MARGIN);
-  const suggestedRetailUnit = Math.ceil(rawRetailUnit / 100) * 100;
+  const suggestedRetailUnit = product.suggestedRetailUnit ?? 0;
   const estimatedMargin = suggestedRetailUnit > 0
     ? Math.round(((suggestedRetailUnit - costPerUnit) / suggestedRetailUnit) * 100)
     : 0;

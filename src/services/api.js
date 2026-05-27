@@ -20,6 +20,7 @@ function mapProducto(item) {
     weight: item.gramajeG,
     unitsPerPackage: item.unidadesPorPaquete,
     price: precioWeb?.precioPaquete ?? 0,
+    suggestedRetailUnit: precioWeb?.precioPorUnidad ?? 0,
     wholesalePrice: precioMayor?.precioPaquete ?? 0,
     active: item.activo,
     image: item.urlImage ?? null,
