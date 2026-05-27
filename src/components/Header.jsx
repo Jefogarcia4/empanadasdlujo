@@ -5,11 +5,25 @@ function Header({ currentPage, onNavigate }) {
 
   return (
     <header className="header">
-      <div className="header-banner" role="note">
-        <span className="header-banner__icon" aria-hidden="true">📦</span>
-        <span className="header-banner__text">
-          Compra <strong>10 paquetes o más</strong> y accede a precio por mayor
-        </span>
+      <div className="header-banner" role="note" aria-label="Anuncios de la tienda">
+        <ul className="header-banner__list">
+          <li className="header-banner__item">
+            <span className="header-banner__icon" aria-hidden="true">📦</span>
+            <span>Compra <strong>10 paquetes o más</strong> y accede a precio por mayor</span>
+          </li>
+          <li className="header-banner__item">
+            <span className="header-banner__icon" aria-hidden="true">🛵</span>
+            <span>Envíos a domicilio en el <strong>Área Metropolitana</strong></span>
+          </li>
+          <li className="header-banner__item">
+            <span className="header-banner__icon" aria-hidden="true">⏱️</span>
+            <span><strong>Listas para freír</strong> en minutos · Alta rotación</span>
+          </li>
+          <li className="header-banner__item" aria-hidden="true">
+            <span className="header-banner__icon">📦</span>
+            <span>Compra <strong>10 paquetes o más</strong> y accede a precio por mayor</span>
+          </li>
+        </ul>
       </div>
       <div className="header-content">
         <div className="logo" onClick={() => onNavigate('tienda')}>

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import CategoryFilter from './components/CategoryFilter';
 import ProductGrid from './components/ProductGrid';
 import Cart from './components/Cart';
 import CartFab from './components/CartFab';
@@ -55,7 +54,6 @@ function parseRoute() {
 
 function App() {
   const initial = parseRoute();
-  const [activeCategory, setActiveCategory] = useState('Todas');
   const [currentPage, setCurrentPage] = useState(initial.page);
   const [selectedPedidoId, setSelectedPedidoId] = useState(initial.pedidoId);
   const [products, setProducts] = useState([]);
@@ -95,9 +93,7 @@ function App() {
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
-  const filteredProducts = activeCategory === 'Todas'
-    ? products.filter(p => p.active)
-    : products.filter(p => p.category === activeCategory && p.active);
+  const filteredProducts = products.filter(p => p.active);
 
   if (currentPage === 'pedido_detail') {
     return (
@@ -171,10 +167,6 @@ function App() {
       <div className="app">
         <Header currentPage={currentPage} onNavigate={handleNavigate} />
         <Hero />
-        <CategoryFilter
-          activeCategory={activeCategory}
-          onCategoryChange={setActiveCategory}
-        />
         <main className="main-content">
           {loadingProducts && <p className="products-status">Cargando productos...</p>}
           {errorProducts && <p className="products-status products-status--error">Error al cargar productos: {errorProducts}</p>}
