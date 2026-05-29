@@ -15,34 +15,6 @@ import { fetchProducts } from './services/api';
 import './styles/App.css';
 import './styles/Landing.css';
 
-const WHATSAPP_BULK = 'https://wa.me/573046028579?text=Hola!%20Quiero%20armar%20un%20pedido%20por%20volumen';
-
-function BulkBanner() {
-  return (
-    <section className="tienda-bulk">
-      <h2 className="tienda-bulk__title">
-        Compra 10 paquetes o más<br />y accede a precio por mayor
-      </h2>
-      <p className="tienda-bulk__desc">
-        Puedes combinar referencias. Ideal para negocios, eventos, reuniones o familias que quieren ahorrar comprando más.
-      </p>
-      <div className="tienda-bulk__chips">
-        <span className="tienda-bulk__chip">🔀 Combina referencias</span>
-        <span className="tienda-bulk__chip">💰 Ahorra más</span>
-        <span className="tienda-bulk__chip">✅ Ideal para vender</span>
-      </div>
-      <a
-        href={WHATSAPP_BULK}
-        className="tienda-bulk__btn"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Armar pedido por volumen
-      </a>
-    </section>
-  );
-}
-
 function parseRoute() {
   const path = window.location.pathname;
   const match = path.match(/^\/pedido\/(\d+)\/?$/i);
@@ -182,7 +154,6 @@ function App() {
             </>
           )}
         </main>
-        <BulkBanner />
         <Cart onNavigate={handleNavigate} />
         <CartFab />
         <Footer />
