@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { sendOrderViaWhatsAppAPI } from '../services/whatsapp';
 import { createPedido } from '../services/pedidos';
+import { trackPurchase } from '../services/metaPixel';
 import { fetchDepartamentosColombia, DEPARTAMENTOS_FALLBACK } from '../services/colombia';
 import '../styles/CartPage.css';
 
@@ -89,6 +90,7 @@ function CartPage({ onNavigate }) {
       } catch (waErr) {
         console.warn('WhatsApp notification failed, order still saved:', waErr);
       }
+      trackPurchase(cartItemsPricing, totalToPay, pedidoId);
       setOrderStatus('success');
       clearCart();
       if (pedidoId) {

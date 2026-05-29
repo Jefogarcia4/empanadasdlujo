@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import { trackAddToCart } from '../services/metaPixel';
 
 const CartContext = createContext();
 
@@ -20,6 +21,7 @@ export function CartProvider({ children }) {
       }
       return [...prev, { ...product, quantity: 1 }];
     });
+    trackAddToCart(product);
   }, []);
 
   const removeFromCart = useCallback((productId) => {
