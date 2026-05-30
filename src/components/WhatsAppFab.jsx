@@ -1,5 +1,5 @@
 const WHATSAPP_BUTTONS = [
-  { label: 'Chat IA', phone: '573046028579' },
+  { label: 'Chat IA - Asesoría 24/7', phone: '573046028579' },
   { label: 'Asesoría Comercial', phone: '573018798189' },
 ];
 

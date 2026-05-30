@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { sendOrderViaWhatsAppAPI } from '../services/whatsapp';
+import { sendOrderViaWhatsAppAPI, sendOrderConfirmationToClient } from '../services/whatsapp';
 import { createPedido } from '../services/pedidos';
 import { trackPurchase } from '../services/metaPixel';
 import { fetchDepartamentosColombia, DEPARTAMENTOS_FALLBACK } from '../services/colombia';
@@ -89,6 +89,11 @@ function CartPage({ onNavigate }) {
         await sendOrderViaWhatsAppAPI(cartItems, totalToPay, form, pedidoId);
       } catch (waErr) {
         console.warn('WhatsApp notification failed, order still saved:', waErr);
+      }
+      try {
+        await sendOrderConfirmationToClient(cartItems, totalToPay, form, pedidoId);
+      } catch (waErr) {
+        console.warn('WhatsApp client confirmation failed, order still saved:', waErr);
       }
       trackPurchase(cartItemsPricing, totalToPay, pedidoId);
       setOrderStatus('success');

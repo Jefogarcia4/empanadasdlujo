@@ -49,16 +49,53 @@ function buildClientSummary(buyerInfo) {
   return `${nombreCompleto} | ${contacto} | ${direccionCompleta} | Pago: ${tipoPago}`;
 }
 
-export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice, buyerInfo = {}, orderId = null) {
-  const orderNumber = orderId ?? Math.floor(Math.random() * 900000) + 100000;
-
-  const productsList = cartItems
+const buildProductsList = (cartItems) =>
+  cartItems
     .map((item) => {
       const weight = formatWeight(item.weight);
       const details = [item.flavor, weight].filter(Boolean).join(', ');
       return `${item.quantity}x ${item.name}${details ? ` (${details})` : ''}`;
     })
     .join(' - ');
+
+// WhatsApp exige formato E.164 sin '+'. El formulario captura 10 dígitos (Colombia),
+// por lo que anteponemos el indicativo 57 cuando aplica.
+const formatPhoneForWhatsApp = (telefono) => {
+  const digits = String(telefono ?? '').replace(/\D/g, '');
+  if (!digits) return '';
+  if (digits.length === 10) return `57${digits}`;
+  return digits; // ya incluye indicativo u otro formato
+};
+
+async function postWhatsAppMessage(body, logLabel = 'mensaje') {
+  console.log(`[WhatsApp] Enviando ${logLabel}...`, { body });
+
+  const response = await fetch(`${API_BASE_URL}/api/whatsapp/send_message`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify(body),
+  });
+
+  const responseData = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    console.error('[WhatsApp] Error en la respuesta:', {
+      status: response.status,
+      statusText: response.statusText,
+      responseData,
+    });
+    const errorMsg = responseData?.error?.message || `HTTP ${response.status}`;
+    throw new Error(`Error al enviar ${logLabel} por WhatsApp: ${errorMsg}`);
+  }
+
+  console.log(`[WhatsApp] ✅ ${logLabel} enviado exitosamente:`, responseData);
+  return responseData;
+}
+
+export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice, buyerInfo = {}, orderId = null) {
+  const orderNumber = orderId ?? Math.floor(Math.random() * 900000) + 100000;
+
+  const productsList = buildProductsList(cartItems);
 
   const body = {
     template: {
@@ -80,26 +117,48 @@ export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice, buyerInfo =
     },
   };
 
-  console.log('[WhatsApp] Enviando pedido...', { body });
+  return postWhatsAppMessage(body, 'pedido');
+}
 
-  const response = await fetch(`${API_BASE_URL}/api/whatsapp/send_message`, {
-    method: 'POST',
-    headers: getAuthHeaders(),
-    body: JSON.stringify(body),
-  });
+// Idioma de la plantilla en Meta. Debe coincidir EXACTAMENTE con el configurado allí.
+const CLIENT_TEMPLATE_LANGUAGE = 'es_CO';
 
-  const responseData = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    console.error('[WhatsApp] Error en la respuesta:', {
-      status: response.status,
-      statusText: response.statusText,
-      responseData,
-    });
-    const errorMsg = responseData?.error?.message || `HTTP ${response.status}`;
-    throw new Error(`Error al enviar pedido por WhatsApp: ${errorMsg}`);
+// Envía la confirmación del pedido al WhatsApp del comprador (no al número por defecto).
+export async function sendOrderConfirmationToClient(cartItems, totalPrice, buyerInfo = {}, orderId = null) {
+  const to = formatPhoneForWhatsApp(buyerInfo.telefono);
+  if (!to) {
+    console.warn('[WhatsApp] No se envió confirmación al cliente: teléfono inválido o vacío.');
+    return null;
   }
 
-  console.log('[WhatsApp] ✅ Mensaje enviado exitosamente:', responseData);
-  return responseData;
+  const orderNumber = orderId ?? Math.floor(Math.random() * 900000) + 100000;
+  const nombreCliente =
+    `${buyerInfo.nombre ?? ''} ${buyerInfo.apellidos ?? ''}`.trim() || 'Cliente';
+  const productsList = buildProductsList(cartItems);
+  const metodoEntrega = buyerInfo.tipoEntrega || 'Domicilio';
+
+  const body = {
+    to, // cambia el destinatario al teléfono del formulario de la venta
+    template: {
+      name: 'confirmacion_pedido_cliente',
+      language: {
+        code: CLIENT_TEMPLATE_LANGUAGE,
+      },
+      components: [
+        {
+          type: 'body',
+          parameters: [
+            { type: 'text', text: nombreCliente }, // {{1}} nombre
+            { type: 'text', text: String(orderNumber) }, // {{2}} N° de pedido
+            { type: 'text', text: productsList }, // {{3}} productos
+            { type: 'text', text: formatPrice(totalPrice) }, // {{4}} total
+            { type: 'text', text: buyerInfo.tipoPago || 'Efectivo' }, // {{5}} método de pago
+            { type: 'text', text: metodoEntrega }, // {{6}} método de entrega
+          ],
+        },
+      ],
+    },
+  };
+
+  return postWhatsAppMessage(body, 'confirmación al cliente');
 }
