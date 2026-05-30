@@ -1117,6 +1117,56 @@ body {
   animation: cart-fab-badge-pop 0.5s ease-out;
 }
 
+/* WhatsApp floating buttons (stacked above the cart FAB) */
+.wa-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 108px;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.wa-fab__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 22px;
+  background: #25d366;
+  color: #fff;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.35),
+    0 2px 4px rgba(18, 140, 70, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.wa-fab__btn:hover {
+  background: #1fb957;
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.4),
+    0 3px 8px rgba(18, 140, 70, 0.45);
+}
+
+.wa-fab__btn:active {
+  transform: scale(0.97);
+}
+
+.wa-fab__icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
 @media (max-width: 480px) {
   .cart-fab {
     bottom: 18px;
@@ -1128,6 +1178,23 @@ body {
   .cart-fab__icon {
     width: 28px;
     height: 28px;
+  }
+
+  .wa-fab {
+    right: 18px;
+    bottom: 96px;
+    gap: 8px;
+  }
+
+  .wa-fab__btn {
+    height: 40px;
+    padding: 0 13px;
+    font-size: 13px;
+  }
+
+  .wa-fab__icon {
+    width: 20px;
+    height: 20px;
   }
 }
 

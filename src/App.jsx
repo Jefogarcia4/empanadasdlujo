@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import ProductGrid from './components/ProductGrid';
 import Cart from './components/Cart';
 import CartFab from './components/CartFab';
+import WhatsAppFab from './components/WhatsAppFab';
 import Footer from './components/Footer';
 import Catalogo from './components/Catalogo';
 import LandingPage from './components/landing/LandingPage';
@@ -98,6 +99,7 @@ function App() {
           <Header currentPage={currentPage} onNavigate={handleNavigate} />
           <ProductDetail product={selectedProduct} onNavigate={handleNavigate} />
           <Cart onNavigate={handleNavigate} />
+          <WhatsAppFab />
           <CartFab />
           <Footer />
         </div>
@@ -112,6 +114,7 @@ function App() {
           <Header currentPage={currentPage} onNavigate={handleNavigate} />
           <Catalogo />
           <Cart onNavigate={handleNavigate} />
+          <WhatsAppFab />
           <CartFab />
           <Footer />
         </div>
@@ -126,6 +129,7 @@ function App() {
           <Header currentPage={currentPage} onNavigate={handleNavigate} />
           <LandingPage onNavigate={handleNavigate} />
           <Cart onNavigate={handleNavigate} />
+          <WhatsAppFab />
           <CartFab />
           <Footer />
         </div>
@@ -155,6 +159,7 @@ function App() {
           )}
         </main>
         <Cart onNavigate={handleNavigate} />
+        <WhatsAppFab />
         <CartFab />
         <Footer />
       </div>
