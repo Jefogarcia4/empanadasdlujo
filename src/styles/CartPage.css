@@ -301,6 +301,30 @@
   box-shadow: 0 0 0 1px var(--color-burgundy);
 }
 
+/* ── Validación de campos ───────────────────────────── */
+.cart-form__group--error input,
+.cart-form__group--error select {
+  border-color: #e74c3c;
+  background: #fff6f5;
+}
+
+.cart-form__group--error input:focus,
+.cart-form__group--error select:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 1px #e74c3c;
+}
+
+.cart-form__group--error label {
+  color: #e74c3c;
+}
+
+.cart-form__field-error {
+  display: block;
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
 /* Radio buttons de método de pago */
 .cart-form__radio-group {
   display: flex;

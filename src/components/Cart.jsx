@@ -111,7 +111,7 @@ function Cart({ onNavigate }) {
               className="checkout-btn whatsapp-btn"
               onClick={handleCheckout}
             >
-              📋 Proceder al pedido
+              📋 Ir a pagar
             </button>
             <button
               className="checkout-btn"

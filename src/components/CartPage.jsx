@@ -45,6 +45,7 @@ function CartPage({ onNavigate }) {
 
   const [departamentos, setDepartamentos] = useState(DEPARTAMENTOS_FALLBACK);
   const [orderStatus, setOrderStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     let mounted = true;
@@ -59,11 +60,44 @@ function CartPage({ onNavigate }) {
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
     setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+    // Limpia el error del campo a medida que el usuario lo corrige.
+    setErrors((prev) => (prev[name] ? { ...prev, [name]: undefined } : prev));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    const required = {
+      nombre: 'El nombre es obligatorio.',
+      apellidos: 'Los apellidos son obligatorios.',
+      direccion: 'La dirección es obligatoria.',
+      ciudad: 'La ciudad es obligatoria.',
+      telefono: 'El teléfono es obligatorio.',
+      email: 'El email es obligatorio.',
+    };
+
+    Object.entries(required).forEach(([field, message]) => {
+      if (!String(form[field] ?? '').trim()) newErrors[field] = message;
+    });
+
+    // Teléfono: 10 dígitos (celular Colombia).
+    const telDigits = String(form.telefono ?? '').replace(/\D/g, '');
+    if (!newErrors.telefono && telDigits.length !== 10) {
+      newErrors.telefono = 'El teléfono debe tener 10 dígitos.';
+    }
+
+    // Email: formato válido.
+    if (!newErrors.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      newErrors.email = 'Ingresa un email válido.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (cartItems.length === 0) return;
+    if (!validateForm()) return;
 
     setOrderStatus('sending');
     try {
@@ -126,7 +160,7 @@ function CartPage({ onNavigate }) {
         {/* ── Columna izquierda: formulario ── */}
         <section className="cart-page__form-col">
           <h3>Entrega</h3>
-          <form className="cart-form" onSubmit={handleSubmit}>
+          <form className="cart-form" onSubmit={handleSubmit} noValidate>
             {/* País */}
             <div className="cart-form__group cart-form__group--floating">
               <select
@@ -143,7 +177,7 @@ function CartPage({ onNavigate }) {
 
             {/* Nombre + Apellidos */}
             <div className="cart-form__row">
-              <div className="cart-form__group cart-form__group--floating">
+              <div className={`cart-form__group cart-form__group--floating${errors.nombre ? ' cart-form__group--error' : ''}`}>
                 <input
                   id="nombre"
                   name="nombre"
@@ -151,12 +185,12 @@ function CartPage({ onNavigate }) {
                   placeholder=" "
                   value={form.nombre}
                   onChange={handleChange}
-                  required
                 />
                 <label htmlFor="nombre">Nombre</label>
+                {errors.nombre && <span className="cart-form__field-error">{errors.nombre}</span>}
               </div>
 
-              <div className="cart-form__group cart-form__group--floating">
+              <div className={`cart-form__group cart-form__group--floating${errors.apellidos ? ' cart-form__group--error' : ''}`}>
                 <input
                   id="apellidos"
                   name="apellidos"
@@ -164,14 +198,14 @@ function CartPage({ onNavigate }) {
                   placeholder=" "
                   value={form.apellidos}
                   onChange={handleChange}
-                  required
                 />
                 <label htmlFor="apellidos">Apellidos</label>
+                {errors.apellidos && <span className="cart-form__field-error">{errors.apellidos}</span>}
               </div>
             </div>
 
             {/* Dirección */}
-            <div className="cart-form__group cart-form__group--floating">
+            <div className={`cart-form__group cart-form__group--floating${errors.direccion ? ' cart-form__group--error' : ''}`}>
               <input
                 id="direccion"
                 name="direccion"
@@ -179,9 +213,9 @@ function CartPage({ onNavigate }) {
                 placeholder=" "
                 value={form.direccion}
                 onChange={handleChange}
-                required
               />
               <label htmlFor="direccion">Dirección</label>
+              {errors.direccion && <span className="cart-form__field-error">{errors.direccion}</span>}
             </div>
 
             {/* Casa, apartamento (opcional) */}
@@ -199,7 +233,7 @@ function CartPage({ onNavigate }) {
 
             {/* Ciudad + Departamento + Código postal */}
             <div className="cart-form__row cart-form__row--3">
-              <div className="cart-form__group cart-form__group--floating">
+              <div className={`cart-form__group cart-form__group--floating${errors.ciudad ? ' cart-form__group--error' : ''}`}>
                 <input
                   id="ciudad"
                   name="ciudad"
@@ -207,9 +241,9 @@ function CartPage({ onNavigate }) {
                   placeholder=" "
                   value={form.ciudad}
                   onChange={handleChange}
-                  required
                 />
                 <label htmlFor="ciudad">Ciudad</label>
+                {errors.ciudad && <span className="cart-form__field-error">{errors.ciudad}</span>}
               </div>
 
               <div className="cart-form__group cart-form__group--floating">
@@ -243,7 +277,7 @@ function CartPage({ onNavigate }) {
             </div>
 
             {/* Teléfono */}
-            <div className="cart-form__group cart-form__group--floating">
+            <div className={`cart-form__group cart-form__group--floating${errors.telefono ? ' cart-form__group--error' : ''}`}>
               <input
                 id="telefono"
                 name="telefono"
@@ -251,13 +285,13 @@ function CartPage({ onNavigate }) {
                 placeholder=" "
                 value={form.telefono}
                 onChange={handleChange}
-                required
               />
               <label htmlFor="telefono">Teléfono</label>
+              {errors.telefono && <span className="cart-form__field-error">{errors.telefono}</span>}
             </div>
 
             {/* Email */}
-            <div className="cart-form__group cart-form__group--floating">
+            <div className={`cart-form__group cart-form__group--floating${errors.email ? ' cart-form__group--error' : ''}`}>
               <input
                 id="email"
                 name="email"
@@ -265,9 +299,9 @@ function CartPage({ onNavigate }) {
                 placeholder=" "
                 value={form.email}
                 onChange={handleChange}
-                required
               />
               <label htmlFor="email">Email</label>
+              {errors.email && <span className="cart-form__field-error">{errors.email}</span>}
             </div>
 
             {/* Comentarios */}
