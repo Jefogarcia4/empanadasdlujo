@@ -892,11 +892,11 @@ body {
   justify-self: end;
   background: transparent;
   border: none;
-  font-size: 1.2rem;
   line-height: 1;
   cursor: pointer;
   padding: 0.15rem;
-  opacity: 0.85;
+  color: #b01515;
+  opacity: 0.9;
   transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
 
@@ -911,20 +911,21 @@ body {
   align-self: end;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem;
-  background: var(--color-light-yellow);
+  gap: 0.45rem;
+  padding: 0.35rem;
+  background: var(--color-surface);
+  border: 2px solid #ffe2a0;
   border-radius: var(--radius-full);
 }
 
 .quantity-btn {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border: none;
-  background: #ffd884;
+  background: var(--color-light-yellow);
   color: var(--color-dark-brown);
-  border-radius: 50%;
-  font-size: 1.3rem;
+  border-radius: 12px;
+  font-size: 1.4rem;
   font-weight: 700;
   cursor: pointer;
   display: flex;
@@ -939,8 +940,8 @@ body {
 
 .quantity-value {
   font-weight: 800;
-  font-size: 1.05rem;
-  min-width: 26px;
+  font-size: 1.2rem;
+  min-width: 28px;
   text-align: center;
   color: var(--color-dark-brown);
 }
@@ -968,17 +969,17 @@ body {
 }
 
 .cart-modal__continue-icon {
-  font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
-.cart-modal__continue span:nth-child(2) {
+.cart-modal__continue span {
   flex: 1;
   text-align: center;
 }
 
 .cart-modal__continue-arrow {
-  font-size: 1.4rem;
-  font-weight: 800;
+  flex-shrink: 0;
+  color: #b01515;
 }
 
 /* Trust badges */
@@ -1009,7 +1010,7 @@ body {
 
 .cart-modal__trust-icon {
   flex-shrink: 0;
-  font-size: 1.25rem;
+  color: var(--color-gold);
 }
 
 /* Totals */
@@ -1095,7 +1096,7 @@ body {
   width: 100%;
   padding: 0.9rem;
   background: var(--color-cream);
-  color: #8a1010;
+  color: #b01515;
   border: 2px solid var(--color-gold);
   border-radius: var(--radius-lg);
   font-size: 1.05rem;
