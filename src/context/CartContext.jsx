@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import { trackAddToCart } from '../services/metaPixel';
+import { DELIVERY_FEE } from '../config/constants';
 
 const CartContext = createContext();
 
 const WHOLESALE_THRESHOLD = 10;
-const DELIVERY_FEE = 12000;
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchPedido } from '../services/pedidos';
 import { fetchProducts } from '../services/api';
+import { DELIVERY_FEE } from '../config/constants';
 import '../styles/PedidoDetail.css';
 
 const formatPrice = (price) =>
@@ -170,9 +171,13 @@ function PedidoDetailPage({ pedidoId, onNavigate }) {
               <span>−{formatPrice(pedido.descuento)}</span>
             </div>
           )}
+          <div className="pedido-page__totals-row">
+            <span>Valor domicilio</span>
+            <span>{formatPrice(DELIVERY_FEE)}</span>
+          </div>
           <div className="pedido-page__totals-row pedido-page__totals-row--total">
             <span>Total pagado</span>
-            <span>{formatPrice(pedido.total)}</span>
+            <span>{formatPrice(pedido.total + DELIVERY_FEE)}</span>
           </div>
         </div>
       </section>
