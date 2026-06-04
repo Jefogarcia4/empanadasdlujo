@@ -32,6 +32,14 @@ function componentLabel(c) {
   return `${c.quantity}x ${nombre}${detalle ? ` · ${detalle}` : ''}`;
 }
 
+// Devuelve la descripción larga recortada desde la palabra "Incluye".
+// Si no la encuentra, devuelve el texto completo.
+function extractIncluye(text) {
+  if (!text) return null;
+  const match = text.match(/incluye/i);
+  return match ? text.slice(match.index) : text;
+}
+
 function ComboCard({ combo, index = 0 }) {
   const { addToCart, openCart } = useCart();
   const theme = PALETTE[index % PALETTE.length];
@@ -42,6 +50,7 @@ function ComboCard({ combo, index = 0 }) {
   };
 
   const weightLabel = formatWeight(combo.weight);
+  const incluye = extractIncluye(combo.longDescription);
 
   return (
     <div
@@ -62,14 +71,18 @@ function ComboCard({ combo, index = 0 }) {
         <p className="combo-card__desc">{combo.shortDescription}</p>
       )}
 
-      {combo.components?.length > 0 && (
-        <ul className="combo-card__items">
-          {combo.components.map((c) => (
-            <li key={c.codigoSku}>
-              <span aria-hidden="true">🟡</span> {componentLabel(c)}
-            </li>
-          ))}
-        </ul>
+      {incluye ? (
+        <p className="combo-card__incluye">{incluye}</p>
+      ) : (
+        combo.components?.length > 0 && (
+          <ul className="combo-card__items">
+            {combo.components.map((c) => (
+              <li key={c.codigoSku}>
+                <span aria-hidden="true">🟡</span> {componentLabel(c)}
+              </li>
+            ))}
+          </ul>
+        )
       )}
 
       {(combo.unitsTotal || weightLabel) && (
