@@ -983,23 +983,23 @@ body {
 
 /* Trust badges */
 .cart-modal__trust {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   margin-top: 1rem;
-  padding: 0.9rem 0.5rem;
+  padding: 0.9rem 0.4rem;
   background: var(--color-surface);
   border-radius: var(--radius-lg);
   box-shadow: 0 4px 14px rgba(40, 28, 2, 0.07);
 }
 
 .cart-modal__trust-item {
-  flex: 1;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0 0.6rem;
-  font-size: 0.78rem;
+  gap: 0.4rem;
+  padding: 0 0.55rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
   color: var(--color-dark-brown);
 }
 
@@ -1008,6 +1008,7 @@ body {
 }
 
 .cart-modal__trust-icon {
+  flex-shrink: 0;
   font-size: 1.25rem;
 }
 
@@ -1615,8 +1616,7 @@ body {
   }
 
   .cart-modal__trust-item {
-    font-size: 0.7rem;
-    padding: 0 0.4rem;
+    font-size: 0.78rem;
   }
 
   .cart-total-value {
