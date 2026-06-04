@@ -8,6 +8,7 @@ function Cart({ onNavigate }) {
     updateQuantity,
     subtotal,
     discount,
+    deliveryFee,
     totalToPay,
     hasDiscount,
     clearCart,
@@ -101,6 +102,10 @@ function Cart({ onNavigate }) {
                   <span>−{formatPrice(discount)}</span>
                 </div>
               )}
+              <div className="cart-totals-row">
+                <span>Valor domicilio</span>
+                <span>{formatPrice(deliveryFee)}</span>
+              </div>
               <div className="cart-totals-row cart-totals-row--total">
                 <span>Total a pagar</span>
                 <span>{formatPrice(totalToPay)}</span>

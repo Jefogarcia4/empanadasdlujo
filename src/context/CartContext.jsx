@@ -4,6 +4,7 @@ import { trackAddToCart } from '../services/metaPixel';
 const CartContext = createContext();
 
 const WHOLESALE_THRESHOLD = 10;
+const DELIVERY_FEE = 12000;
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
@@ -63,12 +64,16 @@ export function CartProvider({ children }) {
     });
 
     const subtotal = items.reduce((sum, it) => sum + it.lineRetail, 0);
-    const totalToPay = items.reduce((sum, it) => sum + it.lineTotal, 0);
-    const discount = subtotal - totalToPay;
+    const itemsTotal = items.reduce((sum, it) => sum + it.lineTotal, 0);
+    const discount = subtotal - itemsTotal;
+    const deliveryFee = items.length > 0 ? DELIVERY_FEE : 0;
+    const totalToPay = itemsTotal + deliveryFee;
 
     return {
       items,
       subtotal,
+      itemsTotal,
+      deliveryFee,
       totalToPay,
       discount,
       hasDiscount: discount > 0,
@@ -84,6 +89,7 @@ export function CartProvider({ children }) {
     cartItems,
     cartItemsPricing: pricing.items,
     subtotal: pricing.subtotal,
+    deliveryFee: pricing.deliveryFee,
     totalToPay: pricing.totalToPay,
     discount: pricing.discount,
     hasDiscount: pricing.hasDiscount,
