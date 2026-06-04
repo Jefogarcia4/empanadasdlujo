@@ -38,10 +38,11 @@ export async function createPedido({ cliente, observaciones, items }) {
       guardarInfo: !!cliente.guardarInfo,
     },
     observaciones,
-    detalles: items.map((it) => ({
-      codigoSku: it.id,
-      cantidadPaquetes: it.quantity,
-    })),
+    detalles: items.map((it) =>
+      it.isCombo
+        ? { idCombo: it.idCombo, cantidadPaquetes: it.quantity }
+        : { codigoSku: it.id, cantidadPaquetes: it.quantity }
+    ),
   };
 
   const response = await fetch(`${API_BASE_URL}/api/pedidos`, {

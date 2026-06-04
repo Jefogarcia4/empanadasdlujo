@@ -124,19 +124,23 @@ function PedidoDetailPage({ pedidoId, onNavigate }) {
         <ul className="pedido-page__items">
           {pedido.detalles.map((d) => {
             const prod = products[d.codigoSku];
+            const displayName = d.esCombo
+              ? d.nombreCombo || d.codigoCombo || 'Combo'
+              : prod?.name || d.codigoSku;
+            const displaySubtitle = d.esCombo ? 'Combo' : prod?.flavor;
             return (
               <li key={d.idDetalle} className="pedido-item">
                 <img
                   className="pedido-item__img"
                   src={prod?.image || '/pollo_carne.jpg'}
-                  alt={prod?.name || d.codigoSku}
+                  alt={displayName}
                 />
                 <div className="pedido-item__info">
                   <span className="pedido-item__name">
-                    {prod?.name || d.codigoSku}
+                    {displayName}
                   </span>
-                  {prod?.flavor && (
-                    <span className="pedido-item__flavor">{prod.flavor}</span>
+                  {displaySubtitle && (
+                    <span className="pedido-item__flavor">{displaySubtitle}</span>
                   )}
                   <span className="pedido-item__qty">
                     {d.cantidadPaquetes} × {formatPrice(d.precioPaquete)}

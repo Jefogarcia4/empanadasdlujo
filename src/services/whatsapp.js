@@ -52,8 +52,10 @@ function buildClientSummary(buyerInfo) {
 const buildProductsList = (cartItems) =>
   cartItems
     .map((item) => {
-      const weight = formatWeight(item.weight);
-      const details = [item.flavor, weight].filter(Boolean).join(', ');
+      // Los combos no llevan gramaje por unidad; se etiquetan como "Combo".
+      const details = item.isCombo
+        ? item.subcategory || 'Combo'
+        : [item.flavor, formatWeight(item.weight)].filter(Boolean).join(', ');
       return `${item.quantity}x ${item.name}${details ? ` (${details})` : ''}`;
     })
     .join(' - ');

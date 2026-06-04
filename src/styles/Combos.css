@@ -1,0 +1,167 @@
+/* ── Sección de combos (vitrina y catálogo) ─────────────────── */
+.combos-showcase {
+  max-width: 1200px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+}
+
+.combos-showcase__header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.combos-showcase__title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #2b2118;
+  margin: 0;
+}
+
+.combos-showcase__subtitle {
+  color: #ffb21b;
+  font-weight: 700;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.combos-showcase__desc {
+  color: #6b6258;
+  font-size: 0.95rem;
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.combos-showcase__status {
+  text-align: center;
+  color: #6b6258;
+}
+
+.combos-showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+/* ── Tarjeta de combo ───────────────────────────────────────── */
+.combo-card {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #ddd;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.combo-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.combo-card__tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #2b2118;
+  background: rgba(255, 255, 255, 0.65);
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  margin-bottom: 0.35rem;
+}
+
+.combo-card__name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #2b2118;
+  margin: 0;
+}
+
+.combo-card__badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #2b2118;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.combo-card__desc {
+  color: #5c5349;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.combo-card__items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.combo-card__items li {
+  font-size: 0.88rem;
+  color: #3d362e;
+  line-height: 1.35;
+}
+
+.combo-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  color: #5c5349;
+  margin-bottom: 0.75rem;
+}
+
+.combo-card__pricing {
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.combo-card__normal {
+  font-size: 0.85rem;
+  color: #8a8178;
+}
+
+.combo-card__price {
+  font-size: 1.05rem;
+  color: #2b2118;
+}
+
+.combo-card__price strong {
+  font-size: 1.3rem;
+}
+
+.combo-card__savings {
+  font-size: 0.9rem;
+  color: #2e7d32;
+}
+
+.combo-card__btn {
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.combo-card__btn:hover {
+  filter: brightness(0.95);
+}
+
+.combo-card__btn:active {
+  transform: scale(0.98);
+}

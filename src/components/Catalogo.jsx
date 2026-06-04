@@ -1,4 +1,5 @@
 import '../styles/Catalogo.css';
+import CombosShowcase from './CombosShowcase';
 
 const WHATSAPP_NUMBER = '573046028579';
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -128,53 +129,6 @@ const catalogSections = [
         image: null,
       },
     ],
-  },
-];
-
-const combos = [
-  {
-    id: 'combo1',
-    title: 'Combo $55,000',
-    name: 'Antojo Casero',
-    color: '#E8F5E9',
-    borderColor: '#4CAF50',
-    items: [
-      '1 Empanada Papa y Guiso 90g • 50 und',
-      '1 Pastel de Pollo 55g • 30 und',
-    ],
-    normalPrice: 80000,
-    comboPrice: 55000,
-    savings: 25000,
-  },
-  {
-    id: 'combo2',
-    title: 'Combo $100,000',
-    name: 'Reunión Familiar Plus',
-    color: '#FFF8E1',
-    borderColor: '#FFB21B',
-    items: [
-      '1 Pastel Grande Solo Pollo 130g • 12 und',
-      '1 Empanada Grande Surtida 130g • 12 und',
-      '1 Pastel Mediano Solo Pollo 55g • 30 und',
-    ],
-    normalPrice: 138700,
-    comboPrice: 100000,
-    savings: 38700,
-  },
-  {
-    id: 'combo3',
-    title: 'Combo $150,000',
-    name: 'Hogar de Sabor',
-    color: '#FCE4EC',
-    borderColor: '#E91E63',
-    items: [
-      '1 Empanada Grande Surtida 130g • 12 und',
-      '1 Pastel Grande Salo Pollo 55g • 30 und',
-      '1 Papa Mediana Salo Pollo 55g • 30 und',
-    ],
-    normalPrice: 210000,
-    comboPrice: 150000,
-    savings: 60000,
   },
 ];
 
@@ -393,64 +347,6 @@ function InfoImportante() {
   );
 }
 
-function CombosSection() {
-  const formatPrice = (n) => n.toLocaleString('es-CO');
-
-  return (
-    <section className="cat-combos">
-      <div className="cat-combos__header">
-        <h2 className="cat-combos__title">Combos para empezar</h2>
-        <p className="cat-combos__subtitle">Empieza fácil, ahorra más</p>
-        <p className="cat-combos__desc">
-          Son ideales si no quieres pedir 10 paquetes o si vas a lanzar nuevos productos a tus clientes por primera vez.<br />
-          <strong>Recuerda:</strong> Si ya sabes cuáles son tus favoritos, pedir de 10 paquetes o más te saldrá al mejor precio.
-        </p>
-      </div>
-      <div className="cat-combos__list">
-        {combos.map((combo) => (
-          <div
-            key={combo.id}
-            className="cat-combo-card"
-            style={{ background: combo.color, borderColor: combo.borderColor }}
-          >
-            <div className="cat-combo-card__header">
-              <h3 className="cat-combo-card__title">{combo.title}</h3>
-              <span className="cat-combo-card__name">{combo.name}</span>
-            </div>
-            <ul className="cat-combo-card__items">
-              {combo.items.map((item, i) => (
-                <li key={i}>
-                  <span>🟡</span> {item}
-                </li>
-              ))}
-            </ul>
-            <div className="cat-combo-card__pricing">
-              <div className="cat-combo-card__normal">
-                Precio normal: <s>${formatPrice(combo.normalPrice)}</s>
-              </div>
-              <div className="cat-combo-card__price">
-                Precio combo: <strong>${formatPrice(combo.comboPrice)}</strong>
-              </div>
-              <div className="cat-combo-card__savings">
-                Ahorras: <strong>${formatPrice(combo.savings)}</strong>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <a
-        href={`${WHATSAPP_LINK}?text=Hola! Quiero información sobre los combos`}
-        className="cat-combos__cta"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span>📱</span> ¿Listo para empezar?<br />
-        <small>Escríbenos y te ayudamos a elegir el mejor combo para ti</small>
-      </a>
-    </section>
-  );
-}
-
 function BrandFooter() {
   return (
     <section className="cat-brand-footer">
@@ -572,7 +468,9 @@ function Catalogo() {
       <InfoImportante />
 
       {/* Combos */}
-      <CombosSection />
+      <CombosShowcase
+        description="Son ideales si no quieres pedir 10 paquetes o si vas a lanzar nuevos productos por primera vez. Precio fijo: agrégalos al carrito como cualquier producto."
+      />
 
       {/* Footer de marca */}
       <BrandFooter />

@@ -48,11 +48,16 @@ export function CartProvider({ children }) {
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const pricing = useMemo(() => {
-    const totalQty = cartItems.reduce((sum, it) => sum + it.quantity, 0);
+    // Los combos tienen precio fijo: no suman al umbral ni se reprecian a mayorista.
+    const totalQty = cartItems.reduce(
+      (sum, it) => sum + (it.isCombo ? 0 : it.quantity),
+      0
+    );
     const qualifiesWholesale = totalQty >= WHOLESALE_THRESHOLD;
 
     const items = cartItems.map((item) => {
-      const canUseWholesale = qualifiesWholesale && item.wholesalePrice > 0;
+      const canUseWholesale =
+        qualifiesWholesale && !item.isCombo && item.wholesalePrice > 0;
       const effectivePrice = canUseWholesale ? item.wholesalePrice : item.price;
       return {
         ...item,

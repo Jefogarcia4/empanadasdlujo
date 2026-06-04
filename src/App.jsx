@@ -12,6 +12,7 @@ import LandingPage from './components/landing/LandingPage';
 import CartPage from './components/CartPage';
 import ProductDetail from './components/ProductDetail';
 import PedidoDetailPage from './components/PedidoDetailPage';
+import CombosShowcase from './components/CombosShowcase';
 import { fetchProducts } from './services/api';
 import './styles/App.css';
 import './styles/Landing.css';
@@ -155,6 +156,9 @@ function App() {
                 <p className="tienda-section-header__sub">Congelados listos para freír · Alta rotación · Excelente margen</p>
               </div>
               <ProductGrid products={filteredProducts} onSelectProduct={handleSelectProduct} />
+              <CombosShowcase
+                description="Ideales si no quieres pedir 10 paquetes o si vas a lanzar nuevos productos. Precio fijo: agrégalos al carrito como cualquier producto."
+              />
             </>
           )}
         </main>
