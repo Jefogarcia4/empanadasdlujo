@@ -205,9 +205,9 @@ function Cart({ onNavigate }) {
               </div>
 
               <button className="cart-modal__continue" onClick={closeCart}>
-                <BasketIcon size={22} className="cart-modal__continue-icon" />
+                <BasketIcon size={18} className="cart-modal__continue-icon" />
                 <span>Seguir comprando</span>
-                <ChevronIcon size={22} className="cart-modal__continue-arrow" />
+                <ChevronIcon size={18} className="cart-modal__continue-arrow" />
               </button>
 
               <div className="cart-modal__trust">
