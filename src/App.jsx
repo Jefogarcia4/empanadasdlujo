@@ -13,12 +13,16 @@ import CartPage from './components/CartPage';
 import ProductDetail from './components/ProductDetail';
 import PedidoDetailPage from './components/PedidoDetailPage';
 import CombosShowcase from './components/CombosShowcase';
+import AdminApp from './components/admin/AdminApp';
 import { fetchProducts } from './services/api';
 import './styles/App.css';
 import './styles/Landing.css';
 
 function parseRoute() {
   const path = window.location.pathname;
+  if (/^\/admin\/?$/i.test(path)) {
+    return { page: 'admin', pedidoId: null };
+  }
   const match = path.match(/^\/pedido\/(\d+)\/?$/i);
   if (match) {
     return { page: 'pedido_detail', pedidoId: Number(match[1]) };
@@ -68,6 +72,10 @@ function App() {
   }, []);
 
   const filteredProducts = products.filter(p => p.active);
+
+  if (currentPage === 'admin') {
+    return <AdminApp />;
+  }
 
   if (currentPage === 'pedido_detail') {
     return (

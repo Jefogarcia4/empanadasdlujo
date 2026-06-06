@@ -1,0 +1,336 @@
+:root {
+  --admin-bg: #f4f5f7;
+  --admin-surface: #ffffff;
+  --admin-border: #e3e6ea;
+  --admin-text: #1f2733;
+  --admin-muted: #6b7785;
+  --admin-primary: #c8102e;
+  --admin-primary-dark: #a00d25;
+}
+
+/* ─── Login ─────────────────────────────────────────────── */
+.admin-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--admin-bg);
+  padding: 1.5rem;
+}
+
+.admin-login__card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-login__logo {
+  width: 120px;
+  margin: 0 auto 0.5rem;
+  display: block;
+}
+
+.admin-login__title {
+  margin: 0;
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--admin-text);
+}
+
+.admin-login__subtitle {
+  margin: 0 0 0.5rem;
+  text-align: center;
+  color: var(--admin-muted);
+  font-size: 0.9rem;
+}
+
+.admin-login__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--admin-text);
+}
+
+.admin-login__field input {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 9px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.admin-login__field input:focus {
+  border-color: var(--admin-primary);
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.12);
+}
+
+.admin-login__error {
+  margin: 0;
+  color: var(--admin-primary);
+  font-size: 0.85rem;
+}
+
+.admin-login__submit {
+  margin-top: 0.25rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 9px;
+  background: var(--admin-primary);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.admin-login__submit:hover:not(:disabled) { background: var(--admin-primary-dark); }
+.admin-login__submit:disabled { opacity: 0.6; cursor: default; }
+
+/* ─── Layout ────────────────────────────────────────────── */
+.admin {
+  min-height: 100vh;
+  background: var(--admin-bg);
+  color: var(--admin-text);
+}
+
+.admin__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--admin-surface);
+  border-bottom: 1px solid var(--admin-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.admin__brand { display: flex; align-items: center; gap: 0.75rem; }
+.admin__logo { height: 38px; }
+.admin__title { font-size: 1.1rem; font-weight: 700; }
+
+.admin__user { display: flex; align-items: center; gap: 0.75rem; }
+.admin__user-name { font-size: 0.85rem; color: var(--admin-muted); }
+
+.admin__logout {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--admin-text);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.admin__logout:hover { background: var(--admin-bg); }
+
+.admin__main { padding: 1.5rem; max-width: 1200px; margin: 0 auto; }
+
+/* ─── Toolbar / filtros ─────────────────────────────────── */
+.admin__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.admin__filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.admin__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 999px;
+  background: var(--admin-surface);
+  font-size: 0.85rem;
+  color: var(--admin-text);
+  cursor: pointer;
+}
+
+.admin__filter--active {
+  background: var(--admin-primary);
+  border-color: var(--admin-primary);
+  color: #fff;
+}
+
+.admin__filter-count {
+  font-size: 0.72rem;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
+}
+.admin__filter--active .admin__filter-count { background: rgba(255, 255, 255, 0.25); }
+
+.admin__refresh {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-surface);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.admin__refresh:hover { background: var(--admin-surface); }
+
+/* ─── Estados ───────────────────────────────────────────── */
+.admin__status {
+  padding: 2rem;
+  text-align: center;
+  color: var(--admin-muted);
+}
+.admin__status--error { color: var(--admin-primary); }
+.admin__status--error button {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--admin-primary);
+  background: transparent;
+  color: var(--admin-primary);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ─── Tabla de pedidos ──────────────────────────────────── */
+.admin__table-wrap {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.admin__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.admin__table thead th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--admin-muted);
+  border-bottom: 1px solid var(--admin-border);
+  white-space: nowrap;
+}
+
+.admin-row td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--admin-border);
+  vertical-align: middle;
+}
+
+.admin-row__id { font-weight: 700; }
+.admin-row__date { color: var(--admin-muted); white-space: nowrap; }
+.admin-row__qty { text-align: center; }
+.admin-row__total { font-weight: 600; white-space: nowrap; }
+
+.admin-row__select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 7px;
+  font-size: 0.82rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.admin-row__saving { display: block; font-size: 0.72rem; color: var(--admin-muted); margin-top: 0.2rem; }
+.admin-row__error { display: block; font-size: 0.72rem; color: var(--admin-primary); margin-top: 0.2rem; }
+
+.admin-row__toggle {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 7px;
+  background: transparent;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.admin-row__toggle:hover { background: var(--admin-bg); }
+
+/* ─── Badges de estado ──────────────────────────────────── */
+.admin-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.admin-badge--pending   { background: #fff4d6; color: #8a6100; }
+.admin-badge--confirmed { background: #d9ecff; color: #0a5dab; }
+.admin-badge--delivered { background: #d8f5e0; color: #1f7a3d; }
+.admin-badge--cancelled { background: #ffe0e0; color: #b3261e; }
+
+/* ─── Detalle del pedido ────────────────────────────────── */
+.admin-detail-row td { background: var(--admin-bg); padding: 0; }
+
+.admin-detail { padding: 1rem 1.25rem; }
+
+.admin-detail__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.admin-detail__table th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--admin-muted);
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-detail__table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--admin-border);
+}
+.admin-detail__table tbody tr:last-child td { border-bottom: none; }
+
+.admin-detail__name { font-weight: 600; }
+.admin-detail__flavor { color: var(--admin-muted); margin-left: 0.4rem; font-size: 0.8rem; }
+.admin-detail__tag {
+  margin-left: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--admin-primary);
+  border: 1px solid var(--admin-primary);
+  border-radius: 5px;
+  padding: 0 0.3rem;
+}
+
+.admin-detail__totals {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--admin-muted);
+}
+
+.admin-detail__obs {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--admin-text);
+}
+
+@media (max-width: 640px) {
+  .admin__main { padding: 1rem; }
+  .admin-row__date { font-size: 0.78rem; }
+}
