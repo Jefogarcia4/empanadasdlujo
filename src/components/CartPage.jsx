@@ -46,6 +46,7 @@ function CartPage({ onNavigate }) {
 
   const [departamentos, setDepartamentos] = useState(DEPARTAMENTOS_FALLBACK);
   const [orderStatus, setOrderStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
+  const [errorMsg, setErrorMsg] = useState('');
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -80,10 +81,18 @@ function CartPage({ onNavigate }) {
       if (!String(form[field] ?? '').trim()) newErrors[field] = message;
     });
 
-    // Teléfono: 10 dígitos (celular Colombia).
-    const telDigits = String(form.telefono ?? '').replace(/\D/g, '');
-    if (!newErrors.telefono && telDigits.length !== 10) {
-      newErrors.telefono = 'El teléfono debe tener 10 dígitos.';
+    // Teléfono: celular colombiano (+57). Acepta el indicativo 57 opcional y
+    // exige 10 dígitos que empiecen por 3 (formato de móvil en Colombia).
+    if (!newErrors.telefono) {
+      let telDigits = String(form.telefono ?? '').replace(/\D/g, '');
+      // Permite que el usuario escriba el indicativo: 57 + 10 dígitos.
+      if (telDigits.length === 12 && telDigits.startsWith('57')) {
+        telDigits = telDigits.slice(2);
+      }
+      if (telDigits.length !== 10 || !telDigits.startsWith('3')) {
+        newErrors.telefono =
+          'Número de celular no válido. Debe ser un móvil colombiano (+57) de 10 dígitos que empiece por 3.';
+      }
     }
 
     // Email: formato válido.
@@ -100,6 +109,7 @@ function CartPage({ onNavigate }) {
     if (cartItems.length === 0) return;
     if (!validateForm()) return;
 
+    setErrorMsg('');
     setOrderStatus('sending');
     try {
       const result = await createPedido({
@@ -143,8 +153,9 @@ function CartPage({ onNavigate }) {
       }
     } catch (err) {
       console.error(err);
+      setErrorMsg(err?.message || '');
       setOrderStatus('error');
-      setTimeout(() => setOrderStatus('idle'), 4000);
+      setTimeout(() => setOrderStatus('idle'), 6000);
     }
   };
 
@@ -365,6 +376,7 @@ function CartPage({ onNavigate }) {
             {orderStatus === 'error' && (
               <div className="cart-status cart-status--error">
                 ❌ Error al enviar el pedido. Intenta de nuevo.
+                {errorMsg && <div className="cart-status__detail">{errorMsg}</div>}
               </div>
             )}
 

@@ -397,6 +397,14 @@
   border: 1.5px solid #f5a7a7;
 }
 
+.cart-status__detail {
+  margin-top: 6px;
+  font-size: 0.85em;
+  font-weight: 400;
+  opacity: 0.9;
+  word-break: break-word;
+}
+
 /* Botón enviar */
 .cart-submit-btn {
   width: 100%;
