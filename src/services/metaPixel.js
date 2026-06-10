@@ -9,13 +9,17 @@ function fbq(...args) {
   }
 }
 
-export function trackAddToCart(product) {
+export function trackAddToCart(product, quantity = 1) {
   if (!product) return;
+  const qty = Number(quantity) > 0 ? Number(quantity) : 1;
+  const unitPrice = Number(product.price) || 0;
   fbq('track', 'AddToCart', {
     content_ids: [String(product.id)],
     content_name: product.name,
     content_type: 'product',
-    value: Number(product.price) || 0,
+    contents: [{ id: String(product.id), quantity: qty, item_price: unitPrice }],
+    num_items: qty,
+    value: unitPrice * qty,
     currency: CURRENCY,
   });
 }

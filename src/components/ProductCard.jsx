@@ -8,9 +8,15 @@ import {
   FaChartLine,
 } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
+import { trackAddToCart } from '../services/metaPixel';
 
 function ProductCard({ product, onSelectProduct }) {
   const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    trackAddToCart(product);
+  };
 
   const handleDetailsClick = (e) => {
     e.preventDefault();
@@ -134,7 +140,7 @@ function ProductCard({ product, onSelectProduct }) {
         <a className="pcard__details" href="#" onClick={handleDetailsClick}>
           Ver detalles →
         </a>
-        <button className="pcard__btn" onClick={() => addToCart(product)}>
+        <button className="pcard__btn" onClick={handleAddToCart}>
           Agregar al carrito
         </button>
       </div>
