@@ -1286,7 +1286,7 @@ body {
   animation: cart-fab-badge-pop 0.5s ease-out;
 }
 
-/* WhatsApp floating buttons (stacked above the cart FAB) */
+/* WhatsApp floating button (single FAB that expands into a menu) */
 .wa-fab {
   position: fixed;
   right: 24px;
@@ -1296,6 +1296,25 @@ body {
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
+}
+
+/* Expandable menu with the two contact options */
+.wa-fab__menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(12px) scale(0.95);
+  transform-origin: bottom right;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.wa-fab--open .wa-fab__menu {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
 }
 
 .wa-fab__btn {
@@ -1330,6 +1349,42 @@ body {
   transform: scale(0.97);
 }
 
+/* The single round toggle button */
+.wa-fab__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  cursor: pointer;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.35),
+    0 2px 4px rgba(18, 140, 70, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.wa-fab__toggle:hover {
+  background: #1fb957;
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.4),
+    0 3px 8px rgba(18, 140, 70, 0.45);
+}
+
+.wa-fab__toggle:active {
+  transform: scale(0.95);
+}
+
+.wa-fab__toggle .wa-fab__icon {
+  width: 30px;
+  height: 30px;
+}
+
 .wa-fab__icon {
   width: 22px;
   height: 22px;
@@ -1359,6 +1414,16 @@ body {
     height: 40px;
     padding: 0 13px;
     font-size: 13px;
+  }
+
+  .wa-fab__toggle {
+    width: 52px;
+    height: 52px;
+  }
+
+  .wa-fab__toggle .wa-fab__icon {
+    width: 28px;
+    height: 28px;
   }
 
   .wa-fab__icon {
