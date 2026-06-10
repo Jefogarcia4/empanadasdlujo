@@ -100,6 +100,50 @@ function AdminOrderRow({ orden, products, onEstadoChanged, onSessionExpired }) {
         <tr className="admin-detail-row">
           <td colSpan={8}>
             <div className="admin-detail">
+              <div className="admin-detail__customer">
+                <h4 className="admin-detail__customer-title">Datos del cliente</h4>
+                <div className="admin-detail__customer-grid">
+                  <div className="admin-detail__field">
+                    <span className="admin-detail__field-label">Nombre</span>
+                    <span className="admin-detail__field-value">
+                      {[orden.nombreCliente, orden.apellidosCliente].filter(Boolean).join(' ') || '—'}
+                    </span>
+                  </div>
+                  <div className="admin-detail__field">
+                    <span className="admin-detail__field-label">Teléfono</span>
+                    <span className="admin-detail__field-value">
+                      {orden.telefonoCliente ? (
+                        <a href={`tel:${orden.telefonoCliente}`}>{orden.telefonoCliente}</a>
+                      ) : '—'}
+                    </span>
+                  </div>
+                  <div className="admin-detail__field">
+                    <span className="admin-detail__field-label">Email</span>
+                    <span className="admin-detail__field-value">
+                      {orden.emailCliente ? (
+                        <a href={`mailto:${orden.emailCliente}`}>{orden.emailCliente}</a>
+                      ) : '—'}
+                    </span>
+                  </div>
+                  <div className="admin-detail__field">
+                    <span className="admin-detail__field-label">Dirección</span>
+                    <span className="admin-detail__field-value">
+                      {[orden.direccionCliente, orden.casaApartamentoCliente].filter(Boolean).join(', ') || '—'}
+                    </span>
+                  </div>
+                  <div className="admin-detail__field">
+                    <span className="admin-detail__field-label">Ciudad / Depto.</span>
+                    <span className="admin-detail__field-value">
+                      {[orden.ciudadCliente, orden.departamentoCliente].filter(Boolean).join(', ') || '—'}
+                    </span>
+                  </div>
+                  <div className="admin-detail__field">
+                    <span className="admin-detail__field-label">Código postal</span>
+                    <span className="admin-detail__field-value">{orden.codigoPostalCliente || '—'}</span>
+                  </div>
+                </div>
+              </div>
+
               <table className="admin-detail__table">
                 <thead>
                   <tr>

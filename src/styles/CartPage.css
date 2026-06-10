@@ -67,6 +67,15 @@
     gap: 28px;
   }
 
+  /* En móvil: primero los productos, luego el formulario de datos. */
+  .cart-page__items-col {
+    order: 1;
+  }
+
+  .cart-page__form-col {
+    order: 2;
+  }
+
   .cart-page__form-col h3,
   .cart-page__items-col h3 {
     font-size: 16px;
