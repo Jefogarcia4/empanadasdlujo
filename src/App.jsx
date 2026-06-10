@@ -155,15 +155,15 @@ function App() {
           {errorProducts && <p className="products-status products-status--error">Error al cargar productos: {errorProducts}</p>}
           {!loadingProducts && !errorProducts && (
             <>
+              <CombosShowcase
+                description="Ideales si no quieres pedir 10 paquetes o si vas a lanzar nuevos productos. Precio fijo: agrégalos al carrito como cualquier producto."
+              />
               <div className="tienda-section-header">
                 <h2 className="tienda-section-header__title">
                   Vitrina digital
                 </h2>
                 <p className="tienda-section-header__sub">Congelados listos para freír · Alta rotación · Excelente margen</p>
               </div>
-              <CombosShowcase
-                description="Ideales si no quieres pedir 10 paquetes o si vas a lanzar nuevos productos. Precio fijo: agrégalos al carrito como cualquier producto."
-              />
               <ProductGrid products={filteredProducts} onSelectProduct={handleSelectProduct} />
             </>
           )}
