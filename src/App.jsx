@@ -161,10 +161,10 @@ function App() {
                 </h2>
                 <p className="tienda-section-header__sub">Congelados listos para freír · Alta rotación · Excelente margen</p>
               </div>
-              <ProductGrid products={filteredProducts} onSelectProduct={handleSelectProduct} />
               <CombosShowcase
                 description="Ideales si no quieres pedir 10 paquetes o si vas a lanzar nuevos productos. Precio fijo: agrégalos al carrito como cualquier producto."
               />
+              <ProductGrid products={filteredProducts} onSelectProduct={handleSelectProduct} />
             </>
           )}
         </main>
