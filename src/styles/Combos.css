@@ -1,33 +1,55 @@
 /* ── Sección de combos (vitrina y catálogo) ─────────────────── */
 .combos-showcase {
   max-width: 1200px;
-  margin: 2.5rem auto;
+  margin: 3rem auto;
   padding: 0 1rem;
 }
 
+/* ── Encabezado ─────────────────────────────────────────────── */
 .combos-showcase__header {
   text-align: center;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.combos-showcase__emoji {
+  display: block;
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
 }
 
 .combos-showcase__title {
-  font-size: 1.9rem;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
   font-weight: 800;
   color: #2b2118;
   margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.combos-showcase__title-accent {
+  color: #9b1313;
 }
 
 .combos-showcase__subtitle {
-  color: #ffb21b;
-  font-weight: 700;
-  margin: 0.25rem 0 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #6b6258;
+  font-size: 1.02rem;
+  font-weight: 500;
+  margin: 0.6rem 0 0;
+}
+
+.combos-showcase__star {
+  color: #f2a516;
+  font-size: 0.9rem;
 }
 
 .combos-showcase__desc {
   color: #6b6258;
   font-size: 0.95rem;
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0.75rem auto 0;
   line-height: 1.5;
 }
 
@@ -36,139 +58,300 @@
   color: #6b6258;
 }
 
+/* ── Grid de tarjetas ───────────────────────────────────────── */
 .combos-showcase__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
   align-items: stretch;
 }
 
 /* ── Tarjeta de combo ───────────────────────────────────────── */
 .combo-card {
+  /* Variables de tema; se sobreescriben por modificador */
+  --accent: #e8910c;
+  --accent-strong: #9b1313;
+  --soft: #fff3d6;
+
+  position: relative;
   display: flex;
   flex-direction: column;
-  border: 2px solid #ddd;
-  border-radius: 16px;
-  padding: 1.25rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  background: #fffdf8;
+  border: 1px solid #f0e4cf;
+  border-radius: 20px;
+  padding: 1.5rem 1.4rem 1.4rem;
+  box-shadow: 0 10px 28px rgba(60, 40, 10, 0.07);
 }
 
-.combo-card__header {
+.combo-card--inicial  { --accent: #e8910c; --soft: #fff2d4; }
+.combo-card--familiar { --accent: #e8690f; --soft: #ffe6d2; }
+.combo-card--premium  { --accent: #9b1313; --soft: #f8dada; }
+
+/* Encabezado de la tarjeta */
+.combo-card__top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-.combo-card__tag {
-  display: inline-block;
+.combo-card__id {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.combo-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.combo-card__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.combo-card__label {
   font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: #2b2118;
-  background: rgba(255, 255, 255, 0.65);
-  padding: 0.15rem 0.55rem;
-  border-radius: 999px;
-  margin-bottom: 0.35rem;
-}
-
-.combo-card__name {
-  font-size: 1.25rem;
   font-weight: 800;
-  color: #2b2118;
-  margin: 0;
-}
-
-.combo-card__badge {
-  font-size: 0.72rem;
-  font-weight: 700;
-  background: #2b2118;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: #fff;
-  padding: 0.2rem 0.5rem;
+  background: var(--accent);
+  padding: 0.32rem 0.7rem;
   border-radius: 999px;
   white-space: nowrap;
 }
 
-.combo-card__desc {
-  color: #5c5349;
-  font-size: 0.9rem;
-  margin: 0.5rem 0 0.75rem;
-}
-
-.combo-card__incluye {
-  font-size: 0.88rem;
-  color: #3d362e;
-  line-height: 1.45;
-  margin: 0 0 0.75rem;
-}
-
-.combo-card__items {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 0.75rem;
+/* Sello de ahorro */
+.combo-card__seal {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  align-items: center;
+  justify-content: center;
+  width: 78px;
+  height: 78px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  text-align: center;
+  line-height: 1.1;
+  box-shadow: 0 0 0 4px #fffdf8, 0 0 0 5px var(--accent);
 }
 
-.combo-card__items li {
-  font-size: 0.88rem;
-  color: #3d362e;
-  line-height: 1.35;
+.combo-card__seal-top {
+  font-size: 0.72rem;
+  font-weight: 600;
+  opacity: 0.95;
 }
 
-.combo-card__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  font-size: 0.82rem;
-  color: #5c5349;
-  margin-bottom: 0.75rem;
-}
-
-.combo-card__pricing {
-  margin-top: auto;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 10px;
-  padding: 0.6rem 0.75rem;
-  margin-bottom: 0.9rem;
-}
-
-.combo-card__normal {
-  font-size: 0.85rem;
-  color: #8a8178;
-}
-
-.combo-card__price {
+.combo-card__seal-amount {
   font-size: 1.05rem;
+  font-weight: 800;
+}
+
+/* Nombre */
+.combo-card__name {
+  margin: 0;
+  line-height: 1.12;
   color: #2b2118;
 }
 
-.combo-card__price strong {
+.combo-card__name-pre {
+  display: block;
   font-size: 1.3rem;
-}
-
-.combo-card__savings {
-  font-size: 0.9rem;
-  color: #2e7d32;
-}
-
-.combo-card__btn {
-  border: none;
-  color: #fff;
   font-weight: 700;
+}
+
+.combo-card__name-main {
+  display: block;
+  font-size: 1.65rem;
+  font-weight: 800;
+}
+
+.combo-card__tagline {
+  margin: 0.5rem 0 0;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+/* Precios */
+.combo-card__prices {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.1rem 0 1.2rem;
+}
+
+.combo-card__normal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.combo-card__normal-label {
+  font-size: 0.8rem;
+  color: #8a8178;
+}
+
+.combo-card__normal-value {
+  font-size: 1.05rem;
+  color: #9a938a;
+}
+
+.combo-card__pricebox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border-radius: 14px;
+  background: var(--soft);
+  text-align: center;
+}
+
+.combo-card__pricebox-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.combo-card__pricebox-value {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--accent-strong);
+  line-height: 1.1;
+}
+
+/* Variante premium: caja de precio sólida */
+.combo-card--premium .combo-card__pricebox {
+  background: var(--accent);
+}
+
+.combo-card--premium .combo-card__pricebox-label,
+.combo-card--premium .combo-card__pricebox-value {
+  color: #fff;
+}
+
+/* Incluye */
+.combo-card__includes {
+  margin-bottom: 1.3rem;
+}
+
+.combo-card__includes-title {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  color: #3d362e;
   font-size: 0.95rem;
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
+}
+
+.combo-card__includes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.combo-card__includes-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+  color: #4a423a;
+  line-height: 1.35;
+}
+
+.combo-card__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+/* Botón */
+.combo-card__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: auto;
+  border: none;
+  width: 100%;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 0.95rem 1rem;
+  border-radius: 14px;
   cursor: pointer;
+  background: linear-gradient(180deg, #b01818 0%, #7e0f0f 100%);
+  box-shadow: 0 6px 16px rgba(123, 15, 15, 0.28);
   transition: filter 0.15s ease, transform 0.1s ease;
 }
 
 .combo-card__btn:hover {
-  filter: brightness(0.95);
+  filter: brightness(1.06);
 }
 
 .combo-card__btn:active {
   transform: scale(0.98);
+}
+
+/* ── Barra de features inferior ─────────────────────────────── */
+.combos-showcase__features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: 2rem;
+  padding: 1.1rem 1.5rem;
+  background: #fffdf8;
+  border: 1px solid #f0e4cf;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(60, 40, 10, 0.05);
+}
+
+.combos-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #5c5349;
+  font-size: 0.9rem;
+  line-height: 1.25;
+  max-width: 240px;
+}
+
+.combos-feature__icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .combos-showcase__features {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
 }
