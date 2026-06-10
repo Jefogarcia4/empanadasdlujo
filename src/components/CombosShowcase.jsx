@@ -5,9 +5,17 @@ import '../styles/Combos.css';
 
 // Sección autocontenida: carga los combos activos y los muestra como tarjetas
 // agregables al carrito. Se usa tanto en la vitrina como en el catálogo.
+const FEATURES = [
+  { icon: '❄️', text: 'Productos congelados listos para freír' },
+  { icon: '🏅', text: 'Hechos con ingredientes de alta calidad' },
+  { icon: '❤️', text: 'Sabor casero que encanta' },
+  { icon: '🛵', text: 'Despachos en Medellín y área metropolitana' },
+];
+
 function CombosShowcase({
-  title = 'Combos para empezar',
-  subtitle = 'Empieza fácil, ahorra más',
+  title = 'Combos Especiales',
+  titleAccent = 'para Empezar',
+  subtitle = 'Ideales para tu hogar o negocio. Ahorra más.',
   description,
 }) {
   const [combos, setCombos] = useState([]);
@@ -34,19 +42,38 @@ function CombosShowcase({
   return (
     <section className="combos-showcase">
       <div className="combos-showcase__header">
-        <h2 className="combos-showcase__title">{title}</h2>
-        <p className="combos-showcase__subtitle">{subtitle}</p>
+        <span className="combos-showcase__emoji" aria-hidden="true">🥟</span>
+        <h2 className="combos-showcase__title">
+          <span className="combos-showcase__title-accent">{title}</span>{' '}
+          {titleAccent}
+        </h2>
+        <p className="combos-showcase__subtitle">
+          <span className="combos-showcase__star" aria-hidden="true">★</span>
+          {subtitle}
+          <span className="combos-showcase__star" aria-hidden="true">★</span>
+        </p>
         {description && <p className="combos-showcase__desc">{description}</p>}
       </div>
 
       {status === 'loading' ? (
         <p className="combos-showcase__status">Cargando combos...</p>
       ) : (
-        <div className="combos-showcase__grid">
-          {combos.map((combo, i) => (
-            <ComboCard key={combo.id} combo={combo} index={i} />
-          ))}
-        </div>
+        <>
+          <div className="combos-showcase__grid">
+            {combos.map((combo, i) => (
+              <ComboCard key={combo.id} combo={combo} index={i} />
+            ))}
+          </div>
+
+          <div className="combos-showcase__features">
+            {FEATURES.map((f) => (
+              <div key={f.text} className="combos-feature">
+                <span className="combos-feature__icon" aria-hidden="true">{f.icon}</span>
+                <span className="combos-feature__text">{f.text}</span>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </section>
   );

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
-import Hero from './components/Hero';
 import ProductGrid from './components/ProductGrid';
 import Cart from './components/Cart';
 import CartFab from './components/CartFab';
@@ -151,7 +150,6 @@ function App() {
     <CartProvider>
       <div className="app">
         <Header currentPage={currentPage} onNavigate={handleNavigate} />
-        <Hero />
         <main className="main-content">
           {loadingProducts && <p className="products-status">Cargando productos...</p>}
           {errorProducts && <p className="products-status products-status--error">Error al cargar productos: {errorProducts}</p>}
