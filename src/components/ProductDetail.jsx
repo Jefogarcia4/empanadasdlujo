@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { trackAddToCart } from '../services/metaPixel';
 import '../styles/ProductDetail.css';
 
 const formatPrice = (price) =>
@@ -96,6 +97,8 @@ function ProductDetail({ product, onNavigate }) {
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) addToCart(product);
+    // Un solo evento de pixel con la cantidad total (evita duplicados).
+    trackAddToCart(product, quantity);
   };
 
   const decrement = () => setQuantity((q) => Math.max(1, q - 1));

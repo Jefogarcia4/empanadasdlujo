@@ -1,4 +1,5 @@
 import { useCart } from '../context/CartContext';
+import { trackAddToCart } from '../services/metaPixel';
 
 // Tema por posición: inicial (dorado) → familiar (naranja) → premium (rojo).
 // El 4º reutiliza el primero si algún día hay más combos.
@@ -81,6 +82,7 @@ function ComboCard({ combo, index = 0 }) {
 
   const handleAdd = () => {
     addToCart(combo);
+    trackAddToCart(combo);
     openCart();
   };
 
