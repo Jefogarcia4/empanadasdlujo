@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { sendOrderViaWhatsAppAPI, sendOrderConfirmationToClient } from '../services/whatsapp';
 import { createPedido } from '../services/pedidos';
-import { trackPurchase } from '../services/metaPixel';
+import { trackLead } from '../services/metaPixel';
 import { fetchDepartamentosColombia, DEPARTAMENTOS_FALLBACK } from '../services/colombia';
 import '../styles/CartPage.css';
 
@@ -140,7 +140,8 @@ function CartPage({ onNavigate }) {
       } catch (waErr) {
         console.warn('WhatsApp client confirmation failed, order still saved:', waErr);
       }
-      trackPurchase(cartItemsPricing, totalToPay, pedidoId);
+      // Pedido pendiente: registramos Lead, no Purchase (Purchase = pedido pagado).
+      trackLead(cartItemsPricing, totalToPay, pedidoId);
       setOrderStatus('success');
       clearCart();
       if (pedidoId) {
