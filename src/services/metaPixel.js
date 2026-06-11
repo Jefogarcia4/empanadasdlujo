@@ -24,9 +24,9 @@ export function trackAddToCart(product, quantity = 1) {
   });
 }
 
-export function trackPurchase(cartItems, totalPrice, orderId) {
+function buildOrderPayload(cartItems, totalPrice, orderId) {
   const items = Array.isArray(cartItems) ? cartItems : [];
-  fbq('track', 'Purchase', {
+  return {
     content_ids: items.map((it) => String(it.id)),
     content_type: 'product',
     contents: items.map((it) => ({
@@ -38,5 +38,14 @@ export function trackPurchase(cartItems, totalPrice, orderId) {
     value: Number(totalPrice) || 0,
     currency: CURRENCY,
     order_id: orderId ? String(orderId) : undefined,
-  });
+  };
+}
+
+// Pedido solicitado (pendiente, aún sin pago). Reservamos Purchase para pedidos pagados.
+export function trackLead(cartItems, totalPrice, orderId) {
+  fbq('track', 'Lead', buildOrderPayload(cartItems, totalPrice, orderId));
+}
+
+export function trackPurchase(cartItems, totalPrice, orderId) {
+  fbq('track', 'Purchase', buildOrderPayload(cartItems, totalPrice, orderId));
 }
