@@ -202,6 +202,45 @@
 }
 .admin__refresh:hover { background: var(--admin-surface); }
 
+/* ─── Cards resumen por estado ──────────────────────────── */
+.admin__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-left: 4px solid var(--admin-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.admin-card:hover { box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07); transform: translateY(-1px); }
+.admin-card--active { box-shadow: 0 0 0 2px var(--admin-text) inset; }
+
+.admin-card__label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--admin-muted);
+}
+.admin-card__total { font-size: 1.3rem; font-weight: 700; color: var(--admin-text); }
+.admin-card__count { font-size: 0.78rem; color: var(--admin-muted); }
+
+.admin-card--pending   { border-left-color: #f0b429; }
+.admin-card--confirmed { border-left-color: #0a5dab; }
+.admin-card--delivered { border-left-color: #1f7a3d; }
+.admin-card--cancelled { border-left-color: #b3261e; }
+
 /* ─── Estados ───────────────────────────────────────────── */
 .admin__status {
   padding: 2rem;
@@ -482,6 +521,10 @@
   .admin__main { padding: 1rem; }
   .admin__toolbar { margin-bottom: 1rem; }
   .admin__refresh { width: 100%; }
+
+  .admin__cards { grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; }
+  .admin-card { padding: 0.7rem 0.8rem; }
+  .admin-card__total { font-size: 1.15rem; }
 
   /* Tabla → tarjetas */
   .admin__table-wrap {

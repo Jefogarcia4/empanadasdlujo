@@ -5,6 +5,14 @@ import AdminOrderRow, { ESTADOS, ESTADO_META } from './AdminOrderRow';
 
 const FILTROS = ['TODOS', ...ESTADOS];
 
+const formatPrice = (price) =>
+  new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(price ?? 0);
+
 function AdminPage({ onSessionExpired }) {
   const [ordenes, setOrdenes] = useState([]);
   const [products, setProducts] = useState({});
@@ -52,6 +60,18 @@ function AdminPage({ onSessionExpired }) {
     return c;
   }, [ordenes]);
 
+  // Resumen por estado: cantidad de pedidos y total en dinero, para las cards superiores.
+  const resumen = useMemo(() => {
+    const r = {};
+    for (const es of ESTADOS) r[es] = { count: 0, total: 0 };
+    for (const o of ordenes) {
+      if (!r[o.estado]) r[o.estado] = { count: 0, total: 0 };
+      r[o.estado].count += 1;
+      r[o.estado].total += o.total ?? 0;
+    }
+    return r;
+  }, [ordenes]);
+
   const visibles = useMemo(() => {
     const list = filtro === 'TODOS'
       ? ordenes
@@ -61,6 +81,25 @@ function AdminPage({ onSessionExpired }) {
 
   return (
     <main className="admin__main">
+        {status === 'ok' && (
+          <section className="admin__cards">
+            {ESTADOS.map((es) => (
+              <button
+                key={es}
+                type="button"
+                className={`admin-card admin-card--${ESTADO_META[es].tone}${filtro === es ? ' admin-card--active' : ''}`}
+                onClick={() => setFiltro((f) => (f === es ? 'TODOS' : es))}
+              >
+                <span className="admin-card__label">{ESTADO_META[es].label}</span>
+                <span className="admin-card__total">{formatPrice(resumen[es].total)}</span>
+                <span className="admin-card__count">
+                  {resumen[es].count} {resumen[es].count === 1 ? 'pedido' : 'pedidos'}
+                </span>
+              </button>
+            ))}
+          </section>
+        )}
+
         <div className="admin__toolbar">
           <div className="admin__filters">
             {FILTROS.map((f) => (
