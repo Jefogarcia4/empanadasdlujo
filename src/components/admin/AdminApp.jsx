@@ -1,11 +1,19 @@
 import { useState } from 'react';
-import { isAuthenticated, logout } from '../../services/auth';
+import { isAuthenticated, logout, getSession } from '../../services/auth';
 import AdminLogin from './AdminLogin';
 import AdminPage from './AdminPage';
+import AdminLogsPage from './AdminLogsPage';
 import '../../styles/Admin.css';
+
+const TABS = [
+  { key: 'pedidos', label: 'Pedidos' },
+  { key: 'logs', label: 'Logs WhatsApp' },
+];
 
 function AdminApp() {
   const [authed, setAuthed] = useState(isAuthenticated());
+  const [view, setView] = useState('pedidos');
+  const session = getSession();
 
   const handleLogout = () => {
     logout();
@@ -16,7 +24,42 @@ function AdminApp() {
     return <AdminLogin onLoggedIn={() => setAuthed(true)} />;
   }
 
-  return <AdminPage onLogout={handleLogout} />;
+  return (
+    <div className="admin">
+      <header className="admin__topbar">
+        <div className="admin__brand">
+          <img src="/fondo_menu.png" alt="Empanadas D'lujo" className="admin__logo" />
+          <span className="admin__title">Admin</span>
+        </div>
+
+        <nav className="admin__nav">
+          {TABS.map((t) => (
+            <button
+              key={t.key}
+              type="button"
+              className={`admin__nav-link${view === t.key ? ' admin__nav-link--active' : ''}`}
+              onClick={() => setView(t.key)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </nav>
+
+        <div className="admin__user">
+          <span className="admin__user-name">
+            {session?.username} · {session?.role}
+          </span>
+          <button type="button" className="admin__logout" onClick={handleLogout}>
+            Cerrar sesión
+          </button>
+        </div>
+      </header>
+
+      {view === 'pedidos'
+        ? <AdminPage onSessionExpired={handleLogout} />
+        : <AdminLogsPage onSessionExpired={handleLogout} />}
+    </div>
+  );
 }
 
 export default AdminApp;

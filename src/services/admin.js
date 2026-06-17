@@ -46,10 +46,13 @@ export async function updateEstadoOrden(idOrden, estado) {
   return true;
 }
 
-// Logs de envíos de WhatsApp fallidos para una orden (más recientes primero).
-export async function fetchWhatsAppLogs(idOrden) {
+// Logs de envíos de WhatsApp (más recientes primero). Filtros opcionales:
+// idOrden, estado ('EXITOSO' | 'FALLIDO') y take (máximo de filas).
+export async function fetchWhatsAppLogs({ idOrden, estado, take } = {}) {
   const url = new URL(`${API_BASE_URL}/api/whatsapp/logs`);
   if (idOrden != null) url.searchParams.set('idOrden', idOrden);
+  if (estado) url.searchParams.set('estado', estado);
+  if (take != null) url.searchParams.set('take', take);
 
   const response = await fetch(url, { headers: authHeaders() });
   if (response.status === 401) handleUnauthorized();

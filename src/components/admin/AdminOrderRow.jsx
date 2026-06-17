@@ -49,12 +49,17 @@ function AdminOrderRow({ orden, products, onEstadoChanged, onSessionExpired }) {
   const totalUnidades = orden.detalles?.reduce((s, d) => s + d.cantidadPaquetes, 0) ?? 0;
   const sinTelefono = !orden.telefonoCliente;
 
-  // Al expandir, busca el último envío fallido de esta orden para avisar al admin.
+  // Al expandir, avisa solo si el ÚLTIMO intento de esta orden fue fallido
+  // (si después hubo un reenvío exitoso, no hay nada que avisar).
   useEffect(() => {
     if (!expanded) return;
     let cancel = false;
-    fetchWhatsAppLogs(orden.idOrden)
-      .then((logs) => { if (!cancel) setLastFail(logs?.[0] ?? null); })
+    fetchWhatsAppLogs({ idOrden: orden.idOrden })
+      .then((logs) => {
+        if (cancel) return;
+        const latest = logs?.[0];
+        setLastFail(latest && latest.estado === 'FALLIDO' ? latest : null);
+      })
       .catch((err) => {
         if (err.message === 'SESSION_EXPIRED') onSessionExpired?.();
       });

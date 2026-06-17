@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { fetchOrdenes } from '../../services/admin';
 import { fetchProducts } from '../../services/api';
-import { getSession, logout } from '../../services/auth';
 import AdminOrderRow, { ESTADOS, ESTADO_META } from './AdminOrderRow';
 
 const FILTROS = ['TODOS', ...ESTADOS];
 
-function AdminPage({ onLogout }) {
-  const session = getSession();
+function AdminPage({ onSessionExpired }) {
   const [ordenes, setOrdenes] = useState([]);
   const [products, setProducts] = useState({});
   const [filtro, setFiltro] = useState('TODOS');
@@ -15,9 +13,8 @@ function AdminPage({ onLogout }) {
   const [error, setError] = useState(null);
 
   const handleSessionExpired = useCallback(() => {
-    logout();
-    onLogout?.();
-  }, [onLogout]);
+    onSessionExpired?.();
+  }, [onSessionExpired]);
 
   const cargar = useCallback(() => {
     setStatus('loading');
@@ -63,23 +60,7 @@ function AdminPage({ onLogout }) {
   }, [ordenes, filtro]);
 
   return (
-    <div className="admin">
-      <header className="admin__topbar">
-        <div className="admin__brand">
-          <img src="/fondo_menu.png" alt="Empanadas D'lujo" className="admin__logo" />
-          <span className="admin__title">Pedidos</span>
-        </div>
-        <div className="admin__user">
-          <span className="admin__user-name">
-            {session?.username} · {session?.role}
-          </span>
-          <button type="button" className="admin__logout" onClick={onLogout}>
-            Cerrar sesión
-          </button>
-        </div>
-      </header>
-
-      <main className="admin__main">
+    <main className="admin__main">
         <div className="admin__toolbar">
           <div className="admin__filters">
             {FILTROS.map((f) => (
@@ -141,8 +122,7 @@ function AdminPage({ onLogout }) {
             </table>
           </div>
         )}
-      </main>
-    </div>
+    </main>
   );
 }
 
