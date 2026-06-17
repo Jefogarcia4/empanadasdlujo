@@ -97,6 +97,7 @@ function buildResendArgs(orden, products = {}) {
 }
 
 // Reenvía la notificación del pedido al WhatsApp del negocio (plantilla enviar_orden).
+// orden.total ya incluye el domicilio (lo persiste el backend al crear la orden).
 export async function resendOrderToBusiness(orden, products) {
   const { cartItems, buyerInfo } = buildResendArgs(orden, products);
   return sendOrderViaWhatsAppAPI(cartItems, orden.total, buyerInfo, orden.idOrden);
