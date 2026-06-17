@@ -100,6 +100,8 @@ export async function sendOrderViaWhatsAppAPI(cartItems, totalPrice, buyerInfo =
   const productsList = buildProductsList(cartItems);
 
   const body = {
+    idOrden: orderId ?? null,
+    tipo: 'NEGOCIO',
     template: {
       name: 'enviar_orden',
       language: {
@@ -141,6 +143,8 @@ export async function sendOrderConfirmationToClient(cartItems, totalPrice, buyer
 
   const body = {
     to, // cambia el destinatario al teléfono del formulario de la venta
+    idOrden: orderId ?? null,
+    tipo: 'CLIENTE',
     template: {
       name: 'confirmacion_pedido_cliente',
       language: {

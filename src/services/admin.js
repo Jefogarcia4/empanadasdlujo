@@ -1,4 +1,5 @@
 import { getAuthToken, logout } from './auth';
+import { sendOrderViaWhatsAppAPI, sendOrderConfirmationToClient } from './whatsapp';
 
 const API_BASE_URL = 'https://empanadasdlujosapi.azurewebsites.net';
 
@@ -43,4 +44,63 @@ export async function updateEstadoOrden(idOrden, estado) {
     throw new Error(`No se pudo actualizar el estado: ${msg}`);
   }
   return true;
+}
+
+// Logs de envíos de WhatsApp fallidos para una orden (más recientes primero).
+export async function fetchWhatsAppLogs(idOrden) {
+  const url = new URL(`${API_BASE_URL}/api/whatsapp/logs`);
+  if (idOrden != null) url.searchParams.set('idOrden', idOrden);
+
+  const response = await fetch(url, { headers: authHeaders() });
+  if (response.status === 401) handleUnauthorized();
+  if (!response.ok) {
+    throw new Error(`No se pudieron cargar los logs: HTTP ${response.status}`);
+  }
+  return response.json();
+}
+
+// Reconstruye las formas cartItems/buyerInfo que esperan las funciones de whatsapp.js
+// a partir de la orden cargada en el admin (OrdenDto) y el mapa de productos.
+function buildResendArgs(orden, products = {}) {
+  const cartItems = (orden.detalles ?? []).map((d) => {
+    const prod = products[d.codigoSku];
+    return {
+      quantity: d.cantidadPaquetes,
+      name: d.esCombo
+        ? d.nombreCombo || d.codigoCombo || 'Combo'
+        : prod?.name || d.codigoSku,
+      flavor: d.esCombo ? null : prod?.flavor,
+      weight: d.esCombo ? null : prod?.weight,
+      isCombo: d.esCombo,
+      subcategory: d.esCombo ? 'Combo' : undefined,
+    };
+  });
+
+  const buyerInfo = {
+    nombre: orden.nombreCliente ?? '',
+    apellidos: orden.apellidosCliente ?? '',
+    telefono: orden.telefonoCliente ?? '',
+    email: orden.emailCliente ?? '',
+    direccion: orden.direccionCliente ?? '',
+    casaApartamento: orden.casaApartamentoCliente ?? '',
+    ciudad: orden.ciudadCliente ?? '',
+    departamento: orden.departamentoCliente ?? '',
+    codigoPostal: orden.codigoPostalCliente ?? '',
+    pais: orden.paisCliente ?? 'Colombia',
+    // tipoPago / tipoEntrega no se almacenan en la orden → usan los defaults de whatsapp.js.
+  };
+
+  return { cartItems, buyerInfo };
+}
+
+// Reenvía la notificación del pedido al WhatsApp del negocio (plantilla enviar_orden).
+export async function resendOrderToBusiness(orden, products) {
+  const { cartItems, buyerInfo } = buildResendArgs(orden, products);
+  return sendOrderViaWhatsAppAPI(cartItems, orden.total, buyerInfo, orden.idOrden);
+}
+
+// Reenvía la confirmación del pedido al WhatsApp del cliente.
+export async function resendOrderToClient(orden, products) {
+  const { cartItems, buyerInfo } = buildResendArgs(orden, products);
+  return sendOrderConfirmationToClient(cartItems, orden.total, buyerInfo, orden.idOrden);
 }
