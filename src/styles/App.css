@@ -1152,24 +1152,6 @@ body {
   border: 1px solid #f5c6cb;
 }
 
-/* Footer */
-.footer {
-  background: var(--color-dark-brown);
-  color: white;
-  text-align: center;
-  padding: 2rem;
-  margin-top: 3rem;
-}
-
-.footer p {
-  opacity: 0.9;
-}
-
-.footer-brand {
-  color: var(--color-gold);
-  font-weight: 700;
-}
-
 /* Toast Notification */
 .toast {
   position: fixed;
@@ -1591,11 +1573,6 @@ body {
     max-width: 100%;
   }
 
-  .footer {
-    padding: 1.5rem 1rem;
-    margin-top: 2rem;
-    font-size: 0.9rem;
-  }
 }
 
 @media (max-width: 480px) {
