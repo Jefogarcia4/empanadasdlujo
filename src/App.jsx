@@ -82,7 +82,7 @@ function App() {
         <div className="app">
           <Header currentPage={currentPage} onNavigate={handleNavigate} />
           <PedidoDetailPage pedidoId={selectedPedidoId} onNavigate={handleNavigate} />
-          <Footer />
+          <Footer onNavigate={handleNavigate} />
         </div>
       </CartProvider>
     );
@@ -94,7 +94,7 @@ function App() {
         <div className="app">
           <Header currentPage={currentPage} onNavigate={handleNavigate} />
           <CartPage onNavigate={handleNavigate} />
-          <Footer />
+          <Footer onNavigate={handleNavigate} />
         </div>
       </CartProvider>
     );
@@ -109,7 +109,7 @@ function App() {
           <Cart onNavigate={handleNavigate} />
           <WhatsAppFab />
           <CartFab />
-          <Footer />
+          <Footer onNavigate={handleNavigate} />
         </div>
       </CartProvider>
     );
@@ -124,7 +124,7 @@ function App() {
           <Cart onNavigate={handleNavigate} />
           <WhatsAppFab />
           <CartFab />
-          <Footer />
+          <Footer onNavigate={handleNavigate} />
         </div>
       </CartProvider>
     );
@@ -139,7 +139,7 @@ function App() {
           <Cart onNavigate={handleNavigate} />
           <WhatsAppFab />
           <CartFab />
-          <Footer />
+          <Footer onNavigate={handleNavigate} />
         </div>
       </CartProvider>
     );
@@ -171,7 +171,7 @@ function App() {
         <Cart onNavigate={handleNavigate} />
         <WhatsAppFab />
         <CartFab />
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
       </div>
     </CartProvider>
   );
