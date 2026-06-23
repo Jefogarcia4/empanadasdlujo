@@ -160,7 +160,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.35rem;
 }
 
 .combo-card__id {
@@ -201,7 +201,9 @@
 
 /* Sello de ahorro (festoneado tipo sticker) */
 .combo-card__seal {
-  position: relative;
+  position: absolute;
+  top: 1.4rem;
+  right: 1.4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -229,13 +231,6 @@
 
 .combo-card--premium .combo-card__seal-fill { fill: var(--accent-strong); }
 
-.combo-card__seal-ring {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.55);
-  stroke-width: 1.4;
-  stroke-dasharray: 3 3;
-}
-
 .combo-card__seal-top {
   position: relative;
   font-size: 0.72rem;
@@ -253,6 +248,7 @@
 /* Nombre */
 .combo-card__name {
   margin: 0;
+  padding-right: 4.75rem;
   line-height: 1.12;
   color: #2b2118;
 }
