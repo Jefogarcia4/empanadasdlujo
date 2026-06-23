@@ -58,7 +58,6 @@ const SEAL_PATH = (() => {
 const sealShape = (
   <svg className="combo-card__seal-bg" viewBox="0 0 100 100" aria-hidden="true">
     <path className="combo-card__seal-fill" d={SEAL_PATH} />
-    <circle className="combo-card__seal-ring" cx="50" cy="50" r="37" />
   </svg>
 );
 
