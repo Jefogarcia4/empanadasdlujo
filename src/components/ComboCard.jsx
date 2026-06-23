@@ -38,6 +38,30 @@ const cartIcon = (
   </svg>
 );
 
+// Contorno festoneado del sello "Ahorras" (estilo sticker/sello), generado una
+// sola vez. El radio oscila suavemente para dibujar las ondas del borde.
+const SEAL_PATH = (() => {
+  const bumps = 15;
+  const amp = 0.06;
+  const steps = 240;
+  let d = '';
+  for (let i = 0; i <= steps; i++) {
+    const t = (i / steps) * Math.PI * 2;
+    const r = 47 * (1 - amp) + 47 * amp * Math.cos(bumps * t);
+    const x = 50 + r * Math.cos(t);
+    const y = 50 + r * Math.sin(t);
+    d += `${i === 0 ? 'M' : 'L'}${x.toFixed(2)},${y.toFixed(2)}`;
+  }
+  return `${d}Z`;
+})();
+
+const sealShape = (
+  <svg className="combo-card__seal-bg" viewBox="0 0 100 100" aria-hidden="true">
+    <path className="combo-card__seal-fill" d={SEAL_PATH} />
+    <circle className="combo-card__seal-ring" cx="50" cy="50" r="37" />
+  </svg>
+);
+
 const formatPrice = (n) =>
   new Intl.NumberFormat('es-CO', {
     style: 'currency',
@@ -108,6 +132,7 @@ function ComboCard({ combo, index = 0 }) {
         </div>
         {combo.savings > 0 && (
           <div className="combo-card__seal">
+            {sealShape}
             <span className="combo-card__seal-top">Ahorras</span>
             <span className="combo-card__seal-amount">{formatPrice(combo.savings)}</span>
           </div>
