@@ -82,7 +82,8 @@ function App() {
         <div className="app">
           <Header currentPage={currentPage} onNavigate={handleNavigate} />
           <PedidoDetailPage pedidoId={selectedPedidoId} onNavigate={handleNavigate} />
-          <Footer onNavigate={handleNavigate} />
+          {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
+          {/* <Footer onNavigate={handleNavigate} /> */}
         </div>
       </CartProvider>
     );
@@ -94,7 +95,8 @@ function App() {
         <div className="app">
           <Header currentPage={currentPage} onNavigate={handleNavigate} />
           <CartPage onNavigate={handleNavigate} />
-          <Footer onNavigate={handleNavigate} />
+          {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
+          {/* <Footer onNavigate={handleNavigate} /> */}
         </div>
       </CartProvider>
     );
@@ -109,7 +111,8 @@ function App() {
           <Cart onNavigate={handleNavigate} />
           <WhatsAppFab />
           <CartFab />
-          <Footer onNavigate={handleNavigate} />
+          {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
+          {/* <Footer onNavigate={handleNavigate} /> */}
         </div>
       </CartProvider>
     );
@@ -124,7 +127,8 @@ function App() {
           <Cart onNavigate={handleNavigate} />
           <WhatsAppFab />
           <CartFab />
-          <Footer onNavigate={handleNavigate} />
+          {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
+          {/* <Footer onNavigate={handleNavigate} /> */}
         </div>
       </CartProvider>
     );
@@ -139,7 +143,8 @@ function App() {
           <Cart onNavigate={handleNavigate} />
           <WhatsAppFab />
           <CartFab />
-          <Footer onNavigate={handleNavigate} />
+          {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
+          {/* <Footer onNavigate={handleNavigate} /> */}
         </div>
       </CartProvider>
     );
@@ -171,7 +176,8 @@ function App() {
         <Cart onNavigate={handleNavigate} />
         <WhatsAppFab />
         <CartFab />
-        <Footer onNavigate={handleNavigate} />
+        {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
+          {/* <Footer onNavigate={handleNavigate} /> */}
       </div>
     </CartProvider>
   );
