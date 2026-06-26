@@ -357,10 +357,88 @@ body {
   padding: 2rem;
 }
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+/* ── Carrusel horizontal de productos ───────────────────────── */
+.products-carousel {
+  position: relative;
+}
+
+.products-carousel__track {
+  display: flex;
   gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 0.25rem;
+  /* Espacio arriba/abajo para que el hover (lift + sombra) no se recorte */
+  padding: 0.75rem 0.25rem 1.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(40, 28, 2, 0.25) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.products-carousel__track > .pcard {
+  flex: 0 0 270px;
+  width: 270px;
+  scroll-snap-align: start;
+}
+
+/* Scrollbar sutil en navegadores WebKit */
+.products-carousel__track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.products-carousel__track::-webkit-scrollbar-thumb {
+  background: rgba(40, 28, 2, 0.2);
+  border-radius: 999px;
+}
+
+.products-carousel__track::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Flechas de navegación */
+.products-carousel__nav {
+  position: absolute;
+  top: 42%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(40, 28, 2, 0.08);
+  background: #fff;
+  color: var(--color-dark-brown);
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(40, 28, 2, 0.15);
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.products-carousel__nav svg {
+  width: 22px;
+  height: 22px;
+}
+
+.products-carousel__nav:hover {
+  background: var(--color-gold);
+  color: var(--color-dark-brown);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.products-carousel__nav--prev { left: -10px; }
+.products-carousel__nav--next { right: -10px; }
+
+/* En pantallas táctiles se navega deslizando: ocultamos las flechas */
+@media (max-width: 768px) {
+  .products-carousel__nav {
+    display: none;
+  }
+
+  .products-carousel__track > .pcard {
+    flex-basis: 82%;
+    width: 82%;
+  }
 }
 
 /* ── Product Card (pcard) ────────────────────────────────────── */
@@ -1486,10 +1564,6 @@ body {
     padding: 1.25rem 0.875rem;
   }
 
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
 
   .pcard__img-wrap {
     height: 150px;
@@ -1605,10 +1679,6 @@ body {
     font-size: 0.85rem;
   }
 
-  .products-grid {
-    grid-template-columns: 1fr;
-    gap: 0.875rem;
-  }
 
   .pcard__img-wrap {
     height: 200px;

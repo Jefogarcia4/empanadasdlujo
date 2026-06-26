@@ -43,7 +43,7 @@ function buildOrderPayload(cartItems, totalPrice, orderId) {
 
 // Pedido solicitado (pendiente, aún sin pago). Reservamos Purchase para pedidos pagados.
 export function trackLead(cartItems, totalPrice, orderId) {
-  fbq('track', 'Lead', buildOrderPayload(cartItems, totalPrice, orderId));
+  fbq('track', 'CompleteRegistration', buildOrderPayload(cartItems, totalPrice, orderId));
 }
 
 export function trackPurchase(cartItems, totalPrice, orderId) {
