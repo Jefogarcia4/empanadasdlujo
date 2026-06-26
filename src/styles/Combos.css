@@ -87,12 +87,40 @@
   color: #6b6258;
 }
 
-/* ── Grid de tarjetas ───────────────────────────────────────── */
+/* ── Carrusel horizontal de tarjetas ────────────────────────── */
 .combos-showcase__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
   gap: 1.75rem;
+  /* "safe center": centra cuando caben (escritorio) y se alinea al
+     inicio —sin recortar— cuando hay scroll (móvil). */
+  justify-content: safe center;
   align-items: stretch;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 0.25rem;
+  /* Espacio para que el hover (lift + sombra) no se recorte */
+  padding: 0.75rem 0.25rem 1.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(123, 15, 15, 0.25) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.combos-showcase__grid > .combo-card {
+  flex: 0 0 340px;
+  scroll-snap-align: start;
+}
+
+.combos-showcase__grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.combos-showcase__grid::-webkit-scrollbar-thumb {
+  background: rgba(123, 15, 15, 0.22);
+  border-radius: 999px;
+}
+
+.combos-showcase__grid::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* ── Tarjeta de combo ───────────────────────────────────────── */
@@ -449,6 +477,12 @@
   border-radius: 11px;
   background: #fff3df;
   box-shadow: inset 0 0 0 1px rgba(232, 145, 12, 0.15);
+}
+
+@media (max-width: 768px) {
+  .combos-showcase__grid > .combo-card {
+    flex-basis: 85%;
+  }
 }
 
 @media (max-width: 640px) {
