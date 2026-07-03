@@ -181,7 +181,8 @@ function PedidoDetailPage({ pedidoId, onNavigate }) {
           </div>
           <div className="pedido-page__totals-row pedido-page__totals-row--total">
             <span>Total pagado</span>
-            <span>{formatPrice(pedido.total + DELIVERY_FEE)}</span>
+            {/* pedido.total ya incluye el domicilio (el backend lo suma al guardar). */}
+            <span>{formatPrice(pedido.total)}</span>
           </div>
         </div>
       </section>
