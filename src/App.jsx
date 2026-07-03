@@ -11,6 +11,7 @@ import LandingPage from './components/landing/LandingPage';
 import CartPage from './components/CartPage';
 import ProductDetail from './components/ProductDetail';
 import PedidoDetailPage from './components/PedidoDetailPage';
+import CarritoWhatsAppPage from './components/CarritoWhatsAppPage';
 import CombosShowcase from './components/CombosShowcase';
 import AdminApp from './components/admin/AdminApp';
 import { fetchProducts } from './services/api';
@@ -20,19 +21,26 @@ import './styles/Landing.css';
 function parseRoute() {
   const path = window.location.pathname;
   if (/^\/admin\/?$/i.test(path)) {
-    return { page: 'admin', pedidoId: null };
+    return { page: 'admin', pedidoId: null, carritoToken: null };
   }
   const match = path.match(/^\/pedido\/(\d+)\/?$/i);
   if (match) {
-    return { page: 'pedido_detail', pedidoId: Number(match[1]) };
+    return { page: 'pedido_detail', pedidoId: Number(match[1]), carritoToken: null };
   }
-  return { page: 'tienda', pedidoId: null };
+  const carritoMatch = path.match(
+    /^\/carrito\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\/?$/i
+  );
+  if (carritoMatch) {
+    return { page: 'carrito_whatsapp', pedidoId: null, carritoToken: carritoMatch[1] };
+  }
+  return { page: 'tienda', pedidoId: null, carritoToken: null };
 }
 
 function App() {
   const initial = parseRoute();
   const [currentPage, setCurrentPage] = useState(initial.page);
   const [selectedPedidoId, setSelectedPedidoId] = useState(initial.pedidoId);
+  const [carritoToken, setCarritoToken] = useState(initial.carritoToken);
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [errorProducts, setErrorProducts] = useState(null);
@@ -47,7 +55,10 @@ function App() {
     if (page === 'pedido_detail' && opts?.pedidoId) {
       setSelectedPedidoId(opts.pedidoId);
       window.history.pushState({}, '', `/pedido/${opts.pedidoId}`);
-    } else if (currentPage === 'pedido_detail' && page !== 'pedido_detail') {
+    } else if (
+      (currentPage === 'pedido_detail' || currentPage === 'carrito_whatsapp') &&
+      page !== 'pedido_detail'
+    ) {
       window.history.pushState({}, '', '/');
     }
     setCurrentPage(page);
@@ -65,6 +76,7 @@ function App() {
       const r = parseRoute();
       setCurrentPage(r.page);
       setSelectedPedidoId(r.pedidoId);
+      setCarritoToken(r.carritoToken);
     };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
@@ -82,6 +94,19 @@ function App() {
         <div className="app">
           <Header currentPage={currentPage} onNavigate={handleNavigate} />
           <PedidoDetailPage pedidoId={selectedPedidoId} onNavigate={handleNavigate} />
+          {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
+          {/* <Footer onNavigate={handleNavigate} /> */}
+        </div>
+      </CartProvider>
+    );
+  }
+
+  if (currentPage === 'carrito_whatsapp') {
+    return (
+      <CartProvider>
+        <div className="app">
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          <CarritoWhatsAppPage token={carritoToken} onNavigate={handleNavigate} />
           {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
           {/* <Footer onNavigate={handleNavigate} /> */}
         </div>
