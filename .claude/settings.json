@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "Bash(find . -name \"*.sql\" -not -path \"./bin/*\" -not -path \"./obj/*\")",
-      "Bash(ls *.sql Scripts/ Sql/ db/)"
+      "Bash(ls *.sql Scripts/ Sql/ db/)",
+      "PowerShell(dotnet build \"d:\\\\Jefferson_Projects\\\\EmpanadasDLujo_Git\\\\empanadasdlujo_api\\\\EmpanadasDLujo.API.csproj\" -nologo -clp:ErrorsOnly)",
+      "Bash(git commit -m ' *)",
+      "Bash(git pull *)",
+      "Bash(git cherry-pick *)",
+      "Bash(git stash *)"
     ]
   }
 }
