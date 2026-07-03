@@ -14,7 +14,10 @@ const formatPrice = (price) =>
     maximumFractionDigits: 0,
   }).format(price);
 
-function CartPage({ onNavigate }) {
+// `initialForm` precarga campos del comprador (ej. carrito por WhatsApp).
+// `onOrderCreated(pedidoId)` se invoca best-effort tras crear el pedido (ej. marcar el
+// carrito borrador como convertido).
+function CartPage({ onNavigate, initialForm, onOrderCreated }) {
   const {
     cartItems,
     cartItemsPricing,
@@ -28,7 +31,7 @@ function CartPage({ onNavigate }) {
     removeFromCart,
   } = useCart();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState(() => ({
     pais: 'Colombia',
     nombre: '',
     apellidos: '',
@@ -42,7 +45,11 @@ function CartPage({ onNavigate }) {
     comentarios: '',
     tipoPago: 'Efectivo',
     guardarInfo: false,
-  });
+    // Solo sobreescribe con los valores presentes del borrador (ignora undefined/null).
+    ...Object.fromEntries(
+      Object.entries(initialForm ?? {}).filter(([, v]) => v != null && v !== '')
+    ),
+  }));
 
   const [departamentos, setDepartamentos] = useState(DEPARTAMENTOS_FALLBACK);
   const [orderStatus, setOrderStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
@@ -130,6 +137,14 @@ function CartPage({ onNavigate }) {
         items: cartItems,
       });
       const pedidoId = result?.orden?.idOrden;
+      // Marca el carrito borrador (si venimos de un link de WhatsApp) como convertido.
+      if (onOrderCreated && pedidoId) {
+        try {
+          await onOrderCreated(pedidoId);
+        } catch (convErr) {
+          console.warn('No se pudo marcar el carrito como convertido:', convErr);
+        }
+      }
       try {
         await sendOrderViaWhatsAppAPI(cartItems, totalToPay, form, pedidoId);
       } catch (waErr) {

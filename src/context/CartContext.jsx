@@ -43,6 +43,12 @@ export function CartProvider({ children }) {
     setCartItems([]);
   }, []);
 
+  // Carga masiva del carrito (reemplaza su contenido). La usa el flujo de carrito por
+  // WhatsApp para precargar los items del borrador antes de mostrar el checkout.
+  const hydrateCart = useCallback((items) => {
+    setCartItems(Array.isArray(items) ? items : []);
+  }, []);
+
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const pricing = useMemo(() => {
@@ -101,6 +107,7 @@ export function CartProvider({ children }) {
     removeFromCart,
     updateQuantity,
     clearCart,
+    hydrateCart,
     totalItems,
     isCartOpen,
     openCart,
