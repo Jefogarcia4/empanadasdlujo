@@ -3,10 +3,12 @@ import { isAuthenticated, logout, getSession } from '../../services/auth';
 import AdminLogin from './AdminLogin';
 import AdminPage from './AdminPage';
 import AdminLogsPage from './AdminLogsPage';
+import AdminClientesPage from './AdminClientesPage';
 import '../../styles/Admin.css';
 
 const TABS = [
   { key: 'pedidos', label: 'Pedidos' },
+  { key: 'clientes', label: 'Clientes' },
   { key: 'logs', label: 'Logs WhatsApp' },
 ];
 
@@ -55,9 +57,9 @@ function AdminApp() {
         </div>
       </header>
 
-      {view === 'pedidos'
-        ? <AdminPage onSessionExpired={handleLogout} />
-        : <AdminLogsPage onSessionExpired={handleLogout} />}
+      {view === 'pedidos' && <AdminPage onSessionExpired={handleLogout} />}
+      {view === 'clientes' && <AdminClientesPage onSessionExpired={handleLogout} />}
+      {view === 'logs' && <AdminLogsPage onSessionExpired={handleLogout} />}
     </div>
   );
 }

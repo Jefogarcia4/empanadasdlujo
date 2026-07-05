@@ -46,6 +46,41 @@ export async function updateEstadoOrden(idOrden, estado) {
   return true;
 }
 
+// Lista de clientes registrados. Filtro opcional por activo (true/false).
+// Cada item incluye totalPedidos y ultimoPedido (los calcula el API).
+// Con agrupar=true el API colapsa los duplicados (mismo teléfono/email) en un solo
+// registro y suma sus pedidos; se usa por defecto en el admin.
+export async function fetchClientes({ activo, agrupar = true } = {}) {
+  const url = new URL(`${API_BASE_URL}/api/clientes`);
+  if (activo != null) url.searchParams.set('activo', activo);
+  if (agrupar) url.searchParams.set('agrupar', 'true');
+
+  const response = await fetch(url, { headers: authHeaders() });
+  if (response.status === 401) handleUnauthorized();
+  if (!response.ok) {
+    throw new Error(`No se pudieron cargar los clientes: HTTP ${response.status}`);
+  }
+  return response.json();
+}
+
+// Actualiza los datos de un cliente. `cliente` debe traer todos los campos editables
+// (el PUT del API reemplaza el registro con el DTO recibido).
+export async function updateCliente(idCliente, cliente) {
+  const response = await fetch(`${API_BASE_URL}/api/clientes/${idCliente}`, {
+    method: 'PUT',
+    headers: authHeaders({ 'Content-Type': 'application/json' }),
+    body: JSON.stringify(cliente),
+  });
+
+  if (response.status === 401) handleUnauthorized();
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    const msg = data?.title || data?.message || `HTTP ${response.status}`;
+    throw new Error(`No se pudo guardar el cliente: ${msg}`);
+  }
+  return true;
+}
+
 // Logs de envíos de WhatsApp (más recientes primero). Filtros opcionales:
 // idOrden, estado ('EXITOSO' | 'FALLIDO') y take (máximo de filas).
 export async function fetchWhatsAppLogs({ idOrden, estado, take } = {}) {
