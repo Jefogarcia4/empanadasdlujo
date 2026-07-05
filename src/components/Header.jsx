@@ -1,7 +1,25 @@
+import { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import ClienteLoginModal from './ClienteLoginModal';
+import { isClienteAuthenticated } from '../services/clienteAuth';
 
 function Header({ currentPage, onNavigate }) {
   const { totalItems } = useCart();
+  const [showLogin, setShowLogin] = useState(false);
+  const authed = isClienteAuthenticated();
+
+  const handleIngreso = () => {
+    if (authed) {
+      onNavigate('mis_pedidos');
+    } else {
+      setShowLogin(true);
+    }
+  };
+
+  const handleLoginSuccess = () => {
+    setShowLogin(false);
+    onNavigate('mis_pedidos');
+  };
 
   return (
     <header className="header">
@@ -49,6 +67,9 @@ function Header({ currentPage, onNavigate }) {
             Catálogo
           </button>
         </nav>
+        <button className="header-login" onClick={handleIngreso}>
+          👤 {authed ? 'Mis pedidos' : 'Ingreso'}
+        </button>
         <button className="cart-button" onClick={() => onNavigate('cart')}>
           🛒 Carrito
           {totalItems > 0 && (
@@ -56,6 +77,13 @@ function Header({ currentPage, onNavigate }) {
           )}
         </button>
       </div>
+
+      {showLogin && (
+        <ClienteLoginModal
+          onClose={() => setShowLogin(false)}
+          onSuccess={handleLoginSuccess}
+        />
+      )}
     </header>
   );
 }

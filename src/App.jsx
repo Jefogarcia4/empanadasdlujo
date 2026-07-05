@@ -12,6 +12,7 @@ import CartPage from './components/CartPage';
 import ProductDetail from './components/ProductDetail';
 import PedidoDetailPage from './components/PedidoDetailPage';
 import CarritoWhatsAppPage from './components/CarritoWhatsAppPage';
+import MisPedidosPage from './components/MisPedidosPage';
 import CombosShowcase from './components/CombosShowcase';
 import AdminApp from './components/admin/AdminApp';
 import { fetchProducts } from './services/api';
@@ -22,6 +23,9 @@ function parseRoute() {
   const path = window.location.pathname;
   if (/^\/admin\/?$/i.test(path)) {
     return { page: 'admin', pedidoId: null, carritoToken: null };
+  }
+  if (/^\/mis-pedidos\/?$/i.test(path)) {
+    return { page: 'mis_pedidos', pedidoId: null, carritoToken: null };
   }
   const match = path.match(/^\/pedido\/(\d+)\/?$/i);
   if (match) {
@@ -55,8 +59,10 @@ function App() {
     if (page === 'pedido_detail' && opts?.pedidoId) {
       setSelectedPedidoId(opts.pedidoId);
       window.history.pushState({}, '', `/pedido/${opts.pedidoId}`);
+    } else if (page === 'mis_pedidos') {
+      window.history.pushState({}, '', '/mis-pedidos');
     } else if (
-      (currentPage === 'pedido_detail' || currentPage === 'carrito_whatsapp') &&
+      (currentPage === 'pedido_detail' || currentPage === 'carrito_whatsapp' || currentPage === 'mis_pedidos') &&
       page !== 'pedido_detail'
     ) {
       window.history.pushState({}, '', '/');
@@ -107,6 +113,19 @@ function App() {
         <div className="app">
           <Header currentPage={currentPage} onNavigate={handleNavigate} />
           <CarritoWhatsAppPage token={carritoToken} onNavigate={handleNavigate} />
+          {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
+          {/* <Footer onNavigate={handleNavigate} /> */}
+        </div>
+      </CartProvider>
+    );
+  }
+
+  if (currentPage === 'mis_pedidos') {
+    return (
+      <CartProvider>
+        <div className="app">
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          <MisPedidosPage onNavigate={handleNavigate} />
           {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
           {/* <Footer onNavigate={handleNavigate} /> */}
         </div>
