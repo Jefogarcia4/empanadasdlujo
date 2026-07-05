@@ -1,0 +1,227 @@
+/* ─── Modal de ingreso (OTP) ─────────────────────────────── */
+.cliente-auth__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 2000;
+}
+
+.cliente-auth {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  padding: 1.75rem 1.5rem 1.5rem;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+.cliente-auth__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.9rem;
+  border: none;
+  background: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: #98a2b3;
+  cursor: pointer;
+}
+.cliente-auth__close:hover { color: #1f2733; }
+
+.cliente-auth__title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1f2733;
+  margin: 0 0 0.35rem;
+}
+.cliente-auth__subtitle {
+  font-size: 0.9rem;
+  color: #6b7785;
+  margin: 0 0 1.25rem;
+}
+
+.cliente-auth__form { display: flex; flex-direction: column; gap: 0.6rem; }
+.cliente-auth__label { font-size: 0.8rem; font-weight: 600; color: #344054; }
+
+.cliente-auth__phone {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.cliente-auth__prefix {
+  padding: 0.7rem 0.75rem;
+  background: #f4f5f7;
+  color: #475467;
+  font-weight: 600;
+  border-right: 1px solid #d0d5dd;
+}
+.cliente-auth__phone .cliente-auth__input { border: none; border-radius: 0; }
+
+.cliente-auth__input {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #1f2733;
+}
+.cliente-auth__input:focus { outline: none; border-color: #c8102e; }
+
+.cliente-auth__input--code {
+  text-align: center;
+  letter-spacing: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.cliente-auth__submit {
+  margin-top: 0.35rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 10px;
+  background: #c8102e;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.cliente-auth__submit:hover:not(:disabled) { background: #a00d25; }
+.cliente-auth__submit:disabled { opacity: 0.55; cursor: default; }
+
+.cliente-auth__error { color: #b3261e; font-size: 0.85rem; margin: 0.15rem 0 0; }
+.cliente-auth__info  { color: #1f7a3d; font-size: 0.85rem; margin: 0.15rem 0 0; }
+
+.cliente-auth__actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+.cliente-auth__link {
+  border: none;
+  background: none;
+  color: #c8102e;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cliente-auth__link:disabled { opacity: 0.5; cursor: default; }
+
+/* ─── Botón "Ingreso" del header ─────────────────────────── */
+.header-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 999px;
+  background: #fff;
+  color: #1f2733;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.header-login:hover { background: #f4f5f7; }
+
+/* ─── Página "Mis pedidos" ───────────────────────────────── */
+.mis-pedidos {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.mis-pedidos__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.mis-pedidos__title { font-size: 1.6rem; font-weight: 800; color: #1f2733; margin: 0; }
+.mis-pedidos__hello { color: #6b7785; margin: 0.25rem 0 0; }
+
+.mis-pedidos__logout {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: #fff;
+  color: #475467;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.mis-pedidos__logout:hover { background: #f4f5f7; }
+
+.mis-pedidos__status {
+  text-align: center;
+  color: #6b7785;
+  padding: 2rem 1rem;
+}
+.mis-pedidos__status--error { color: #b3261e; }
+.mis-pedidos__cta {
+  margin-top: 0.75rem;
+  padding: 0.6rem 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: #c8102e;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mis-pedidos__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; }
+
+.mis-pedidos__card {
+  border: 1px solid #e3e6ea;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.mis-pedidos__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.mis-pedidos__num { font-weight: 700; color: #1f2733; }
+.mis-pedidos__date { color: #6b7785; font-size: 0.85rem; margin: 0.35rem 0 0.75rem; }
+
+.mis-pedidos__card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.mis-pedidos__meta { color: #475467; font-size: 0.88rem; }
+.mis-pedidos__total { font-weight: 800; font-size: 1.1rem; color: #1f2733; }
+
+.mis-pedidos__detail {
+  margin-top: 0.85rem;
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #c8102e;
+  border-radius: 8px;
+  background: #fff;
+  color: #c8102e;
+  font-weight: 700;
+  cursor: pointer;
+}
+.mis-pedidos__detail:hover { background: #c8102e; color: #fff; }
+
+.mis-pedidos__badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+.mis-pedidos__badge--pending   { background: #fff4d6; color: #8a6100; }
+.mis-pedidos__badge--confirmed { background: #d9ecff; color: #0a5dab; }
+.mis-pedidos__badge--delivered { background: #d8f5e0; color: #1f7a3d; }
+.mis-pedidos__badge--cancelled { background: #ffe0e0; color: #b3261e; }
