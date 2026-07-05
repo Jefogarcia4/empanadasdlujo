@@ -1,10 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { sendOrderViaWhatsAppAPI, sendOrderConfirmationToClient } from '../services/whatsapp';
 import { createPedido } from '../services/pedidos';
 import { trackLead } from '../services/metaPixel';
-import { fetchDepartamentosColombia, DEPARTAMENTOS_FALLBACK } from '../services/colombia';
 import '../styles/CartPage.css';
+
+// Ciudades habilitadas para domicilio (área metropolitana de Antioquia), en orden alfabético.
+const CIUDADES = [
+  'Bello',
+  'Copacabana',
+  'Envigado',
+  'Itagüí',
+  'La Estrella',
+  'Medellín',
+  'Sabaneta',
+];
 
 const formatPrice = (price) =>
   new Intl.NumberFormat('es-CO', {
@@ -51,20 +61,9 @@ function CartPage({ onNavigate, initialForm, onOrderCreated }) {
     ),
   }));
 
-  const [departamentos, setDepartamentos] = useState(DEPARTAMENTOS_FALLBACK);
   const [orderStatus, setOrderStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
   const [errorMsg, setErrorMsg] = useState('');
   const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    let mounted = true;
-    fetchDepartamentosColombia().then((deps) => {
-      if (mounted && deps?.length) setDepartamentos(deps);
-    });
-    return () => {
-      mounted = false;
-    };
-  }, []);
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
@@ -259,49 +258,24 @@ function CartPage({ onNavigate, initialForm, onOrderCreated }) {
               <label htmlFor="casaApartamento">Casa, apartamento, etc. (opcional)</label>
             </div>
 
-            {/* Ciudad + Departamento + Código postal */}
-            <div className="cart-form__row cart-form__row--3">
-              <div className={`cart-form__group cart-form__group--floating${errors.ciudad ? ' cart-form__group--error' : ''}`}>
-                <input
-                  id="ciudad"
-                  name="ciudad"
-                  type="text"
-                  placeholder=" "
-                  value={form.ciudad}
-                  onChange={handleChange}
-                />
-                <label htmlFor="ciudad">Ciudad</label>
-                {errors.ciudad && <span className="cart-form__field-error">{errors.ciudad}</span>}
-              </div>
-
-              <div className="cart-form__group cart-form__group--floating">
-                <select
-                  id="departamento"
-                  name="departamento"
-                  value={form.departamento}
-                  onChange={handleChange}
-                  required
-                >
-                  {departamentos.map((d) => (
-                    <option key={d} value={d}>
-                      {d}
-                    </option>
-                  ))}
-                </select>
-                <label htmlFor="departamento">Provincia / Estado</label>
-              </div>
-
-              <div className="cart-form__group cart-form__group--floating">
-                <input
-                  id="codigoPostal"
-                  name="codigoPostal"
-                  type="text"
-                  placeholder=" "
-                  value={form.codigoPostal}
-                  onChange={handleChange}
-                />
-                <label htmlFor="codigoPostal">Código postal (opcional)</label>
-              </div>
+            {/* Ciudad */}
+            <div className={`cart-form__group cart-form__group--floating${errors.ciudad ? ' cart-form__group--error' : ''}`}>
+              <select
+                id="ciudad"
+                name="ciudad"
+                value={form.ciudad}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled hidden></option>
+                {CIUDADES.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="ciudad">Ciudad</label>
+              {errors.ciudad && <span className="cart-form__field-error">{errors.ciudad}</span>}
             </div>
 
             {/* Teléfono */}
