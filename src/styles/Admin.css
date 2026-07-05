@@ -600,3 +600,120 @@
   .admin-detail__customer-grid { grid-template-columns: 1fr; }
   .admin-row td { grid-template-columns: 42% 1fr; }
 }
+
+/* ─── Clientes ──────────────────────────────────────────── */
+.admin__search {
+  flex: 1 1 260px;
+  min-width: 200px;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-surface);
+  font-size: 0.9rem;
+  color: var(--admin-text);
+}
+.admin__search:focus { outline: none; border-color: var(--admin-primary); }
+
+.admin__toolbar-right { display: flex; align-items: center; gap: 0.75rem; }
+.admin__count-label { font-size: 0.82rem; color: var(--admin-muted); white-space: nowrap; }
+
+/* ─── Modal editar cliente ──────────────────────────────── */
+.admin-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.admin-modal {
+  background: var(--admin-surface);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.admin-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--admin-border);
+}
+.admin-modal__title { font-size: 1.05rem; font-weight: 700; }
+.admin-modal__close {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--admin-muted);
+  cursor: pointer;
+}
+.admin-modal__close:hover { color: var(--admin-text); }
+
+.admin-modal__body { padding: 1.25rem; }
+
+.admin-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+.admin-form__field { display: flex; flex-direction: column; gap: 0.3rem; }
+.admin-form__label { font-size: 0.78rem; color: var(--admin-muted); }
+.admin-form__req { color: var(--admin-primary); }
+.admin-form__input {
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--admin-text);
+  background: var(--admin-surface);
+}
+.admin-form__input:focus { outline: none; border-color: var(--admin-primary); }
+
+.admin-form__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  color: var(--admin-text);
+}
+
+.admin-form__error { color: var(--admin-primary); font-size: 0.85rem; margin-top: 0.75rem; }
+
+.admin-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.admin-btn {
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--admin-primary);
+  border-radius: 8px;
+  background: var(--admin-primary);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.admin-btn:hover:not(:disabled) { background: var(--admin-primary-dark); }
+.admin-btn:disabled { opacity: 0.6; cursor: default; }
+.admin-btn--ghost {
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  border-color: var(--admin-border);
+}
+.admin-btn--ghost:hover:not(:disabled) { background: var(--admin-bg); }
+
+@media (max-width: 520px) {
+  .admin-form__grid { grid-template-columns: 1fr; }
+}
