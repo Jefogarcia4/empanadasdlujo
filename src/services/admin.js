@@ -48,12 +48,9 @@ export async function updateEstadoOrden(idOrden, estado) {
 
 // Lista de clientes registrados. Filtro opcional por activo (true/false).
 // Cada item incluye totalPedidos y ultimoPedido (los calcula el API).
-// Con agrupar=true el API colapsa los duplicados (mismo teléfono/email) en un solo
-// registro y suma sus pedidos; se usa por defecto en el admin.
-export async function fetchClientes({ activo, agrupar = true } = {}) {
+export async function fetchClientes(activo) {
   const url = new URL(`${API_BASE_URL}/api/clientes`);
   if (activo != null) url.searchParams.set('activo', activo);
-  if (agrupar) url.searchParams.set('agrupar', 'true');
 
   const response = await fetch(url, { headers: authHeaders() });
   if (response.status === 401) handleUnauthorized();
