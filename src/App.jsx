@@ -37,6 +37,11 @@ function parseRoute() {
   if (carritoMatch) {
     return { page: 'carrito_whatsapp', pedidoId: null, carritoToken: carritoMatch[1] };
   }
+  // Acceso temporal por URL a la landing mientras se prueba antes de publicarla
+  // como inicio del sitio (el menú Inicio/Vitrina está oculto).
+  if (/^\/inicio\/?$/i.test(path)) {
+    return { page: 'landing', pedidoId: null, carritoToken: null };
+  }
   return { page: 'tienda', pedidoId: null, carritoToken: null };
 }
 
@@ -62,8 +67,9 @@ function App() {
     } else if (page === 'mis_pedidos') {
       window.history.pushState({}, '', '/mis-pedidos');
     } else if (
-      (currentPage === 'pedido_detail' || currentPage === 'carrito_whatsapp' || currentPage === 'mis_pedidos') &&
-      page !== 'pedido_detail'
+      (currentPage === 'pedido_detail' || currentPage === 'carrito_whatsapp' || currentPage === 'mis_pedidos' || currentPage === 'landing') &&
+      page !== 'pedido_detail' &&
+      page !== 'landing'
     ) {
       window.history.pushState({}, '', '/');
     }

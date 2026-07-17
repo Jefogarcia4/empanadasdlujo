@@ -125,15 +125,65 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Menu container: nav links + actions.
+   Desktop → inline row; mobile → hamburger dropdown. */
+.header-menu {
+  flex: 1;
+  display: flex;
   align-items: center;
   gap: 12px;
 }
 
 /* Nav links */
 .header-nav {
-  display: none;
+  display: flex;
+  align-items: center;
   gap: 4px;
+}
+
+/* Empuja Ingreso + Carrito hacia la derecha, dejando el nav junto al logo. */
+.header-login {
+  margin-left: auto;
+}
+
+/* Hamburguesa (oculta en desktop) */
+.header-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.header-hamburger__bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-dark-brown);
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.header-hamburger--open .header-hamburger__bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.header-hamburger--open .header-hamburger__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.header-hamburger--open .header-hamburger__bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 .header-nav__link {
@@ -1514,22 +1564,50 @@ body {
   }
 
   .header-content {
-    flex-wrap: wrap;
     gap: 0.75rem;
   }
 
+  .header-hamburger {
+    display: flex;
+  }
+
+  /* Menú desplegable tipo hamburguesa */
+  .header-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 12px 1rem 16px;
+    background: #fff2cf;
+    border-top: 1px solid rgba(40, 28, 2, 0.08);
+    box-shadow: 0 10px 18px rgba(40, 28, 2, 0.14);
+  }
+
+  .header-menu--open {
+    display: flex;
+  }
+
   .header-nav {
-    order: 3;
-    width: 100%;
-    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
     gap: 6px;
   }
 
-  .header-nav__link {
-    flex: 1;
+  .header-nav__link,
+  .header-login,
+  .cart-button {
+    width: 100%;
+    justify-content: center;
     text-align: center;
-    padding: 7px 10px;
-    font-size: 12.5px;
+  }
+
+  .header-login {
+    margin-left: 0;
   }
 }
 
