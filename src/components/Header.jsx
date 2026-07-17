@@ -6,9 +6,16 @@ import { isClienteAuthenticated } from '../services/clienteAuth';
 function Header({ currentPage, onNavigate }) {
   const { totalItems } = useCart();
   const [showLogin, setShowLogin] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const authed = isClienteAuthenticated();
 
+  const go = (page) => {
+    setMenuOpen(false);
+    onNavigate(page);
+  };
+
   const handleIngreso = () => {
+    setMenuOpen(false);
     if (authed) {
       onNavigate('mis_pedidos');
     } else {
@@ -44,38 +51,49 @@ function Header({ currentPage, onNavigate }) {
         </ul>
       </div>
       <div className="header-content">
-        <div className="logo" onClick={() => onNavigate('tienda')}>
+        <div className="logo" onClick={() => go('tienda')}>
           <img src="/fondo_menu.png" alt="Empanadas D'lujo" className="logo-img" />
         </div>
-        <nav className="header-nav">
-          <button
-            className={`header-nav__link${currentPage === 'landing' ? ' header-nav__link--active' : ''}`}
-            onClick={() => onNavigate('landing')}
-          >
-            Inicio
-          </button>
-          <button
-            className={`header-nav__link${currentPage === 'tienda' ? ' header-nav__link--active' : ''}`}
-            onClick={() => onNavigate('tienda')}
-          >
-            Tienda
-          </button>
-          <button
-            className={`header-nav__link${currentPage === 'catalogo' ? ' header-nav__link--active' : ''}`}
-            onClick={() => onNavigate('catalogo')}
-          >
-            Catálogo
-          </button>
-        </nav>
-        <button className="header-login" onClick={handleIngreso}>
-          👤 {authed ? 'Mis pedidos' : 'Ingreso'}
+
+        <button
+          type="button"
+          className={`header-hamburger${menuOpen ? ' header-hamburger--open' : ''}`}
+          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span className="header-hamburger__bar" />
+          <span className="header-hamburger__bar" />
+          <span className="header-hamburger__bar" />
         </button>
-        <button className="cart-button" onClick={() => onNavigate('cart')}>
-          🛒 Carrito
-          {totalItems > 0 && (
-            <span className="cart-badge">{totalItems}</span>
-          )}
-        </button>
+
+        <div className={`header-menu${menuOpen ? ' header-menu--open' : ''}`}>
+          {/* Menú Inicio/Vitrina oculto temporalmente mientras se prueba la
+              landing antes de publicarla. Descomentar para reactivar. */}
+          {/* <nav className="header-nav">
+            <button
+              className={`header-nav__link${currentPage === 'landing' ? ' header-nav__link--active' : ''}`}
+              onClick={() => go('landing')}
+            >
+              Inicio
+            </button>
+            <button
+              className={`header-nav__link${currentPage === 'tienda' ? ' header-nav__link--active' : ''}`}
+              onClick={() => go('tienda')}
+            >
+              Vitrina
+            </button>
+          </nav> */}
+          <button className="header-login" onClick={handleIngreso}>
+            👤 {authed ? 'Mis pedidos' : 'Ingreso'}
+          </button>
+          <button className="cart-button" onClick={() => go('cart')}>
+            🛒 Carrito
+            {totalItems > 0 && (
+              <span className="cart-badge">{totalItems}</span>
+            )}
+          </button>
+        </div>
       </div>
 
       {showLogin && (

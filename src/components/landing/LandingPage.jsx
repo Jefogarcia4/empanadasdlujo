@@ -1,28 +1,35 @@
 import LandingHero from './LandingHero';
-import LandingStats from './LandingStats';
-import LandingPainPoints from './LandingPainPoints';
 import LandingProcess from './LandingProcess';
-import LandingProducts from './LandingProducts';
-import LandingHowToOrder from './LandingHowToOrder';
-import LandingTestimonials from './LandingTestimonials';
-import LandingFAQ from './LandingFAQ';
-import LandingCTA from './LandingCTA';
+import LandingAudience from './LandingAudience';
+import LandingStarterCombos from './LandingStarterCombos';
+import LandingBusinessSolutions from './LandingBusinessSolutions';
+import LandingPortfolio from './LandingPortfolio';
+import LandingPurchaseClarity from './LandingPurchaseClarity';
+import LandingOurStory from './LandingOurStory';
+import LandingBrandValues from './LandingBrandValues';
+import LandingQualityProcess from './LandingQualityProcess';
+import LandingOrderFAQ from './LandingOrderFAQ';
+import LandingResources from './LandingResources';
+import LandingNextStep from './LandingNextStep';
 
 function LandingPage({ onNavigate }) {
   return (
     <main className="lp-main">
       <LandingHero onNavigate={onNavigate} />
-      <LandingStats />
-      <LandingPainPoints />
       <LandingProcess />
-      <LandingProducts onNavigate={onNavigate} />
-      <LandingHowToOrder onNavigate={onNavigate} />
-      <LandingTestimonials />
-      <LandingFAQ />
-      <LandingCTA onNavigate={onNavigate} />
+      <LandingAudience onNavigate={onNavigate} />
+      <LandingStarterCombos onNavigate={onNavigate} />
+      <LandingBusinessSolutions onNavigate={onNavigate} />
+      <LandingPortfolio onNavigate={onNavigate} />
+      <LandingPurchaseClarity onNavigate={onNavigate} />
+      <LandingOurStory onNavigate={onNavigate} />
+      <LandingBrandValues />
+      <LandingQualityProcess onNavigate={onNavigate} />
+      <LandingOrderFAQ />
+      <LandingResources />
+      <LandingNextStep onNavigate={onNavigate} />
     </main>
   );
 }
 
 export default LandingPage;
-
