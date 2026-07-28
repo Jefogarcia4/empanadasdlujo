@@ -6,6 +6,7 @@
   box-shadow: 0 6px 18px rgba(40, 28, 2, 0.06);
   padding: 1.1rem 1.35rem 0.9rem;
   margin-bottom: 1.75rem;
+  max-width: 100%;
 }
 
 .cfiltros__row {
@@ -21,9 +22,14 @@
   align-items: center;
   gap: 0.6rem;
   flex-wrap: wrap;
+  /* min-width: 0 permite que el contenedor se encoja dentro del flex y no
+     empuje el ancho de la página cuando hay muchas categorías. */
+  min-width: 0;
+  max-width: 100%;
 }
 
 .cfiltros__tab {
+  flex: 0 0 auto;
   padding: 0.6rem 1.5rem;
   border: 1.5px solid rgba(200, 16, 46, 0.5);
   border-radius: 999px;
@@ -59,7 +65,7 @@
 .cfiltros__search {
   position: relative;
   flex: 1 1 260px;
-  min-width: 240px;
+  min-width: 0;
   max-width: 420px;
 }
 
@@ -131,7 +137,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  min-width: 230px;
+  flex: 0 1 230px;
+  min-width: 0;
 }
 
 .cfiltros__size-label {
@@ -215,6 +222,9 @@
   display: flex;
   align-items: flex-start;
   gap: 0.6rem;
+  /* El ancho define el quiebre en dos líneas: sin <br> para que en móvil no se
+     peguen las palabras al ocultarlo. */
+  max-width: 48ch;
   font-size: 0.82rem;
   line-height: 1.45;
   color: var(--color-text-light);
@@ -228,53 +238,100 @@
 }
 
 /* Estado vacío cuando ningún producto coincide */
-.cfiltros-empty {
-  text-align: center;
-  padding: 3rem 1.5rem;
+.cat-vacio {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
   background: var(--color-surface);
-  border: 1px dashed #e8dcc0;
+  border: 1px solid #f2e7ce;
   border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(40, 28, 2, 0.06);
+  padding: 2rem 2.25rem;
   margin-bottom: 2rem;
 }
 
-.cfiltros-empty__emoji {
-  font-size: 2rem;
+.cat-vacio__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: #fdf1e3;
+  color: #c8102e;
+  font-size: 1.85rem;
 }
 
-.cfiltros-empty__title {
-  margin: 0.5rem 0 0.25rem;
-  font-size: 1.05rem;
+.cat-vacio__content {
+  min-width: 0;
+}
+
+.cat-vacio__title {
+  max-width: 22ch;
+  font-size: 1.35rem;
   font-weight: 800;
+  line-height: 1.25;
+  text-wrap: balance;
   color: var(--color-dark-brown);
+  margin-bottom: 0.65rem;
 }
 
-.cfiltros-empty__text {
-  font-size: 0.9rem;
+.cat-vacio__text {
+  max-width: 40ch;
+  font-size: 0.92rem;
+  line-height: 1.55;
   color: var(--color-text-light);
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.4rem;
 }
 
-.cfiltros-empty__btn {
-  padding: 0.6rem 1.5rem;
-  border: none;
-  border-radius: 999px;
-  background: var(--color-gold);
-  color: var(--color-dark-brown);
-  font-size: 0.9rem;
+.cat-vacio__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.8rem 2.1rem;
+  border: 1.5px solid rgba(200, 16, 46, 0.55);
+  border-radius: 14px;
+  background: var(--color-surface);
+  color: #c8102e;
+  font-size: 1rem;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  box-shadow: 0 3px 10px rgba(255, 178, 27, 0.45);
+  transition: all var(--transition-fast);
 }
 
-.cfiltros-empty__btn:hover {
-  background: #ffc24d;
+.cat-vacio__btn:hover {
+  background: #fff3f4;
+  border-color: #c8102e;
+}
+
+.cat-vacio__btn:focus-visible {
+  outline: 2px solid #c8102e;
+  outline-offset: 2px;
 }
 
 /* ── Responsive ───────────────────────────────────────────────── */
-@media (max-width: 1024px) {
+/* Tablet: buscador y tamaño pasan a ocupar el ancho completo bajo las
+   pestañas, que ya se desplazan en horizontal si no caben. */
+@media (max-width: 900px) {
   .cfiltros__row {
     align-items: stretch;
+    gap: 0.85rem;
+  }
+
+  .cfiltros__tabs {
+    flex: 1 1 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cfiltros__tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .cfiltros__search,
@@ -284,24 +341,11 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .cfiltros {
-    padding: 0.9rem 0.9rem 0.75rem;
+    padding: 0.9rem 0.95rem 0.8rem;
     border-radius: 14px;
-  }
-
-  .cfiltros__tabs {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 0.25rem;
-    margin: 0 -0.9rem;
-    padding-left: 0.9rem;
-    padding-right: 0.9rem;
-    scrollbar-width: none;
-  }
-
-  .cfiltros__tabs::-webkit-scrollbar {
-    display: none;
+    margin-bottom: 1.25rem;
   }
 
   .cfiltros__tab {
@@ -312,10 +356,81 @@
   .cfiltros__results {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.6rem;
+    gap: 0.55rem;
+    margin-top: 0.85rem;
   }
 
-  .cfiltros__note br {
-    display: none;
+  .cfiltros__note {
+    font-size: 0.78rem;
+    max-width: none;
+  }
+
+  .cat-vacio {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.85rem 1.15rem;
+    border-radius: 14px;
+  }
+
+  .cat-vacio__title {
+    max-width: none;
+    font-size: 1.15rem;
+  }
+
+  .cat-vacio__text {
+    max-width: none;
+    font-size: 0.88rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .cat-vacio__btn {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cfiltros {
+    padding: 0.8rem 0.8rem 0.7rem;
+  }
+
+  .cfiltros__tab {
+    padding: 0.45rem 1rem;
+    font-size: 0.82rem;
+  }
+
+  .cfiltros__search-input,
+  .cfiltros__select {
+    height: 44px;
+    font-size: 0.86rem;
+  }
+
+  .cfiltros__search-input {
+    padding-left: 2.5rem;
+  }
+
+  .cfiltros__count {
+    font-size: 0.86rem;
+  }
+
+  .cat-vacio__icon {
+    width: 62px;
+    height: 62px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .cfiltros__search-input::placeholder {
+    /* Placeholder corto para que no se corte en pantallas muy angostas */
+    font-size: 0.8rem;
+  }
+
+  .cfiltros__tab {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
   }
 }

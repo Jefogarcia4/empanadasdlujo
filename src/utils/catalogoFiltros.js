@@ -7,8 +7,17 @@ export const TODOS_TAMANOS = 'todos';
 export const COMBOS = 'Combos';
 
 // Orden preferido de las pestañas; cualquier categoría nueva del API se agrega
-// al final para no perderla si cambia el catálogo.
-const ORDEN_CATEGORIAS = ['Empanadas', 'Pasteles', 'Masa'];
+// al final para no perderla si cambia el catálogo. Se compara en singular y sin
+// mayúsculas porque el API puede devolver "Empanada" o "Empanadas".
+const ORDEN_CATEGORIAS = ['empanada', 'pastel', 'masa'];
+
+function ordenCategoria(categoria) {
+  const c = String(categoria).toLowerCase().trim();
+  const i = ORDEN_CATEGORIAS.findIndex(
+    (base) => c === base || c === `${base}s` || c === `${base}es`
+  );
+  return i === -1 ? ORDEN_CATEGORIAS.length : i;
+}
 
 function pesoLabel(gramos) {
   return gramos >= 1000 ? `${gramos / 1000} kg` : `${gramos} g`;
@@ -22,11 +31,19 @@ function nombreTamano(gramos) {
 
 export function buildCategorias(products, hayCombos) {
   const presentes = [...new Set(products.map((p) => p.category).filter(Boolean))];
-  const ordenadas = [
-    ...ORDEN_CATEGORIAS.filter((c) => presentes.includes(c)),
-    ...presentes.filter((c) => !ORDEN_CATEGORIAS.includes(c)),
-  ];
+  const ordenadas = presentes.sort((a, b) => {
+    const diff = ordenCategoria(a) - ordenCategoria(b);
+    return diff !== 0 ? diff : a.localeCompare(b, 'es');
+  });
   return [TODOS, ...ordenadas, ...(hayCombos ? [COMBOS] : [])];
+}
+
+// El API devuelve las categorías en singular ("Empanada", "Pastel"); en las
+// pestañas se muestran en plural sin alterar el valor con el que se filtra.
+const ETIQUETAS = { empanada: 'Empanadas', pastel: 'Pasteles' };
+
+export function etiquetaCategoria(categoria) {
+  return ETIQUETAS[String(categoria).toLowerCase().trim()] ?? categoria;
 }
 
 // Una opción por gramaje distinto: evita ambigüedades entre la "pequeña" de

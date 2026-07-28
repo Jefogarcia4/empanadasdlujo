@@ -1,5 +1,12 @@
-import { FaSearch, FaSlidersH, FaInfoCircle, FaChevronDown, FaTimes } from 'react-icons/fa';
-import { COMBOS, TODOS_TAMANOS } from '../utils/catalogoFiltros';
+import {
+  FaSearch,
+  FaSlidersH,
+  FaInfoCircle,
+  FaChevronDown,
+  FaTimes,
+  FaRegTrashAlt,
+} from 'react-icons/fa';
+import { COMBOS, TODOS_TAMANOS, etiquetaCategoria } from '../utils/catalogoFiltros';
 import '../styles/CatalogoFiltros.css';
 
 // Barra de filtros de la vitrina: pestañas de categoría, buscador por texto,
@@ -32,7 +39,7 @@ function CatalogoFiltros({
               className={`cfiltros__tab ${categoria === cat ? 'is-active' : ''}`}
               onClick={() => onCategoriaChange(cat)}
             >
-              {cat}
+              {etiquetaCategoria(cat)}
             </button>
           ))}
         </div>
@@ -93,13 +100,34 @@ function CatalogoFiltros({
         <p className="cfiltros__note">
           <FaInfoCircle className="cfiltros__note-icon" aria-hidden="true" />
           <span>
-            La disponibilidad de las referencias y la fecha
-            <br />
-            de despacho se confirman después de enviar el pedido.
+            La disponibilidad de las referencias y la fecha de despacho se confirman
+            después de enviar el pedido.
           </span>
         </p>
       </div>
     </section>
+  );
+}
+
+// Estado vacío: se muestra cuando ningún producto ni combo pasa los filtros.
+export function CatalogoVacio({ onLimpiar }) {
+  return (
+    <div className="cat-vacio">
+      <div className="cat-vacio__icon">
+        <FaSearch aria-hidden="true" />
+      </div>
+      <div className="cat-vacio__content">
+        <h3 className="cat-vacio__title">No encontramos productos con estos filtros</h3>
+        <p className="cat-vacio__text">
+          Prueba otra categoría, cambia el tamaño o elimina la búsqueda para volver a ver
+          el portafolio.
+        </p>
+        <button type="button" className="cat-vacio__btn" onClick={onLimpiar}>
+          <FaRegTrashAlt aria-hidden="true" />
+          Limpiar filtros
+        </button>
+      </div>
+    </div>
   );
 }
 
