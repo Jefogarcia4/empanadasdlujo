@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import ProductGrid from './components/ProductGrid';
@@ -15,7 +15,17 @@ import CarritoWhatsAppPage from './components/CarritoWhatsAppPage';
 import MisPedidosPage from './components/MisPedidosPage';
 import CombosShowcase from './components/CombosShowcase';
 import AdminApp from './components/admin/AdminApp';
-import { fetchProducts } from './services/api';
+import CatalogoFiltros from './components/CatalogoFiltros';
+import {
+  TODOS,
+  TODOS_TAMANOS,
+  COMBOS,
+  buildCategorias,
+  buildTamanos,
+  filtrarProductos,
+  filtrarCombos,
+} from './utils/catalogoFiltros';
+import { fetchProducts, fetchCombos } from './services/api';
 import './styles/App.css';
 import './styles/Landing.css';
 
@@ -54,6 +64,13 @@ function App() {
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [errorProducts, setErrorProducts] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [combos, setCombos] = useState([]);
+  const [loadingCombos, setLoadingCombos] = useState(true);
+
+  // Filtros de la vitrina
+  const [categoria, setCategoria] = useState(TODOS);
+  const [busqueda, setBusqueda] = useState('');
+  const [tamano, setTamano] = useState(TODOS_TAMANOS);
 
   const handleSelectProduct = (product) => {
     setSelectedProduct(product);
@@ -84,6 +101,13 @@ function App() {
   }, []);
 
   useEffect(() => {
+    fetchCombos()
+      .then((data) => setCombos(data))
+      .catch(() => setCombos([]))
+      .finally(() => setLoadingCombos(false));
+  }, []);
+
+  useEffect(() => {
     const onPop = () => {
       const r = parseRoute();
       setCurrentPage(r.page);
@@ -94,7 +118,31 @@ function App() {
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
-  const filteredProducts = products.filter(p => p.active);
+  const activeProducts = useMemo(() => products.filter((p) => p.active), [products]);
+
+  const categorias = useMemo(
+    () => buildCategorias(activeProducts, combos.length > 0),
+    [activeProducts, combos.length]
+  );
+  const tamanos = useMemo(() => buildTamanos(activeProducts), [activeProducts]);
+
+  const filteredProducts = useMemo(
+    () => filtrarProductos(activeProducts, { categoria, busqueda, tamano }),
+    [activeProducts, categoria, busqueda, tamano]
+  );
+  const filteredCombos = useMemo(() => filtrarCombos(combos, busqueda), [combos, busqueda]);
+
+  const mostrarProductos = categoria !== COMBOS;
+  const mostrarCombos = categoria === TODOS || categoria === COMBOS;
+  const resultCount =
+    (mostrarProductos ? filteredProducts.length : 0) +
+    (mostrarCombos ? filteredCombos.length : 0);
+
+  const limpiarFiltros = () => {
+    setCategoria(TODOS);
+    setBusqueda('');
+    setTamano(TODOS_TAMANOS);
+  };
 
   if (currentPage === 'admin') {
     return <AdminApp />;
@@ -210,16 +258,50 @@ function App() {
           {errorProducts && <p className="products-status products-status--error">Error al cargar productos: {errorProducts}</p>}
           {!loadingProducts && !errorProducts && (
             <>
-              <CombosShowcase
-                description="Ideales si no quieres pedir 10 paquetes o si vas a lanzar nuevos productos. Precio fijo: agrégalos al carrito como cualquier producto."
-              />
               <div className="tienda-section-header">
                 <h2 className="tienda-section-header__title">
                   Vitrina digital
                 </h2>
                 <p className="tienda-section-header__sub">Congelados listos para freír · Alta rotación · Excelente margen</p>
               </div>
-              <ProductGrid products={filteredProducts} onSelectProduct={handleSelectProduct} />
+
+              <CatalogoFiltros
+                categorias={categorias}
+                categoria={categoria}
+                onCategoriaChange={setCategoria}
+                busqueda={busqueda}
+                onBusquedaChange={setBusqueda}
+                tamanos={tamanos}
+                tamano={tamano}
+                onTamanoChange={setTamano}
+                resultCount={resultCount}
+              />
+
+              {resultCount === 0 && !loadingCombos ? (
+                <div className="cfiltros-empty">
+                  <div className="cfiltros-empty__emoji">🔍</div>
+                  <p className="cfiltros-empty__title">No encontramos productos</p>
+                  <p className="cfiltros-empty__text">
+                    Prueba con otra búsqueda o cambia los filtros.
+                  </p>
+                  <button type="button" className="cfiltros-empty__btn" onClick={limpiarFiltros}>
+                    Limpiar filtros
+                  </button>
+                </div>
+              ) : (
+                <>
+                  {mostrarCombos && (
+                    <CombosShowcase
+                      combos={filteredCombos}
+                      loading={loadingCombos}
+                      description="Ideales si no quieres pedir 10 paquetes o si vas a lanzar nuevos productos. Precio fijo: agrégalos al carrito como cualquier producto."
+                    />
+                  )}
+                  {mostrarProductos && filteredProducts.length > 0 && (
+                    <ProductGrid products={filteredProducts} onSelectProduct={handleSelectProduct} />
+                  )}
+                </>
+              )}
             </>
           )}
         </main>

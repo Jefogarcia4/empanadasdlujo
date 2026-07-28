@@ -3,8 +3,9 @@ import { fetchCombos } from '../services/api';
 import ComboCard from './ComboCard';
 import '../styles/Combos.css';
 
-// Sección autocontenida: carga los combos activos y los muestra como tarjetas
-// agregables al carrito. Se usa tanto en la vitrina como en el catálogo.
+// Sección de combos: los muestra como tarjetas agregables al carrito. Se usa
+// tanto en la vitrina como en el catálogo. Si no recibe la prop `combos` carga
+// los combos activos por su cuenta (modo autocontenido).
 const FEATURES = [
   { icon: '❄️', text: 'Productos congelados listos para freír' },
   { icon: '🏅', text: 'Hechos con ingredientes de alta calidad' },
@@ -17,24 +18,32 @@ function CombosShowcase({
   titleAccent = 'para Empezar',
   subtitle = 'Ideales para tu hogar o negocio. Ahorra más.',
   description,
+  combos: combosProp,
+  loading: loadingProp = false,
 }) {
-  const [combos, setCombos] = useState([]);
-  const [status, setStatus] = useState('loading'); // 'loading' | 'ready' | 'error'
+  const controlado = combosProp !== undefined;
+  const [fetched, setFetched] = useState([]);
+  const [fetchStatus, setFetchStatus] = useState('loading'); // 'loading' | 'ready' | 'error'
 
   useEffect(() => {
+    if (controlado) return undefined;
     let mounted = true;
     fetchCombos()
       .then((data) => {
         if (mounted) {
-          setCombos(data);
-          setStatus('ready');
+          setFetched(data);
+          setFetchStatus('ready');
         }
       })
-      .catch(() => mounted && setStatus('error'));
+      .catch(() => mounted && setFetchStatus('error'));
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [controlado]);
+
+  const combos = controlado ? combosProp : fetched;
+  let status = fetchStatus;
+  if (controlado) status = loadingProp ? 'loading' : 'ready';
 
   if (status === 'error') return null;
   if (status === 'ready' && combos.length === 0) return null;
