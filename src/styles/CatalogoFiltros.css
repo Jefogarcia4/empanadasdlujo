@@ -1,0 +1,321 @@
+/* ── Barra de filtros de la vitrina ───────────────────────────── */
+.cfiltros {
+  background: var(--color-surface);
+  border: 1px solid #f2e7ce;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(40, 28, 2, 0.06);
+  padding: 1.1rem 1.35rem 0.9rem;
+  margin-bottom: 1.75rem;
+}
+
+.cfiltros__row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* Pestañas de categoría */
+.cfiltros__tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.cfiltros__tab {
+  padding: 0.6rem 1.5rem;
+  border: 1.5px solid rgba(200, 16, 46, 0.5);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-dark-brown);
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: inherit;
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.cfiltros__tab:hover {
+  background: #fff7e4;
+  border-color: var(--color-gold);
+}
+
+.cfiltros__tab.is-active {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-dark-brown);
+  box-shadow: 0 3px 10px rgba(255, 178, 27, 0.45);
+}
+
+.cfiltros__tab:focus-visible {
+  outline: 2px solid var(--color-dark-brown);
+  outline-offset: 2px;
+}
+
+/* Buscador */
+.cfiltros__search {
+  position: relative;
+  flex: 1 1 260px;
+  min-width: 240px;
+  max-width: 420px;
+}
+
+.cfiltros__search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #b8a684;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.cfiltros__search-input {
+  width: 100%;
+  height: 46px;
+  padding: 0 2.4rem 0 2.7rem;
+  border: 1.5px solid #e8dcc0;
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-dark-brown);
+  font-size: 0.92rem;
+  font-family: inherit;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.cfiltros__search-input::placeholder {
+  color: #a9977a;
+}
+
+.cfiltros__search-input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(255, 178, 27, 0.2);
+}
+
+/* Oculta la X nativa de input[type=search] para usar la propia */
+.cfiltros__search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.cfiltros__search-clear {
+  position: absolute;
+  right: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text-light);
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.cfiltros__search-clear:hover {
+  background: #ffe1a3;
+  color: var(--color-dark-brown);
+}
+
+/* Selector de tamaño */
+.cfiltros__size {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 230px;
+}
+
+.cfiltros__size-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  padding-left: 0.2rem;
+}
+
+.cfiltros__select-wrap {
+  position: relative;
+}
+
+.cfiltros__select {
+  width: 100%;
+  height: 46px;
+  padding: 0 2.6rem 0 1.15rem;
+  border: 1.5px solid #e8dcc0;
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-dark-brown);
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.cfiltros__select:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(255, 178, 27, 0.2);
+}
+
+.cfiltros__select:disabled {
+  background: #faf6ea;
+  color: #a9977a;
+  cursor: not-allowed;
+}
+
+.cfiltros__select-caret {
+  position: absolute;
+  right: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+/* Resumen de resultados */
+.cfiltros__results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid #f4ebd8;
+}
+
+.cfiltros__count {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-dark-brown);
+}
+
+.cfiltros__count-icon {
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  transform: rotate(90deg);
+}
+
+.cfiltros__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--color-text-light);
+}
+
+.cfiltros__note-icon {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: var(--color-gold);
+  font-size: 1rem;
+}
+
+/* Estado vacío cuando ningún producto coincide */
+.cfiltros-empty {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: var(--color-surface);
+  border: 1px dashed #e8dcc0;
+  border-radius: 18px;
+  margin-bottom: 2rem;
+}
+
+.cfiltros-empty__emoji {
+  font-size: 2rem;
+}
+
+.cfiltros-empty__title {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-dark-brown);
+}
+
+.cfiltros-empty__text {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  margin-bottom: 1.1rem;
+}
+
+.cfiltros-empty__btn {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-gold);
+  color: var(--color-dark-brown);
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255, 178, 27, 0.45);
+}
+
+.cfiltros-empty__btn:hover {
+  background: #ffc24d;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cfiltros__row {
+    align-items: stretch;
+  }
+
+  .cfiltros__search,
+  .cfiltros__size {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .cfiltros {
+    padding: 0.9rem 0.9rem 0.75rem;
+    border-radius: 14px;
+  }
+
+  .cfiltros__tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    margin: 0 -0.9rem;
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+    scrollbar-width: none;
+  }
+
+  .cfiltros__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cfiltros__tab {
+    padding: 0.5rem 1.15rem;
+    font-size: 0.85rem;
+  }
+
+  .cfiltros__results {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .cfiltros__note br {
+    display: none;
+  }
+}
