@@ -15,7 +15,7 @@ import CarritoWhatsAppPage from './components/CarritoWhatsAppPage';
 import MisPedidosPage from './components/MisPedidosPage';
 import CombosShowcase from './components/CombosShowcase';
 import AdminApp from './components/admin/AdminApp';
-import CatalogoFiltros from './components/CatalogoFiltros';
+import CatalogoFiltros, { CatalogoVacio } from './components/CatalogoFiltros';
 import {
   TODOS,
   TODOS_TAMANOS,
@@ -278,16 +278,7 @@ function App() {
               />
 
               {resultCount === 0 && !loadingCombos ? (
-                <div className="cfiltros-empty">
-                  <div className="cfiltros-empty__emoji">🔍</div>
-                  <p className="cfiltros-empty__title">No encontramos productos</p>
-                  <p className="cfiltros-empty__text">
-                    Prueba con otra búsqueda o cambia los filtros.
-                  </p>
-                  <button type="button" className="cfiltros-empty__btn" onClick={limpiarFiltros}>
-                    Limpiar filtros
-                  </button>
-                </div>
+                <CatalogoVacio onLimpiar={limpiarFiltros} />
               ) : (
                 <>
                   {mostrarCombos && (
