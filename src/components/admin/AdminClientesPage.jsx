@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { FaSyncAlt } from 'react-icons/fa';
 import { fetchClientes, updateCliente } from '../../services/admin';
 
 const formatDate = (iso) => {
@@ -186,7 +187,7 @@ function AdminClientesPage({ onSessionExpired }) {
             {visibles.length} {visibles.length === 1 ? 'cliente' : 'clientes'}
           </span>
           <button type="button" className="admin__refresh" onClick={cargar}>
-            ↻ Actualizar
+            <FaSyncAlt aria-hidden="true" /> Actualizar
           </button>
         </div>
       </div>

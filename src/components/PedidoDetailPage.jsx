@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
 import { fetchPedido } from '../services/pedidos';
 import { fetchProducts } from '../services/api';
 import { DELIVERY_FEE } from '../config/constants';
@@ -78,7 +79,7 @@ function PedidoDetailPage({ pedidoId, onNavigate }) {
           <h2>Pedido no encontrado</h2>
           <p>El pedido #{pedidoId} no existe o fue eliminado.</p>
           <button className="pedido-page__back-btn" onClick={() => onNavigate('tienda')}>
-            ← Volver a la tienda
+            <FaArrowLeft aria-hidden="true" /> Volver a la tienda
           </button>
         </div>
       </main>
@@ -92,7 +93,7 @@ function PedidoDetailPage({ pedidoId, onNavigate }) {
           <h2>No se pudo cargar el pedido</h2>
           <p>{error}</p>
           <button className="pedido-page__back-btn" onClick={() => onNavigate('tienda')}>
-            ← Volver a la tienda
+            <FaArrowLeft aria-hidden="true" /> Volver a la tienda
           </button>
         </div>
       </main>
@@ -106,7 +107,7 @@ function PedidoDetailPage({ pedidoId, onNavigate }) {
     <main className="pedido-page">
       <header className="pedido-page__header">
         <button className="pedido-page__back" onClick={() => onNavigate('tienda')}>
-          ← Volver a la tienda
+          <FaArrowLeft aria-hidden="true" /> Volver a la tienda
         </button>
         <div className="pedido-page__title-row">
           <h1 className="pedido-page__title">Pedido #{pedido.idOrden}</h1>

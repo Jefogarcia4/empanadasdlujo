@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
 import { solicitarOtp, verificarOtp } from '../services/clienteAuth';
 import '../styles/ClientePortal.css';
 
@@ -105,7 +106,7 @@ function ClienteLoginModal({ onClose, onSuccess }) {
             </button>
             <div className="cliente-auth__actions">
               <button type="button" className="cliente-auth__link" onClick={() => { setStep('telefono'); setError(null); setCodigo(''); }}>
-                ← Cambiar número
+                <FaArrowLeft aria-hidden="true" /> Cambiar número
               </button>
               <button type="button" className="cliente-auth__link" onClick={handleSolicitar} disabled={loading}>
                 Reenviar código

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FaLink, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { fetchCarrito, marcarCarritoConvertido } from '../services/carrito';
 import { fetchProducts, fetchCombos } from '../services/api';
@@ -87,7 +88,7 @@ function CarritoWhatsAppPage({ token, onNavigate }) {
     return (
       <main className="cart-page">
         <div className="cart-page__empty">
-          <p>🔗 Este enlace de carrito no existe o expiró.</p>
+          <p><FaLink aria-hidden="true" /> Este enlace de carrito no existe o expiró.</p>
           <button className="cart-page__go-store" onClick={() => onNavigate('tienda')}>
             Ir a la tienda
           </button>
@@ -100,7 +101,7 @@ function CarritoWhatsAppPage({ token, onNavigate }) {
     return (
       <main className="cart-page">
         <div className="cart-page__empty">
-          <p>✅ Este carrito ya fue convertido en un pedido.</p>
+          <p><FaCheckCircle aria-hidden="true" /> Este carrito ya fue convertido en un pedido.</p>
           <button className="cart-page__go-store" onClick={() => onNavigate('tienda')}>
             Ir a la tienda
           </button>
@@ -113,7 +114,7 @@ function CarritoWhatsAppPage({ token, onNavigate }) {
     return (
       <main className="cart-page">
         <div className="cart-page__empty">
-          <p>❌ No se pudo cargar tu carrito.</p>
+          <p><FaTimesCircle aria-hidden="true" /> No se pudo cargar tu carrito.</p>
           {errorMsg && <p className="cart-status__detail">{errorMsg}</p>}
           <button className="cart-page__go-store" onClick={() => onNavigate('tienda')}>
             Ir a la tienda

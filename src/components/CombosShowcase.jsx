@@ -1,4 +1,12 @@
 import { useEffect, useState } from 'react';
+import {
+  FaSnowflake,
+  FaMedal,
+  FaHeart,
+  FaMotorcycle,
+  FaCookieBite,
+  FaStar,
+} from 'react-icons/fa';
 import { fetchCombos } from '../services/api';
 import ComboCard from './ComboCard';
 import '../styles/Combos.css';
@@ -7,10 +15,10 @@ import '../styles/Combos.css';
 // tanto en la vitrina como en el catálogo. Si no recibe la prop `combos` carga
 // los combos activos por su cuenta (modo autocontenido).
 const FEATURES = [
-  { icon: '❄️', text: 'Productos congelados listos para freír' },
-  { icon: '🏅', text: 'Hechos con ingredientes de alta calidad' },
-  { icon: '❤️', text: 'Sabor casero que encanta' },
-  { icon: '🛵', text: 'Despachos en Medellín y área metropolitana' },
+  { icon: <FaSnowflake />, text: 'Productos congelados listos para freír' },
+  { icon: <FaMedal />, text: 'Hechos con ingredientes de alta calidad' },
+  { icon: <FaHeart />, text: 'Sabor casero que encanta' },
+  { icon: <FaMotorcycle />, text: 'Despachos en Medellín y área metropolitana' },
 ];
 
 function CombosShowcase({
@@ -51,15 +59,15 @@ function CombosShowcase({
   return (
     <section className="combos-showcase">
       <div className="combos-showcase__header">
-        <span className="combos-showcase__emoji" aria-hidden="true">🥟</span>
+        <span className="combos-showcase__emoji" aria-hidden="true"><FaCookieBite /></span>
         <h2 className="combos-showcase__title">
           <span className="combos-showcase__title-accent">{title}</span>{' '}
           {titleAccent}
         </h2>
         <p className="combos-showcase__subtitle">
-          <span className="combos-showcase__star" aria-hidden="true">★</span>
+          <FaStar className="combos-showcase__star" aria-hidden="true" />
           {subtitle}
-          <span className="combos-showcase__star" aria-hidden="true">★</span>
+          <FaStar className="combos-showcase__star" aria-hidden="true" />
         </p>
         {description && <p className="combos-showcase__desc">{description}</p>}
       </div>

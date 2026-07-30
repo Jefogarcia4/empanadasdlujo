@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { FaSyncAlt } from 'react-icons/fa';
 import { fetchOrdenes } from '../../services/admin';
 import { fetchProducts } from '../../services/api';
 import AdminOrderRow, { ESTADOS, ESTADO_META } from './AdminOrderRow';
@@ -115,7 +116,7 @@ function AdminPage({ onSessionExpired }) {
             ))}
           </div>
           <button type="button" className="admin__refresh" onClick={cargar}>
-            ↻ Actualizar
+            <FaSyncAlt aria-hidden="true" /> Actualizar
           </button>
         </div>
 

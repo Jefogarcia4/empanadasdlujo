@@ -381,6 +381,8 @@
 
 .pdetail__ficha-icon {
   font-size: 22px;
+  line-height: 1;
+  color: #c2570d;
   margin-bottom: 4px;
 }
 
@@ -422,12 +424,18 @@
   position: relative;
 }
 
+/* Viñeta con el icono "check" de Font Awesome; el mask permite colorearlo
+   desde CSS igual que el resto de iconos. */
 .pdetail__list li::before {
-  content: '✓';
+  content: '';
   position: absolute;
   left: 0;
-  color: #800302;
-  font-weight: 700;
+  top: 0.3em;
+  width: 0.8em;
+  height: 0.8em;
+  background-color: #800302;
+  -webkit-mask: var(--fa-check) no-repeat center / contain;
+  mask: var(--fa-check) no-repeat center / contain;
 }
 
 .pdetail__highlight {

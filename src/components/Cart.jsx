@@ -1,3 +1,4 @@
+import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 
 /* ── Iconos de línea (estilo de la maqueta) ── */
@@ -150,7 +151,7 @@ function Cart({ onNavigate }) {
         <div className="cart-modal__body">
           {isEmpty ? (
             <div className="cart-empty">
-              <div className="cart-empty-icon">🛒</div>
+              <div className="cart-empty-icon"><FaShoppingCart aria-hidden="true" /></div>
               <p>Tu carrito está vacío</p>
               <p>¡Agrega algunas deliciosas empanadas!</p>
             </div>

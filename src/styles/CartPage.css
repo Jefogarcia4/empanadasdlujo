@@ -417,6 +417,10 @@
 /* Botón enviar */
 .cart-submit-btn {
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 14px;
   background: linear-gradient(135deg, var(--color-burgundy), #600202);
   color: #fff;
@@ -426,6 +430,16 @@
   font-weight: 700;
   cursor: pointer;
   transition: opacity var(--transition-fast);
+}
+
+.cart-submit-btn__spinner {
+  animation: cart-submit-spin 0.9s linear infinite;
+}
+
+@keyframes cart-submit-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .cart-submit-btn:hover:not(:disabled) {

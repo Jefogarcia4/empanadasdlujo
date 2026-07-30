@@ -1,4 +1,15 @@
 import { useState } from 'react';
+import {
+  FaArrowLeft,
+  FaMoneyBillWave,
+  FaUniversity,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaSpinner,
+  FaWhatsapp,
+  FaShoppingCart,
+  FaTimes,
+} from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { sendOrderViaWhatsAppAPI, sendOrderConfirmationToClient } from '../services/whatsapp';
 import { createPedido } from '../services/pedidos';
@@ -178,7 +189,7 @@ function CartPage({ onNavigate, initialForm, onOrderCreated }) {
     <main className="cart-page">
       <div className="cart-page__header">
         <button className="cart-page__back" onClick={() => onNavigate('tienda')}>
-          ← Volver a la tienda
+          <FaArrowLeft aria-hidden="true" /> Volver a la tienda
         </button>
         <h2 className="cart-page__title">Tu Pedido</h2>
       </div>
@@ -331,7 +342,7 @@ function CartPage({ onNavigate, initialForm, onOrderCreated }) {
                     checked={form.tipoPago === 'Efectivo'}
                     onChange={handleChange}
                   />
-                  💵 Efectivo
+                  <FaMoneyBillWave aria-hidden="true" /> Efectivo
                 </label>
                 <label className={`cart-form__radio-label${form.tipoPago === 'Transferencia' ? ' selected' : ''}`}>
                   <input
@@ -341,7 +352,7 @@ function CartPage({ onNavigate, initialForm, onOrderCreated }) {
                     checked={form.tipoPago === 'Transferencia'}
                     onChange={handleChange}
                   />
-                  🏦 Transferencia
+                  <FaUniversity aria-hidden="true" /> Transferencia
                 </label>
               </div>
             </div>
@@ -360,12 +371,12 @@ function CartPage({ onNavigate, initialForm, onOrderCreated }) {
 
             {orderStatus === 'success' && (
               <div className="cart-status cart-status--success">
-                ✅ ¡Pedido enviado! Te contactaremos pronto.
+                <FaCheckCircle aria-hidden="true" /> ¡Pedido enviado! Te contactaremos pronto.
               </div>
             )}
             {orderStatus === 'error' && (
               <div className="cart-status cart-status--error">
-                ❌ Error al enviar el pedido. Intenta de nuevo.
+                <FaTimesCircle aria-hidden="true" /> Error al enviar el pedido. Intenta de nuevo.
                 {errorMsg && <div className="cart-status__detail">{errorMsg}</div>}
               </div>
             )}
@@ -375,7 +386,15 @@ function CartPage({ onNavigate, initialForm, onOrderCreated }) {
               className="cart-submit-btn"
               disabled={cartItems.length === 0 || orderStatus === 'sending'}
             >
-              {orderStatus === 'sending' ? '⏳ Enviando...' : '📲 Enviar pedido por WhatsApp'}
+              {orderStatus === 'sending' ? (
+                <>
+                  <FaSpinner className="cart-submit-btn__spinner" aria-hidden="true" /> Enviando...
+                </>
+              ) : (
+                <>
+                  <FaWhatsapp aria-hidden="true" /> Enviar pedido por WhatsApp
+                </>
+              )}
             </button>
           </form>
         </section>
@@ -385,7 +404,7 @@ function CartPage({ onNavigate, initialForm, onOrderCreated }) {
           <h3>Productos</h3>
           {cartItems.length === 0 ? (
             <div className="cart-page__empty">
-              <p>🛒 Tu carrito está vacío.</p>
+              <p><FaShoppingCart aria-hidden="true" /> Tu carrito está vacío.</p>
               <button className="cart-page__go-store" onClick={() => onNavigate('tienda')}>
                 Ir a la tienda
               </button>
@@ -424,7 +443,7 @@ function CartPage({ onNavigate, initialForm, onOrderCreated }) {
                       onClick={() => removeFromCart(item.id)}
                       aria-label="Eliminar producto"
                     >
-                      ✕
+                      <FaTimes aria-hidden="true" />
                     </button>
                   </li>
                 ))}

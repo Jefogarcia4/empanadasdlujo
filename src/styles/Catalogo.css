@@ -3,6 +3,8 @@
    ========================================================= */
 
 .catalogo {
+  /* Color de los iconos (react-icons) sobre fondos claros del catálogo. */
+  --cat-icon: #c2570d;
   background-color: #fff8e1;
   font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
   color: #1a1a1a;
@@ -142,6 +144,7 @@
   font-size: 28px;
   line-height: 1;
   flex-shrink: 0;
+  color: var(--cat-icon);
 }
 
 .cat-info-card h3 {
@@ -296,6 +299,8 @@
 
 .cat-card__image-placeholder span {
   font-size: 64px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.5);
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
 }
 
@@ -338,6 +343,7 @@
   font-size: 18px;
   flex-shrink: 0;
   margin-top: 1px;
+  color: var(--cat-icon);
 }
 
 /* Price Box */
@@ -357,6 +363,7 @@
 .cat-card__price-icon {
   font-size: 24px;
   flex-shrink: 0;
+  color: #a05a05;
 }
 
 .cat-card__price-amount {
@@ -418,6 +425,12 @@
 
 .cat-card__revenue-item > span {
   font-size: 20px;
+  line-height: 1;
+  color: var(--cat-icon);
+}
+
+.cat-card__revenue-item--margin > span {
+  color: #218c45;
 }
 
 .cat-card__revenue-label {
@@ -463,6 +476,8 @@
 
 .cat-card__feature-icon {
   font-size: 16px;
+  flex-shrink: 0;
+  color: var(--cat-icon);
 }
 
 /* CTA */
@@ -532,7 +547,9 @@
 
 .cat-info-importante__item-icon {
   font-size: 26px;
+  line-height: 1;
   margin-bottom: 6px;
+  color: var(--cat-icon);
 }
 
 .cat-info-importante__item h4 {
@@ -727,6 +744,8 @@
 
 .cat-brand-footer__logo-icon {
   font-size: 36px;
+  line-height: 1;
+  color: #ffb21b;
 }
 
 .cat-brand-footer__logo-brand {

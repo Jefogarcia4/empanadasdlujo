@@ -29,12 +29,21 @@
   /* Transiciones */
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
+
+  /* Icono "check" de Font Awesome para viñetas CSS (usar con mask). */
+  --fa-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z'/%3E%3C/svg%3E");
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Iconos (react-icons / Font Awesome): heredan tamaño y color del texto.
+   El desplazamiento óptico los centra respecto a la línea base. */
+svg {
+  vertical-align: -0.125em;
 }
 
 body {
@@ -378,6 +387,9 @@ body {
 }
 
 .filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   padding: 0.55rem 1.25rem;
   border: 2px solid transparent;
   background: var(--color-accent);
@@ -933,8 +945,9 @@ body {
 
 .cart-empty-icon {
   font-size: 4rem;
+  line-height: 1;
   margin-bottom: 1rem;
-  opacity: 0.5;
+  opacity: 0.35;
 }
 
 .cart-modal__items {
@@ -1306,6 +1319,8 @@ body {
 
 .toast-icon {
   font-size: 1.25rem;
+  color: #2fae5f;
+  flex-shrink: 0;
 }
 
 /* Cart FAB (Floating Action Button) */

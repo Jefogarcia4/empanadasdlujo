@@ -1,3 +1,31 @@
+import {
+  FaFire,
+  FaImage,
+  FaBoxOpen,
+  FaPepperHot,
+  FaWeightHanging,
+  FaRulerCombined,
+  FaTag,
+  FaPiggyBank,
+  FaMoneyBillWave,
+  FaChartLine,
+  FaStopwatch,
+  FaStar,
+  FaClipboardList,
+  FaGift,
+  FaTags,
+  FaTrophy,
+  FaShoppingCart,
+  FaCreditCard,
+  FaMotorcycle,
+  FaRegClock,
+  FaWhatsapp,
+  FaCheckCircle,
+  FaSyncAlt,
+  FaStore,
+  FaCookieBite,
+  FaCity,
+} from 'react-icons/fa';
 import '../styles/Catalogo.css';
 import CombosShowcase from './CombosShowcase';
 
@@ -146,7 +174,9 @@ function ProductCatalogCard({ producto }) {
           <p className="cat-card__subtitle">{producto.subtitle}</p>
         </div>
         {producto.topVentas && (
-          <span className="cat-card__badge-top">🔥 Top ventas</span>
+          <span className="cat-card__badge-top">
+            <FaFire aria-hidden="true" /> Top ventas
+          </span>
         )}
       </div>
 
@@ -156,7 +186,7 @@ function ProductCatalogCard({ producto }) {
           <img src={producto.image} alt={producto.name} className="cat-card__image" />
         ) : (
           <div className="cat-card__image-placeholder">
-            <span>🥟</span>
+            <span><FaImage aria-hidden="true" /></span>
             <p>Imagen del producto</p>
           </div>
         )}
@@ -165,19 +195,19 @@ function ProductCatalogCard({ producto }) {
       {/* Specs */}
       <div className="cat-card__specs">
         <div className="cat-card__spec">
-          <span className="cat-card__spec-icon cat-card__spec-icon--units">📦</span>
+          <FaBoxOpen className="cat-card__spec-icon cat-card__spec-icon--units" aria-hidden="true" />
           <span><strong>{producto.units}</strong> unidades<br /><small>listas para vender</small></span>
         </div>
         <div className="cat-card__spec">
-          <span className="cat-card__spec-icon cat-card__spec-icon--filling">🌶️</span>
+          <FaPepperHot className="cat-card__spec-icon cat-card__spec-icon--filling" aria-hidden="true" />
           <span><strong>Relleno:</strong><br /><small>{producto.filling}</small></span>
         </div>
         <div className="cat-card__spec">
-          <span className="cat-card__spec-icon cat-card__spec-icon--weight">⚖️</span>
+          <FaWeightHanging className="cat-card__spec-icon cat-card__spec-icon--weight" aria-hidden="true" />
           <span><strong>Peso:</strong><br /><small>{producto.weight}</small></span>
         </div>
         <div className="cat-card__spec">
-          <span className="cat-card__spec-icon cat-card__spec-icon--size">📏</span>
+          <FaRulerCombined className="cat-card__spec-icon cat-card__spec-icon--size" aria-hidden="true" />
           <span><strong>Tamaño:</strong><br /><small>{producto.size}</small></span>
         </div>
       </div>
@@ -185,7 +215,7 @@ function ProductCatalogCard({ producto }) {
       {/* Precio */}
       <div className="cat-card__price-box">
         <div className="cat-card__price-label">
-          <span className="cat-card__price-icon">💰</span>
+          <FaTag className="cat-card__price-icon" aria-hidden="true" />
           <div>
             <span className="cat-card__price-amount">${formatPrice(producto.pricePackage)}</span>
             <span className="cat-card__price-per"> por paquete</span>
@@ -195,7 +225,8 @@ function ProductCatalogCard({ producto }) {
         </div>
         <div className="cat-card__bulk-badge">
           <span className="cat-card__bulk-text">
-            💚 Ahorra y paga solo <strong>${formatPrice(producto.bulkPrice)}</strong>
+            <FaPiggyBank aria-hidden="true" /> Ahorra y paga solo{' '}
+            <strong>${formatPrice(producto.bulkPrice)}</strong>
           </span>
           <span className="cat-card__bulk-sub">Compra 10 paquetes o más</span>
         </div>
@@ -204,7 +235,7 @@ function ProductCatalogCard({ producto }) {
       {/* Rentabilidad */}
       <div className="cat-card__revenue">
         <div className="cat-card__revenue-item cat-card__revenue-item--sells">
-          <span>💵</span>
+          <span><FaMoneyBillWave aria-hidden="true" /></span>
           <div>
             <p className="cat-card__revenue-label">Vende desde</p>
             <p className="cat-card__revenue-value">${formatPrice(producto.sellsFrom)} c/u</p>
@@ -212,7 +243,7 @@ function ProductCatalogCard({ producto }) {
         </div>
         <div className="cat-card__revenue-divider" />
         <div className="cat-card__revenue-item cat-card__revenue-item--margin">
-          <span>📈</span>
+          <span><FaChartLine aria-hidden="true" /></span>
           <div>
             <p className="cat-card__revenue-label">Margen estimado</p>
             <p className="cat-card__revenue-value">+{producto.margin}%</p>
@@ -223,11 +254,11 @@ function ProductCatalogCard({ producto }) {
       {/* Features */}
       <div className="cat-card__features">
         <div className="cat-card__feature">
-          <span className="cat-card__feature-icon">⏱️</span>
+          <FaStopwatch className="cat-card__feature-icon" aria-hidden="true" />
           <span>Listas para freír en minutos</span>
         </div>
         <div className="cat-card__feature">
-          <span className="cat-card__feature-icon">⭐</span>
+          <FaStar className="cat-card__feature-icon" aria-hidden="true" />
           <span>Crocantes, prácticas y de alta demanda</span>
         </div>
       </div>
@@ -257,21 +288,21 @@ function InfoCards() {
   return (
     <div className="cat-info-cards">
       <div className="cat-info-card">
-        <div className="cat-info-card__icon">📋</div>
+        <div className="cat-info-card__icon"><FaClipboardList aria-hidden="true" /></div>
         <div>
           <h3>Catálogo único</h3>
           <p>Manejamos un solo catálogo para hogar y negocios. Puedes pedir desde 2 paquetes. El precio mayorista aplica desde 10 paquetes combinados.</p>
         </div>
       </div>
       <div className="cat-info-card">
-        <div className="cat-info-card__icon">🎁</div>
+        <div className="cat-info-card__icon"><FaGift aria-hidden="true" /></div>
         <div>
           <h3>Muestras</h3>
           <p>No entregamos muestras gratis. Puedes probar desde 2 paquetes con una inversión mínima.</p>
         </div>
       </div>
       <div className="cat-info-card cat-info-card--prices">
-        <div className="cat-info-card__icon">💲</div>
+        <div className="cat-info-card__icon"><FaTags aria-hidden="true" /></div>
         <div className="cat-info-card__prices-content">
           <h3>Precios claros</h3>
           <div className="cat-info-card__price-rows">
@@ -285,7 +316,9 @@ function InfoCards() {
             </div>
           </div>
           <div className="cat-info-card__bulk-highlight">
-            <span>🏆 Desde 10 paquetes accedes a mejor precio</span>
+            <span>
+              <FaTrophy aria-hidden="true" /> Desde 10 paquetes accedes a mejor precio
+            </span>
           </div>
         </div>
       </div>
@@ -299,7 +332,7 @@ function InfoImportante() {
       <h2 className="cat-info-importante__title">Información<br />Importante</h2>
       <div className="cat-info-importante__grid">
         <div className="cat-info-importante__item">
-          <div className="cat-info-importante__item-icon">🛒</div>
+          <div className="cat-info-importante__item-icon"><FaShoppingCart aria-hidden="true" /></div>
           <h4>Cómo pedir</h4>
           <ul>
             <li>Elegir tus productos</li>
@@ -308,7 +341,7 @@ function InfoImportante() {
           </ul>
         </div>
         <div className="cat-info-importante__item">
-          <div className="cat-info-importante__item-icon">💳</div>
+          <div className="cat-info-importante__item-icon"><FaCreditCard aria-hidden="true" /></div>
           <h4>Pagos</h4>
           <ul>
             <li>Efectivo, transferencia</li>
@@ -317,7 +350,7 @@ function InfoImportante() {
           </ul>
         </div>
         <div className="cat-info-importante__item">
-          <div className="cat-info-importante__item-icon">🛵</div>
+          <div className="cat-info-importante__item-icon"><FaMotorcycle aria-hidden="true" /></div>
           <h4>Envíos</h4>
           <ul>
             <li>Área Metropolitana del</li>
@@ -326,7 +359,7 @@ function InfoImportante() {
           </ul>
         </div>
         <div className="cat-info-importante__item">
-          <div className="cat-info-importante__item-icon">🕐</div>
+          <div className="cat-info-importante__item-icon"><FaRegClock aria-hidden="true" /></div>
           <h4>Horarios</h4>
           <ul>
             <li>9 am – 6 pm</li>
@@ -340,7 +373,7 @@ function InfoImportante() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span>📱</span> ¿Listo para pedir?<br />
+        <span><FaWhatsapp aria-hidden="true" /></span> ¿Listo para pedir?<br />
         <small>Escríbenos y agenda tu pedido</small>
       </a>
     </section>
@@ -351,7 +384,7 @@ function BrandFooter() {
   return (
     <section className="cat-brand-footer">
       <div className="cat-brand-footer__logo">
-        <div className="cat-brand-footer__logo-icon">🥟</div>
+        <div className="cat-brand-footer__logo-icon"><FaCookieBite aria-hidden="true" /></div>
         <div>
           <p className="cat-brand-footer__logo-brand">EMPANADAS</p>
           <p className="cat-brand-footer__logo-name">D'lujo</p>
@@ -369,10 +402,18 @@ function BrandFooter() {
       </div>
 
       <div className="cat-brand-footer__features">
-        <div className="cat-brand-footer__feature">✅ Listas para freír en minutos</div>
-        <div className="cat-brand-footer__feature">🔄 Alta rotación</div>
-        <div className="cat-brand-footer__feature">🏪 Ideales para negocio o consumo</div>
-        <div className="cat-brand-footer__feature">📦 Comienza desde 2 paquetes</div>
+        <div className="cat-brand-footer__feature">
+          <FaCheckCircle aria-hidden="true" /> Listas para freír en minutos
+        </div>
+        <div className="cat-brand-footer__feature">
+          <FaSyncAlt aria-hidden="true" /> Alta rotación
+        </div>
+        <div className="cat-brand-footer__feature">
+          <FaStore aria-hidden="true" /> Ideales para negocio o consumo
+        </div>
+        <div className="cat-brand-footer__feature">
+          <FaBoxOpen aria-hidden="true" /> Comienza desde 2 paquetes
+        </div>
       </div>
 
       <a
@@ -403,7 +444,7 @@ function BrandFooter() {
       <div className="cat-brand-footer__divider" />
 
       <div className="cat-brand-footer__tag">
-        <span>🌆</span> Emprende con empanadas en Medellín
+        <span><FaCity aria-hidden="true" /></span> Emprende con empanadas en Medellín
       </div>
 
       <p className="cat-brand-footer__legal">
@@ -422,14 +463,16 @@ function Catalogo() {
       {/* Hero */}
       <section className="cat-hero">
         <div className="cat-hero__top-label">CATÁLOGO 2026</div>
-        <div className="cat-hero__logo">🥟 Empanadas <strong>D'lujo</strong></div>
+        <div className="cat-hero__logo">
+          <FaCookieBite aria-hidden="true" /> Empanadas <strong>D'lujo</strong>
+        </div>
         <h1 className="cat-hero__title">Empanadas<br />y Pasteles</h1>
         <div className="cat-hero__subtitle-badge">
           Para vender o disfrutar en casa
         </div>
         <div className="cat-hero__image-wrap">
           <div className="cat-hero__image-placeholder">
-            <span>🥟</span>
+            <span><FaImage aria-hidden="true" /></span>
           </div>
         </div>
         <p className="cat-hero__tagline">

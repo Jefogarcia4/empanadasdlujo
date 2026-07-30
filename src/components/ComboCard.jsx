@@ -1,3 +1,4 @@
+import { FaCheck } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { trackAddToCart } from '../services/metaPixel';
 
@@ -168,7 +169,7 @@ function ComboCard({ combo, index = 0 }) {
           <ul className="combo-card__includes-list">
             {includes.map((item, i) => (
               <li key={i}>
-                <span className="combo-card__check" aria-hidden="true">✓</span>
+                <span className="combo-card__check" aria-hidden="true"><FaCheck /></span>
                 <span>{item}</span>
               </li>
             ))}

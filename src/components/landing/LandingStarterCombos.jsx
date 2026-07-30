@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaBoxOpen, FaArrowRight } from 'react-icons/fa';
+import { FaBoxOpen, FaArrowRight, FaStar } from 'react-icons/fa';
 import { fetchCombos } from '../../services/api';
 import { useCart } from '../../context/CartContext';
 
@@ -116,7 +116,7 @@ function LandingStarterCombos({ onNavigate }) {
                   )}
                   {combo.savings > 0 && (
                     <p className="lp-starter__card-savings">
-                      ★ Ahorras {formatPrice(combo.savings)}
+                      <FaStar aria-hidden="true" /> Ahorras {formatPrice(combo.savings)}
                     </p>
                   )}
                   {combo.shortDescription && (

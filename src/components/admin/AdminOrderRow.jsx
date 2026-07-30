@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FaExclamationTriangle, FaCheck } from 'react-icons/fa';
 import {
   updateEstadoOrden,
   fetchWhatsAppLogs,
@@ -243,7 +244,7 @@ function AdminOrderRow({ orden, products, onEstadoChanged, onSessionExpired }) {
                   <h4 className="admin-wa__title">WhatsApp</h4>
                   {lastFail && (
                     <span className="admin-wa__fail">
-                      ⚠ Último envío falló
+                      <FaExclamationTriangle aria-hidden="true" /> Último envío falló
                       {lastFail.tipo ? ` (${lastFail.tipo === 'CLIENTE' ? 'cliente' : 'negocio'})` : ''}
                       {lastFail.fechaIntento ? ` · ${formatDate(lastFail.fechaIntento)}` : ''}
                       {lastFail.mensajeError ? `: ${lastFail.mensajeError}` : ''}
@@ -258,7 +259,7 @@ function AdminOrderRow({ orden, products, onEstadoChanged, onSessionExpired }) {
                     onClick={() => handleResend('NEGOCIO', resendOrderToBusiness)}
                   >
                     {resend.NEGOCIO === 'sending' ? 'Enviando…'
-                      : resend.NEGOCIO === 'ok' ? '✓ Reenviado al negocio'
+                      : resend.NEGOCIO === 'ok' ? <><FaCheck aria-hidden="true" /> Reenviado al negocio</>
                       : 'Reenviar al negocio'}
                   </button>
                   <button
@@ -269,7 +270,7 @@ function AdminOrderRow({ orden, products, onEstadoChanged, onSessionExpired }) {
                     onClick={() => handleResend('CLIENTE', resendOrderToClient)}
                   >
                     {resend.CLIENTE === 'sending' ? 'Enviando…'
-                      : resend.CLIENTE === 'ok' ? '✓ Reenviado al cliente'
+                      : resend.CLIENTE === 'ok' ? <><FaCheck aria-hidden="true" /> Reenviado al cliente</>
                       : 'Reenviar al cliente'}
                   </button>
                 </div>

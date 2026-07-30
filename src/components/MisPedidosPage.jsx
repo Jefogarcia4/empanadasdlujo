@@ -63,7 +63,7 @@ function MisPedidosPage({ onNavigate }) {
         <div>
           <h1 className="mis-pedidos__title">Mis pedidos</h1>
           {session?.nombre && (
-            <p className="mis-pedidos__hello">Hola, {session.nombre} 👋</p>
+            <p className="mis-pedidos__hello">Hola, {session.nombre}</p>
           )}
         </div>
         <button type="button" className="mis-pedidos__logout" onClick={handleLogout}>

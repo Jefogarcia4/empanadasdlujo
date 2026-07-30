@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { FaSyncAlt } from 'react-icons/fa';
 import { fetchWhatsAppLogs } from '../../services/admin';
 
 const FILTROS = [
@@ -64,7 +65,7 @@ function AdminLogsPage({ onSessionExpired }) {
           ))}
         </div>
         <button type="button" className="admin__refresh" onClick={cargar}>
-          ↻ Actualizar
+          <FaSyncAlt aria-hidden="true" /> Actualizar
         </button>
       </div>
 

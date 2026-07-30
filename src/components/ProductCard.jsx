@@ -6,6 +6,7 @@ import {
   FaRulerCombined,
   FaTag,
   FaChartLine,
+  FaArrowRight,
 } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { trackAddToCart } from '../services/metaPixel';
@@ -138,7 +139,7 @@ function ProductCard({ product, onSelectProduct }) {
 
       <div className="pcard__actions">
         <a className="pcard__details" href="#" onClick={handleDetailsClick}>
-          Ver detalles →
+          Ver detalles <FaArrowRight aria-hidden="true" />
         </a>
         <button className="pcard__btn" onClick={handleAddToCart}>
           Agregar al carrito

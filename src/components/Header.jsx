@@ -1,4 +1,11 @@
 import { useState } from 'react';
+import {
+  FaBoxOpen,
+  FaMotorcycle,
+  FaStopwatch,
+  FaUser,
+  FaShoppingCart,
+} from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import ClienteLoginModal from './ClienteLoginModal';
 import { isClienteAuthenticated } from '../services/clienteAuth';
@@ -33,19 +40,19 @@ function Header({ currentPage, onNavigate }) {
       <div className="header-banner" role="note" aria-label="Anuncios de la tienda">
         <ul className="header-banner__list">
           <li className="header-banner__item">
-            <span className="header-banner__icon" aria-hidden="true">📦</span>
+            <FaBoxOpen className="header-banner__icon" aria-hidden="true" />
             <span>Compra <strong>10 paquetes o más</strong> y accede a precio por mayor</span>
           </li>
           <li className="header-banner__item">
-            <span className="header-banner__icon" aria-hidden="true">🛵</span>
+            <FaMotorcycle className="header-banner__icon" aria-hidden="true" />
             <span>Envíos a domicilio en el <strong>Área Metropolitana</strong></span>
           </li>
           <li className="header-banner__item">
-            <span className="header-banner__icon" aria-hidden="true">⏱️</span>
+            <FaStopwatch className="header-banner__icon" aria-hidden="true" />
             <span><strong>Listas para freír</strong> en minutos · Alta rotación</span>
           </li>
           <li className="header-banner__item" aria-hidden="true">
-            <span className="header-banner__icon">📦</span>
+            <FaBoxOpen className="header-banner__icon" />
             <span>Compra <strong>10 paquetes o más</strong> y accede a precio por mayor</span>
           </li>
         </ul>
@@ -85,10 +92,10 @@ function Header({ currentPage, onNavigate }) {
             </button>
           </nav> */}
           <button className="header-login" onClick={handleIngreso}>
-            👤 {authed ? 'Mis pedidos' : 'Ingreso'}
+            <FaUser aria-hidden="true" /> {authed ? 'Mis pedidos' : 'Ingreso'}
           </button>
           <button className="cart-button" onClick={() => go('cart')}>
-            🛒 Carrito
+            <FaShoppingCart aria-hidden="true" /> Carrito
             {totalItems > 0 && (
               <span className="cart-badge">{totalItems}</span>
             )}

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaMotorcycle, FaFire, FaSnowflake } from 'react-icons/fa';
 
 function LandingHero({ onNavigate }) {
   return (
@@ -65,10 +65,14 @@ function LandingHero({ onNavigate }) {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <span className="lp-hero__trust-item">
-              🛵 Entregas en Medellín y el Valle de Aburrá
+              <FaMotorcycle aria-hidden="true" /> Entregas en Medellín y el Valle de Aburrá
             </span>
-            <span className="lp-hero__trust-item">🔥 Listos para freír</span>
-            <span className="lp-hero__trust-item">❄️ Conservación a -18 °C</span>
+            <span className="lp-hero__trust-item">
+              <FaFire aria-hidden="true" /> Listos para freír
+            </span>
+            <span className="lp-hero__trust-item">
+              <FaSnowflake aria-hidden="true" /> Conservación a -18 °C
+            </span>
           </motion.div>
         </div>
 

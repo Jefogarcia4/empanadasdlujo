@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext, useContext, useCallback } from 'react';
+import { FaCheckCircle } from 'react-icons/fa';
 
 const ToastContext = createContext();
 
@@ -16,7 +17,7 @@ export function ToastProvider({ children }) {
     <ToastContext.Provider value={{ showToast }}>
       {children}
       <div className={`toast ${toast.visible ? 'show' : ''}`}>
-        <span className="toast-icon">✅</span>
+        <FaCheckCircle className="toast-icon" aria-hidden="true" />
         <span>{toast.message}</span>
       </div>
     </ToastContext.Provider>

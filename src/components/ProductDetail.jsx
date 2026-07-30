@@ -1,4 +1,15 @@
 import { useState } from 'react';
+import {
+  FaThermometerHalf,
+  FaUtensils,
+  FaFire,
+  FaStopwatch,
+  FaCalendarAlt,
+  FaBoxOpen,
+  FaWeightHanging,
+  FaShoppingCart,
+  FaArrowLeft,
+} from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { trackAddToCart } from '../services/metaPixel';
 import '../styles/ProductDetail.css';
@@ -13,32 +24,32 @@ const formatPrice = (price) =>
 
 const FICHA_TECNICA = [
   {
-    icon: '🌡️',
+    icon: <FaThermometerHalf className="pdetail__ficha-icon" aria-hidden="true" />,
     title: 'Conservación',
     desc: 'Conservar en congelación',
   },
   {
-    icon: '🍳',
+    icon: <FaUtensils className="pdetail__ficha-icon" aria-hidden="true" />,
     title: 'Preparación',
     desc: 'Freír sin descongelar',
   },
   {
-    icon: '🔥',
+    icon: <FaFire className="pdetail__ficha-icon" aria-hidden="true" />,
     title: 'Temp. Aceite',
     desc: '180 °C',
   },
   {
-    icon: '⏱️',
+    icon: <FaStopwatch className="pdetail__ficha-icon" aria-hidden="true" />,
     title: 'Tiempo',
     desc: '3 a 5 minutos',
   },
   {
-    icon: '📅',
+    icon: <FaCalendarAlt className="pdetail__ficha-icon" aria-hidden="true" />,
     title: 'Vida útil',
     desc: '6 meses congelado',
   },
   {
-    icon: '📦',
+    icon: <FaBoxOpen className="pdetail__ficha-icon" aria-hidden="true" />,
     title: 'Presentación',
     desc: 'Bolsa sellada',
   },
@@ -77,7 +88,7 @@ function ProductDetail({ product, onNavigate }) {
         <div className="pdetail__empty">
           <p>No se ha seleccionado ningún producto.</p>
           <button className="pdetail__back-btn" onClick={() => onNavigate('tienda')}>
-            ← Volver a la tienda
+            <FaArrowLeft aria-hidden="true" /> Volver a la tienda
           </button>
         </div>
       </main>
@@ -184,7 +195,7 @@ function ProductDetail({ product, onNavigate }) {
                 className="pdetail__add-btn"
                 onClick={handleAddToCart}
               >
-                🛒 Agregar al carrito ({quantity})
+                <FaShoppingCart aria-hidden="true" /> Agregar al carrito ({quantity})
               </button>
               <button
                 type="button"
@@ -224,13 +235,13 @@ function ProductDetail({ product, onNavigate }) {
           <div className="pdetail__ficha">
             {FICHA_TECNICA.map((item) => (
               <div key={item.title} className="pdetail__ficha-item">
-                <span className="pdetail__ficha-icon">{item.icon}</span>
+                {item.icon}
                 <strong>{item.title}</strong>
                 <small>{item.desc}</small>
               </div>
             ))}
             <div className="pdetail__ficha-item">
-              <span className="pdetail__ficha-icon">⚖️</span>
+              <FaWeightHanging className="pdetail__ficha-icon" aria-hidden="true" />
               <strong>Peso</strong>
               <small>{weightLabel} por unidad</small>
             </div>
