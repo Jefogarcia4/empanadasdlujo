@@ -1,0 +1,1906 @@
+/* ============================================================
+   Página Nosotros — Empanadas D'Lujo
+   Bloques apilados; cada bloque usa el prefijo .nos-
+
+   Especificaciones comunes (tomadas de los mockups):
+     Contenedor máx.      1280 px
+     Padding vertical     88–104 px (desktop)
+     Gap entre columnas   64 px
+     Títulos              Inter · Cuerpo  DM Sans
+     Paleta               #281c02 · #800302 · #fff2cf · #ffb21b
+   ============================================================ */
+
+.nos-main {
+  --nos-red: #800302;
+  --nos-red-bright: #c1121f;
+  --nos-ink: #281c02;
+  --nos-body: #5a4a2d;
+  --nos-muted: #6b5a3c;
+  --nos-max: 1280px;
+  --nos-gap: 64px;
+  --nos-pad-y: clamp(2.5rem, 6vw, 6.5rem);
+  overflow-x: hidden;
+  background: var(--color-cream);
+  font-family: 'DM Sans', 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* El header es sticky: al saltar por ancla hay que dejarle su altura libre
+   para que no tape el inicio del bloque. */
+.nos-main section[id] {
+  scroll-margin-top: 125px;
+}
+
+/* ── Piezas compartidas entre bloques ────────────────────────── */
+.nos-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-light-yellow);
+  color: var(--nos-red);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.5rem 1.1rem;
+  border-radius: 50px;
+}
+
+.nos-badge__icon {
+  font-size: 1.05rem;
+  color: var(--color-gold);
+}
+
+.nos-title {
+  margin: 1.5rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.6rem, 3.1vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--nos-ink);
+}
+
+/* Filete rojo bajo el título (solo desktop, según mockups) */
+.nos-rule {
+  display: block;
+  width: 58px;
+  height: 5px;
+  margin: 1.4rem 0 0;
+  border-radius: 3px;
+  background: var(--nos-red);
+}
+
+.nos-text {
+  margin: 1.5rem 0 0;
+  font-size: clamp(0.95rem, 1.1vw, 1.125rem);
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--nos-ink);
+}
+
+.nos-quote {
+  margin: 1.75rem 0 0;
+  padding: 0.35rem 0 0.35rem 1.1rem;
+  border-left: 5px solid var(--color-gold);
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--nos-ink);
+}
+
+.nos-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 1.1rem 0 0;
+  max-width: 46ch;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--nos-muted);
+}
+
+.nos-disclaimer__icon {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  color: var(--color-gold);
+}
+
+.nos-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.nos-btn:hover {
+  transform: translateY(-2px);
+}
+
+.nos-btn--primary {
+  background: var(--color-gold);
+  color: var(--nos-ink);
+  box-shadow: 0 2px 8px rgba(255, 178, 27, 0.35);
+}
+
+.nos-btn--primary:hover {
+  background: #f2a50f;
+  box-shadow: 0 8px 20px rgba(255, 178, 27, 0.4);
+}
+
+.nos-btn--outline {
+  background: #fff;
+  border-color: var(--nos-red-bright);
+  color: var(--nos-red-bright);
+}
+
+.nos-btn--outline:hover {
+  background: #fff5f4;
+  box-shadow: 0 8px 20px rgba(193, 18, 31, 0.16);
+}
+
+/* Marcador de foto pendiente de producir */
+.nos-foto-vacia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 1rem;
+  border: 2px dashed rgba(40, 28, 2, 0.22);
+  background: rgba(40, 28, 2, 0.04);
+  color: #8a7550;
+  text-align: center;
+}
+
+.nos-foto-vacia__icon {
+  font-size: 1.5rem;
+  opacity: 0.5;
+}
+
+.nos-foto-vacia__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* ── Bloque 1 · Nuestra historia ─────────────────────────────── */
+.nos-historia__inner {
+  max-width: var(--nos-max);
+  margin: 0 auto;
+  padding: var(--nos-pad-y) 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  grid-template-areas:
+    'media copy'
+    'media actions';
+  grid-template-rows: auto auto;
+  align-content: start;
+  column-gap: var(--nos-gap);
+  row-gap: 2rem;
+}
+
+.nos-historia__media {
+  grid-area: media;
+  align-self: start;
+}
+
+.nos-historia__figure {
+  position: relative;
+  margin: 0;
+}
+
+.nos-historia__photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(40, 28, 2, 0.12);
+}
+
+.nos-foto-vacia.nos-historia__photo {
+  object-fit: initial;
+}
+
+/* Polaroids superpuestas en la esquina inferior izquierda */
+.nos-historia__polaroids {
+  position: absolute;
+  left: clamp(10px, 3%, 22px);
+  bottom: clamp(10px, 3%, 22px);
+  display: flex;
+  gap: clamp(6px, 1.2vw, 12px);
+  max-width: calc(100% - 2rem);
+}
+
+.nos-polaroid {
+  width: clamp(88px, 15vw, 148px);
+  margin: 0;
+  padding: 6px 6px 4px;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 6px 16px rgba(40, 28, 2, 0.28);
+}
+
+.nos-polaroid:first-child {
+  transform: rotate(-1.5deg);
+}
+
+.nos-polaroid:last-child {
+  transform: rotate(1deg);
+}
+
+.nos-polaroid__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: grayscale(1) sepia(0.18) contrast(1.05);
+}
+
+.nos-foto-vacia.nos-polaroid__img {
+  filter: none;
+  padding: 0.5rem;
+  gap: 0.25rem;
+}
+
+.nos-foto-vacia.nos-polaroid__img .nos-foto-vacia__icon {
+  font-size: 1rem;
+}
+
+.nos-foto-vacia.nos-polaroid__img .nos-foto-vacia__label {
+  font-size: 0.58rem;
+}
+
+.nos-polaroid__caption {
+  display: block;
+  padding: 5px 2px 2px;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.nos-polaroid__title {
+  display: block;
+  font-size: clamp(0.55rem, 0.85vw, 0.68rem);
+  font-weight: 700;
+  color: var(--nos-ink);
+}
+
+.nos-polaroid__note {
+  display: block;
+  font-size: clamp(0.5rem, 0.75vw, 0.6rem);
+  font-style: italic;
+  color: var(--nos-muted);
+}
+
+.nos-historia__copy {
+  grid-area: copy;
+  align-self: center;
+}
+
+.nos-historia__title {
+  margin: 1.5rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.85rem, 3.4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--nos-ink);
+}
+
+.nos-historia__actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* ── Bloque 2 · Nuestra evolución ────────────────────────────── */
+.nos-evolucion__defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.nos-evolucion__inner {
+  max-width: var(--nos-max);
+  margin: 0 auto;
+  padding: var(--nos-pad-y) 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  grid-template-areas: 'media copy';
+  column-gap: var(--nos-gap);
+  align-items: start;
+}
+
+.nos-evolucion__media {
+  grid-area: media;
+}
+
+.nos-evolucion__copy {
+  grid-area: copy;
+}
+
+.nos-evolucion__text {
+  margin: 1.5rem 0 0;
+  font-size: clamp(0.95rem, 1.1vw, 1.125rem);
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--nos-ink);
+}
+
+/* Collage: dos fotos partidas por una curva dorada */
+.nos-collage {
+  position: relative;
+  aspect-ratio: 5 / 6;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #efe6d2;
+  box-shadow: 0 12px 30px rgba(40, 28, 2, 0.12);
+}
+
+.nos-collage__shot {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.nos-collage__shot--top {
+  top: 0;
+  height: 66%;
+}
+
+.nos-collage__shot--bottom {
+  top: 40%;
+  bottom: 0;
+  clip-path: url(#nos-evo-curva);
+}
+
+.nos-collage__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nos-foto-vacia.nos-collage__img {
+  border: none;
+  border-radius: 0;
+}
+
+.nos-collage__chip {
+  position: absolute;
+  left: 0;
+  background: var(--nos-red);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.55rem 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.nos-collage__chip--top {
+  top: 26px;
+}
+
+.nos-collage__chip--bottom {
+  bottom: 26px;
+}
+
+.nos-collage__curve {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.nos-collage__pivot {
+  position: absolute;
+  left: 48%;
+  top: 54%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: #fff;
+  font-size: 1.05rem;
+  box-shadow: 0 4px 12px rgba(40, 28, 2, 0.28);
+}
+
+.nos-collage__pivot svg {
+  transform: rotate(45deg);
+}
+
+/* Etapas numeradas */
+.nos-evolucion__lista {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.nos-etapa + .nos-etapa {
+  margin-top: 1.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px dashed rgba(255, 178, 27, 0.6);
+}
+
+.nos-etapa__head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.nos-etapa__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--nos-red);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.nos-etapa__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.02rem, 1.35vw, 1.375rem);
+  font-weight: 600;
+  color: var(--nos-ink);
+}
+
+.nos-etapa__desc {
+  margin: 0.6rem 0 0;
+  padding-left: calc(34px + 0.9rem);
+  font-size: clamp(0.95rem, 1.05vw, 1.06rem);
+  line-height: 1.65;
+  color: var(--nos-body);
+}
+
+/* La foto por etapa solo se usa en móvil */
+.nos-etapa__foto {
+  display: none;
+}
+
+/* ── Bloque 3 · El desafío que decidimos resolver ────────────── */
+.nos-desafio {
+  background: #fffdfa;
+}
+
+.nos-desafio__inner {
+  max-width: var(--nos-max);
+  margin: 0 auto;
+  padding: var(--nos-pad-y) 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  grid-template-areas: 'copy media';
+  column-gap: var(--nos-gap);
+  align-items: start;
+}
+
+.nos-desafio__copy {
+  grid-area: copy;
+}
+
+.nos-desafio__media {
+  grid-area: media;
+}
+
+.nos-desafio__hero-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 7 / 5;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(40, 28, 2, 0.12);
+}
+
+.nos-desafio__tiras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.nos-desafio__tira-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* La foto principal se repite dentro del texto solo para móvil */
+.nos-desafio__foto-movil {
+  display: none;
+}
+
+/* Desafíos numerados con filete vertical dorado */
+.nos-desafio__lista {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.nos-desafio-item + .nos-desafio-item {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed rgba(255, 178, 27, 0.6);
+}
+
+.nos-desafio-item__head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nos-desafio-item__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--nos-red);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.nos-desafio-item__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--nos-ink);
+}
+
+.nos-desafio-item__desc {
+  margin: 0.55rem 0 0 34px;
+  padding-left: 14px;
+  border-left: 2px solid rgba(255, 178, 27, 0.65);
+  font-size: clamp(0.9rem, 1vw, 1.02rem);
+  line-height: 1.6;
+  color: var(--nos-body);
+}
+
+/* Tira de flujo: más horas → más esfuerzo → misma carga */
+.nos-flujo {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 1.35rem 1.25rem;
+  background: var(--color-light-yellow);
+  border-radius: 12px;
+}
+
+.nos-flujo__paso {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex: 1;
+}
+
+.nos-flujo__arrow {
+  flex-shrink: 0;
+  width: 46px;
+  height: 12px;
+  margin-right: 0.4rem;
+  color: #d2a03c;
+}
+
+.nos-flujo__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fffdf5;
+  border: 2px solid var(--color-gold);
+  color: var(--color-gold);
+  font-size: 1.15rem;
+}
+
+.nos-flujo__label {
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--nos-ink);
+}
+
+/* ── Bloque 4 · Nuestra solución productiva (fondo oscuro) ───── */
+
+/* Variante oscura de las piezas compartidas */
+.nos-dark .nos-badge {
+  background: rgba(255, 178, 27, 0.1);
+  border: 1px solid rgba(255, 178, 27, 0.45);
+  color: var(--color-gold);
+}
+
+.nos-dark .nos-badge__icon,
+.nos-dark .nos-rule {
+  color: var(--color-gold);
+}
+
+.nos-dark .nos-rule {
+  background: var(--color-gold);
+}
+
+.nos-dark .nos-title,
+.nos-dark .nos-quote {
+  color: #fffdf3;
+}
+
+.nos-dark .nos-text {
+  color: rgba(255, 253, 240, 0.75);
+}
+
+.nos-solucion {
+  background:
+    radial-gradient(85% 65% at 72% 12%, #2e2107 0%, rgba(46, 33, 7, 0) 65%),
+    #1a1201;
+}
+
+.nos-solucion__inner {
+  max-width: var(--nos-max);
+  margin: 0 auto;
+  padding: var(--nos-pad-y) 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  grid-template-areas: 'media copy';
+  column-gap: var(--nos-gap);
+  align-items: start;
+}
+
+.nos-solucion__media {
+  grid-area: media;
+}
+
+.nos-solucion__copy {
+  grid-area: copy;
+}
+
+.nos-solucion__hero-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.nos-foto-vacia.nos-solucion__hero-img {
+  border-color: rgba(255, 178, 27, 0.35);
+  background: rgba(255, 178, 27, 0.06);
+  color: rgba(255, 253, 240, 0.6);
+}
+
+/* Bloque de referencia fotográfica */
+.nos-solucion__ref {
+  display: grid;
+  grid-template-columns: 62fr 38fr;
+  align-items: stretch;
+  margin-top: 12px;
+  background: #f5ead3;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.nos-solucion__ref-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+  object-fit: cover;
+}
+
+.nos-foto-vacia.nos-solucion__ref-img {
+  border: none;
+}
+
+.nos-solucion__ref-note {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 1rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #6b5a3c;
+}
+
+.nos-solucion__ref-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(40, 28, 2, 0.28);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #6b5a3c;
+}
+
+.nos-solucion__foto-movil {
+  display: none;
+}
+
+/* Tarjeta de capacidad */
+.nos-capacidad {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  margin-top: 1.75rem;
+  padding: 1.35rem 1.4rem;
+  background: rgba(255, 178, 27, 0.05);
+  border: 1px solid rgba(255, 178, 27, 0.45);
+  border-radius: 12px;
+}
+
+.nos-capacidad__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(255, 178, 27, 0.5);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 1.25rem;
+}
+
+.nos-capacidad__body {
+  min-width: 0;
+}
+
+.nos-capacidad__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.05rem, 1.5vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-gold);
+}
+
+.nos-capacidad__sub {
+  margin: 0.6rem 0 0;
+  font-size: clamp(0.9rem, 1vw, 1.02rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #fffdf3;
+}
+
+.nos-capacidad__nota {
+  margin: 0.85rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px dashed rgba(255, 178, 27, 0.3);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(255, 253, 240, 0.55);
+}
+
+/* Beneficios con ícono */
+.nos-solucion__lista {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+}
+
+.nos-benef + .nos-benef {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed rgba(255, 178, 27, 0.28);
+}
+
+.nos-benef__head {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.nos-benef__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 178, 27, 0.5);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 1.05rem;
+}
+
+.nos-benef__icon svg {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.nos-benef__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.18rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fffdf3;
+}
+
+.nos-benef__desc {
+  margin: 0.5rem 0 0 46px;
+  padding-left: 18px;
+  border-left: 2px solid rgba(255, 178, 27, 0.5);
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.6;
+  color: rgba(255, 253, 240, 0.72);
+}
+
+/* ── Bloque 5 · Presentación e información ───────────────────── */
+.nos-presentacion {
+  background: #fffdf5;
+}
+
+.nos-presentacion__inner {
+  max-width: var(--nos-max);
+  margin: 0 auto;
+  padding: var(--nos-pad-y) 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  grid-template-areas: 'copy media';
+  column-gap: var(--nos-gap);
+  align-items: start;
+}
+
+.nos-presentacion__copy {
+  grid-area: copy;
+}
+
+.nos-presentacion__media {
+  grid-area: media;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nos-presentacion__media-movil {
+  display: none;
+}
+
+.nos-presentacion__bolsa {
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+}
+
+.nos-foto-vacia.nos-presentacion__bolsa {
+  aspect-ratio: 4 / 5;
+}
+
+/* Línea que enlaza el empaque con el detalle de la etiqueta */
+.nos-presentacion__conector {
+  display: block;
+  width: 0;
+  height: 30px;
+  border-left: 2px dashed #e0a63f;
+}
+
+.nos-presentacion__etiqueta {
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  background: #fff;
+  border: 2px solid rgba(224, 166, 63, 0.75);
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(40, 28, 2, 0.08);
+}
+
+.nos-presentacion__etiqueta-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.nos-foto-vacia.nos-presentacion__etiqueta-img {
+  aspect-ratio: 16 / 9;
+}
+
+/* Listado de detalles del empaque */
+.nos-presentacion__lista {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.nos-pack {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+.nos-pack + .nos-pack {
+  margin-top: 1.5rem;
+}
+
+.nos-pack__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255, 178, 27, 0.65);
+  border-radius: 50%;
+  color: var(--nos-ink);
+  font-size: 1.05rem;
+}
+
+.nos-pack__body {
+  min-width: 0;
+}
+
+.nos-pack__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.18rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--nos-ink);
+}
+
+.nos-pack__desc {
+  margin: 0.35rem 0 0;
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.6;
+  color: var(--nos-body);
+}
+
+/* ── Bloque 6 · Padre e hijo ─────────────────────────────────── */
+.nos-equipo {
+  background: #fdfaf1;
+}
+
+.nos-equipo__inner {
+  max-width: var(--nos-max);
+  margin: 0 auto;
+  padding: var(--nos-pad-y) 1.5rem;
+}
+
+.nos-equipo__top {
+  display: grid;
+  grid-template-columns: minmax(0, 40fr) minmax(0, 60fr);
+  column-gap: var(--nos-gap);
+  align-items: center;
+}
+
+.nos-equipo__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(40, 28, 2, 0.12);
+}
+
+/* Perfiles + punto de unión */
+.nos-equipo__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr) minmax(0, 1fr);
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(40, 28, 2, 0.1);
+}
+
+.nos-perfil {
+  padding: 0 2rem;
+}
+
+.nos-perfil:first-child {
+  padding-left: 0;
+}
+
+.nos-perfil:last-child {
+  padding-right: 0;
+}
+
+.nos-perfil__head {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.nos-perfil__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 62px;
+  height: 62px;
+  border: 2px solid rgba(255, 178, 27, 0.75);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 1.5rem;
+}
+
+.nos-perfil__nombre {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--nos-red-bright);
+}
+
+.nos-perfil__rol {
+  margin: 0.3rem 0 0;
+  font-size: clamp(0.92rem, 1.05vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--nos-ink);
+}
+
+.nos-perfil__desc {
+  margin: 1.5rem 0 0;
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.65;
+  color: var(--nos-body);
+}
+
+.nos-perfil__areas-title {
+  margin: 1.5rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nos-red-bright);
+}
+
+.nos-perfil__areas {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.nos-area {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.9rem;
+  background: #fdf6e8;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--nos-ink);
+}
+
+.nos-area__check {
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: var(--nos-red-bright);
+}
+
+/* Columna central */
+.nos-union {
+  align-self: center;
+  padding: 0 1.5rem;
+  border-left: 1px solid rgba(40, 28, 2, 0.1);
+  border-right: 1px solid rgba(40, 28, 2, 0.1);
+  text-align: center;
+}
+
+.nos-union__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--nos-red-bright);
+}
+
+/* Las líneas laterales del rótulo solo se usan en móvil */
+.nos-union__title::before,
+.nos-union__title::after {
+  content: '';
+  display: none;
+  flex: 1;
+  height: 1px;
+  background: rgba(40, 28, 2, 0.16);
+}
+
+.nos-union__text {
+  margin: 1.1rem 0 0;
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.7;
+  color: var(--nos-body);
+}
+
+.nos-union__rule {
+  display: block;
+  width: 96px;
+  height: 2px;
+  margin: 1.5rem auto 0;
+  background: rgba(255, 178, 27, 0.8);
+}
+
+/* Franja de cierre */
+.nos-equipo__cierre {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 2.5rem 0 0;
+  padding: 1.5rem 2rem;
+  background: #fdf4e2;
+  border-radius: 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.35vw, 1.4rem);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--nos-ink);
+}
+
+.nos-equipo__cierre-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border: 2px solid rgba(255, 178, 27, 0.75);
+  border-radius: 50%;
+  background: #fffdf5;
+  color: var(--color-gold);
+  font-size: 1.5rem;
+}
+
+/* ── Bloque 7 · Nuestra forma de avanzar ─────────────────────── */
+.nos-avanzar {
+  background: #fdfaf3;
+}
+
+.nos-avanzar__inner {
+  max-width: var(--nos-max);
+  margin: 0 auto;
+  padding: var(--nos-pad-y) 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  column-gap: var(--nos-gap);
+  align-items: start;
+}
+
+/* Principios numerados */
+.nos-avanzar__lista {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.nos-principio + .nos-principio {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(40, 28, 2, 0.1);
+}
+
+.nos-principio__head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nos-principio__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--nos-red);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.nos-principio__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.22rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--nos-ink);
+}
+
+.nos-principio__desc {
+  margin: 0.5rem 0 0 34px;
+  padding-left: 14px;
+  border-left: 2px solid rgba(255, 178, 27, 0.65);
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.6;
+  color: var(--nos-body);
+}
+
+/* Tarjeta granate */
+.nos-rumbo {
+  padding: clamp(1.5rem, 3vw, 3rem);
+  background: #60110d;
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(40, 28, 2, 0.18);
+}
+
+.nos-rumbo__title {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.3rem, 1.9vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-gold);
+}
+
+.nos-rumbo__chevron {
+  flex-shrink: 0;
+  font-size: 0.85em;
+}
+
+.nos-rumbo__rule {
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin: 1.1rem 0 0;
+  border-radius: 2px;
+  background: var(--color-gold);
+}
+
+.nos-rumbo__text {
+  margin: 1.5rem 0 0;
+  font-size: clamp(0.95rem, 1.1vw, 1.12rem);
+  font-weight: 500;
+  line-height: 1.65;
+  color: #fffdf3;
+}
+
+.nos-rumbo__ilustracion {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 2rem;
+}
+
+.nos-foto-vacia.nos-rumbo__ilustracion {
+  aspect-ratio: 16 / 9;
+  border-color: rgba(255, 178, 27, 0.4);
+  background: rgba(255, 178, 27, 0.06);
+  color: rgba(255, 253, 240, 0.65);
+}
+
+.nos-rumbo__quote {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  margin: 2rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.35vw, 1.4rem);
+  font-weight: 600;
+  line-height: 1.6;
+  color: #fffdf3;
+}
+
+.nos-rumbo__q {
+  flex-shrink: 0;
+  font-size: 1.6rem;
+  color: var(--color-gold);
+}
+
+.nos-rumbo__q--close {
+  align-self: flex-end;
+}
+
+/* ── Bloque 8 · Lo que construimos para ti (cierre, oscuro) ──── */
+
+/* Badge dorado sólido y botón contorneado, sobre fondo oscuro */
+.nos-badge--solid {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--nos-ink);
+}
+
+.nos-dark .nos-badge--solid,
+.nos-dark .nos-badge--solid .nos-badge__icon {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--nos-ink);
+}
+
+.nos-dark .nos-btn--outline {
+  background: transparent;
+  border-color: rgba(255, 178, 27, 0.85);
+  color: #fffdf3;
+}
+
+.nos-dark .nos-btn--outline:hover {
+  background: rgba(255, 178, 27, 0.12);
+  box-shadow: 0 8px 20px rgba(255, 178, 27, 0.18);
+}
+
+.nos-cierre {
+  background: radial-gradient(75% 60% at 50% 35%, #2e2113 0%, #201709 100%);
+}
+
+.nos-cierre__inner {
+  max-width: var(--nos-max);
+  margin: 0 auto;
+  padding: var(--nos-pad-y) 1.5rem;
+}
+
+.nos-cierre__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.85fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nos-cierre__deco {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Columna fija: las ilustraciones laterales son opcionales y, si no existen,
+   el texto debe seguir ocupando la columna central. */
+.nos-cierre__intro {
+  grid-column: 2;
+  text-align: center;
+}
+
+.nos-cierre__title {
+  margin-top: 1.35rem;
+}
+
+.nos-cierre__rule {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nos-cierre__intro .nos-text {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 62ch;
+}
+
+/* Rejilla 2 × 2 con divisores punteados */
+.nos-cierre__grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 2.5rem 0 0;
+  padding: 0;
+}
+
+.nos-logro {
+  padding: 1.85rem 2.25rem;
+}
+
+.nos-logro:nth-child(odd) {
+  padding-left: 0;
+  border-right: 1px dashed rgba(255, 178, 27, 0.32);
+}
+
+.nos-logro:nth-child(even) {
+  padding-right: 0;
+}
+
+.nos-logro:nth-child(1),
+.nos-logro:nth-child(2) {
+  padding-top: 0;
+  border-bottom: 1px dashed rgba(255, 178, 27, 0.32);
+}
+
+.nos-logro__head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nos-logro__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 178, 27, 0.85);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.nos-logro__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.22rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fffdf3;
+}
+
+.nos-logro__desc {
+  margin: 0.75rem 0 0 40px;
+  padding-left: 16px;
+  border-left: 2px solid rgba(255, 178, 27, 0.55);
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.6;
+  color: rgba(255, 253, 240, 0.72);
+}
+
+/* Cierre: divisor, cita y llamados a la acción */
+.nos-cierre__final {
+  text-align: center;
+}
+
+.nos-cierre__divider {
+  display: block;
+  width: 84px;
+  height: 3px;
+  margin: 2.5rem auto 0;
+  border-radius: 2px;
+  background: var(--color-gold);
+}
+
+.nos-cierre__quote {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.25rem;
+  max-width: 780px;
+  margin: 2rem auto 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.05rem, 1.6vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.5;
+  color: #fffdf3;
+}
+
+.nos-cierre__q {
+  flex-shrink: 0;
+  font-size: 1.7rem;
+  color: var(--color-gold);
+}
+
+.nos-cierre__q--close {
+  align-self: flex-end;
+}
+
+.nos-cierre__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.nos-cierre__actions .nos-btn {
+  min-width: 320px;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .nos-main section[id] {
+    scroll-margin-top: 140px;
+  }
+
+  .nos-disclaimer {
+    max-width: none;
+  }
+
+  /* Bloque 1 */
+  .nos-historia__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'copy'
+      'media'
+      'actions';
+    row-gap: 1.75rem;
+  }
+
+  .nos-historia__copy {
+    align-self: start;
+  }
+
+  .nos-historia__title {
+    margin-top: 1.25rem;
+  }
+
+  .nos-historia__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nos-btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nos-polaroid {
+    width: clamp(96px, 27vw, 150px);
+  }
+
+  /* Bloque 2: el collage se reparte dentro de cada etapa */
+  .nos-evolucion__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'copy'
+      'media';
+    row-gap: 1.5rem;
+  }
+
+  .nos-collage {
+    display: none;
+  }
+
+  .nos-title {
+    margin-top: 1.25rem;
+  }
+
+  .nos-etapa__foto {
+    display: block;
+    margin-top: 0.9rem;
+  }
+
+  .nos-etapa__img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .nos-foto-vacia.nos-etapa__img {
+    aspect-ratio: 16 / 7;
+  }
+
+  .nos-etapa__desc {
+    padding-left: 0;
+  }
+
+  /* Bloque 3: la foto principal se intercala en el texto y las tiras se ocultan */
+  .nos-desafio__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'copy'
+      'media';
+    row-gap: 1.5rem;
+  }
+
+  .nos-desafio__foto-movil {
+    display: block;
+    margin-top: 1.5rem;
+  }
+
+  .nos-desafio__media > .nos-desafio__hero-img,
+  .nos-desafio__tiras {
+    display: none;
+  }
+
+  .nos-flujo {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+    margin-top: 0;
+  }
+
+  .nos-flujo__paso {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    flex: none;
+  }
+
+  .nos-flujo__arrow {
+    grid-column: 1;
+    justify-self: center;
+    width: 34px;
+    height: 14px;
+    margin: 0;
+    transform: rotate(90deg);
+  }
+
+  /* Bloque 4: se conserva la foto principal, se oculta el bloque de referencia */
+  .nos-solucion__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'copy';
+    row-gap: 0;
+  }
+
+  .nos-solucion__media {
+    display: none;
+  }
+
+  .nos-solucion__foto-movil {
+    display: block;
+    margin-top: 1.5rem;
+  }
+
+  .nos-solucion__foto-movil .nos-solucion__hero-img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .nos-capacidad {
+    gap: 0.9rem;
+    padding: 1.15rem 1.1rem;
+  }
+
+  .nos-benef__head {
+    gap: 1rem;
+  }
+
+  .nos-benef__desc {
+    margin-left: 42px;
+    padding-left: 14px;
+  }
+
+  /* Bloque 5: empaque y etiqueta se intercalan dentro del texto */
+  .nos-presentacion__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'copy';
+    row-gap: 0;
+  }
+
+  .nos-presentacion__media {
+    display: none;
+  }
+
+  .nos-presentacion__media-movil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  .nos-presentacion__bolsa {
+    aspect-ratio: 16 / 11;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .nos-foto-vacia.nos-presentacion__bolsa {
+    aspect-ratio: 16 / 11;
+  }
+
+  /* Bloque 6: una columna; el punto de unión queda entre los dos perfiles */
+  .nos-equipo__top {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.5rem;
+  }
+
+  .nos-equipo__grid {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 2rem;
+    padding-top: 2rem;
+  }
+
+  .nos-perfil,
+  .nos-perfil:first-child,
+  .nos-perfil:last-child {
+    padding: 0;
+  }
+
+  .nos-union {
+    margin: 1.75rem 0;
+    padding: 1.75rem 0;
+    border-left: none;
+    border-right: none;
+    border-top: 1px dashed rgba(255, 178, 27, 0.6);
+    border-bottom: 1px dashed rgba(255, 178, 27, 0.6);
+  }
+
+  .nos-union__title::before,
+  .nos-union__title::after {
+    display: block;
+  }
+
+  .nos-union__rule {
+    display: none;
+  }
+
+  .nos-equipo__cierre {
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .nos-equipo__cierre-icon {
+    width: 52px;
+    height: 52px;
+    font-size: 1.2rem;
+  }
+
+  /* Bloque 7: la tarjeta granate pasa debajo de los principios */
+  .nos-avanzar__inner {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2rem;
+  }
+
+  .nos-rumbo {
+    border-radius: 18px;
+  }
+
+  .nos-rumbo__q {
+    font-size: 1.25rem;
+  }
+
+  /* Bloque 8: sin ilustraciones laterales y logros en una columna */
+  .nos-cierre__head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .nos-cierre__intro {
+    grid-column: 1;
+  }
+
+  .nos-cierre__deco {
+    display: none;
+  }
+
+  .nos-cierre__grid {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 2rem;
+  }
+
+  .nos-logro {
+    padding: 1.35rem 0;
+  }
+
+  .nos-logro:nth-child(odd),
+  .nos-logro:nth-child(even) {
+    padding-left: 0;
+    padding-right: 0;
+    border-right: none;
+  }
+
+  .nos-logro:not(:last-child) {
+    border-bottom: 1px dashed rgba(255, 178, 27, 0.32);
+  }
+
+  /* En una columna solo el primero pega arriba: el 2.º pierde el
+     padding-top que le da la rejilla 2 × 2 de escritorio. */
+  .nos-logro:nth-child(2) {
+    padding-top: 1.35rem;
+  }
+
+  .nos-logro:first-child {
+    padding-top: 0;
+  }
+
+  .nos-cierre__divider {
+    margin-top: 2rem;
+  }
+
+  .nos-cierre__quote {
+    gap: 0.85rem;
+    margin-top: 1.5rem;
+  }
+
+  .nos-cierre__q {
+    font-size: 1.25rem;
+  }
+
+  .nos-cierre__actions {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 1.75rem;
+  }
+
+  .nos-cierre__actions .nos-btn {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .nos-historia__inner,
+  .nos-evolucion__inner,
+  .nos-desafio__inner,
+  .nos-solucion__inner,
+  .nos-presentacion__inner,
+  .nos-equipo__inner,
+  .nos-avanzar__inner,
+  .nos-cierre__inner {
+    padding: 1.75rem 1rem 2.5rem;
+  }
+
+  .nos-logro__num {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  .nos-logro__desc {
+    margin-left: 34px;
+    padding-left: 14px;
+  }
+
+  .nos-perfil__icon {
+    width: 52px;
+    height: 52px;
+    font-size: 1.25rem;
+  }
+
+  .nos-pack {
+    gap: 0.9rem;
+  }
+
+  .nos-pack__icon {
+    width: 40px;
+    height: 40px;
+    font-size: 0.95rem;
+  }
+
+  .nos-benef__icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .nos-benef__desc {
+    margin-left: 36px;
+  }
+
+  .nos-flujo__icon {
+    width: 46px;
+    height: 46px;
+    font-size: 1rem;
+  }
+
+  .nos-historia__photo {
+    border-radius: 12px;
+  }
+
+  .nos-quote {
+    margin-top: 1.4rem;
+  }
+
+  .nos-btn {
+    padding: 0.85rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .nos-etapa__num {
+    width: 30px;
+    height: 30px;
+    font-size: 0.88rem;
+  }
+}

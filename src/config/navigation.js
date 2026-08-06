@@ -44,16 +44,6 @@ export const EN_CONSTRUCCION = {
       'Controles de calidad por lote',
     ],
   },
-  nosotros: {
-    title: 'Nosotros',
-    intro:
-      'Estamos escribiendo la historia de Empanadas D’lujo: de dónde venimos, quiénes hacemos las empanadas y hacia dónde vamos.',
-    bullets: [
-      'Nuestra historia y la de la marca',
-      'El equipo detrás de cada empanada',
-      'Dónde estamos y hasta dónde despachamos',
-    ],
-  },
   contacto: {
     title: 'Contacto',
     intro:

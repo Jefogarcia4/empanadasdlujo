@@ -16,6 +16,7 @@ import MisPedidosPage from './components/MisPedidosPage';
 import CombosShowcase from './components/CombosShowcase';
 import AdminApp from './components/admin/AdminApp';
 import EnConstruccionPage from './components/EnConstruccionPage';
+import NosotrosPage from './components/nosotros/NosotrosPage';
 import CatalogoFiltros, { CatalogoVacio } from './components/CatalogoFiltros';
 import { PAGE_PATHS, EN_CONSTRUCCION } from './config/navigation';
 import {
@@ -148,6 +149,20 @@ function App() {
 
   if (currentPage === 'admin') {
     return <AdminApp />;
+  }
+
+  if (currentPage === 'nosotros') {
+    return (
+      <CartProvider>
+        <div className="app">
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          <NosotrosPage onNavigate={handleNavigate} />
+          <WhatsAppFab />
+          {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
+          {/* <Footer onNavigate={handleNavigate} /> */}
+        </div>
+      </CartProvider>
+    );
   }
 
   if (EN_CONSTRUCCION[currentPage]) {

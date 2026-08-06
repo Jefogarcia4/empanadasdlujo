@@ -14,7 +14,13 @@
       "Bash(git rev-list *)",
       "PowerShell(gh --version)",
       "PowerShell(gh run list --limit 8)",
-      "PowerShell(try { $r = Invoke-RestMethod -Uri \"https://api.github.com/repos/Jefogarcia4/empanadasdlujo/actions/runs?per_page=6\" -Headers @{ 'User-Agent' = 'claude-code' }; $r.workflow_runs | Select-Object -Property name, event, status, conclusion, head_branch, created_at, @{n='sha';e={$_.head_sha.Substring\\(0,7\\)}} | Format-Table -AutoSize | Out-String -Width 200 } catch { \"ERROR: $\\($_.Exception.Message\\)\" })"
+      "PowerShell(try { $r = Invoke-RestMethod -Uri \"https://api.github.com/repos/Jefogarcia4/empanadasdlujo/actions/runs?per_page=6\" -Headers @{ 'User-Agent' = 'claude-code' }; $r.workflow_runs | Select-Object -Property name, event, status, conclusion, head_branch, created_at, @{n='sha';e={$_.head_sha.Substring\\(0,7\\)}} | Format-Table -AutoSize | Out-String -Width 200 } catch { \"ERROR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(npx eslint src/components/landing/LandingOurStory.jsx; \"--- exit: $LASTEXITCODE ---\"; Get-Content eslint.config.js)",
+      "PowerShell($out = npx eslint src 2>&1 | Out-String; $errs = \\([regex]::Matches\\($out, \"'motion' is defined but never used\"\\)\\).Count; \"Archivos con el mismo falso positivo de 'motion' en todo src/: $errs\"; \\($out -split \"`n\" | Select-String \"problem\"\\))",
+      "PowerShell(npm run build 2>&1 | Select-String -Pattern \"error|Error|built in|dist/assets\" | Select-Object -First 8; \"--- lint \\(solo errores nuevos, ignorando el falso positivo de motion\\) ---\"; $out = npx eslint src/components/nosotros 2>&1 | Out-String; \\($out -split \"`n\" | Select-String -NotMatch \"'motion' is defined\" | Select-String \"error|problem\"\\))",
+      "Bash(node check.mjs)",
+      "Bash(node -e ' *)",
+      "Bash(node pads.mjs)"
     ]
   }
 }
