@@ -20,7 +20,30 @@
       "PowerShell(npm run build 2>&1 | Select-String -Pattern \"error|Error|built in|dist/assets\" | Select-Object -First 8; \"--- lint \\(solo errores nuevos, ignorando el falso positivo de motion\\) ---\"; $out = npx eslint src/components/nosotros 2>&1 | Out-String; \\($out -split \"`n\" | Select-String -NotMatch \"'motion' is defined\" | Select-String \"error|problem\"\\))",
       "Bash(node check.mjs)",
       "Bash(node -e ' *)",
-      "Bash(node pads.mjs)"
+      "Bash(node pads.mjs)",
+      "Bash(node neg.mjs)",
+      "Bash(node sellos.mjs)",
+      "Bash(node neg2.mjs)",
+      "Bash(sed -i 's/#neg-origen/#neg-sabor/g; s/neg2-/neg3-/g' neg2.mjs)",
+      "Bash(cp neg2.mjs neg3.mjs)",
+      "Bash(node neg3.mjs)",
+      "Bash(sed 's/#neg-sabor/#neg-formatos/g; s/neg3-/neg4-/g' neg3.mjs)",
+      "Bash(node neg4.mjs)",
+      "Bash(node estrella.mjs)",
+      "Bash(sed 's/#neg-formatos/#neg-calculadora/g; s/neg4-/neg5-/g' neg4.mjs)",
+      "Bash(node neg5.mjs)",
+      "Bash(node formula.mjs)",
+      "Bash(sed 's/#neg-calculadora/#neg-proveedor/g; s/neg5-/neg6-/g' neg5.mjs)",
+      "Bash(node neg6.mjs)",
+      "Bash(python -c ' *)",
+      "Bash(node acordeon.mjs)",
+      "Bash(sed 's/#neg-proveedor/#neg-recursos/g; s/neg6-/neg7-/g' neg6.mjs)",
+      "Bash(node neg7.mjs)",
+      "Bash(node alineado.mjs)",
+      "Bash(node chips.mjs)",
+      "Bash(sed 's/#neg-recursos/#neg-empezar/g; s/neg7-/neg8-/g' neg7.mjs)",
+      "Bash(node neg8.mjs)",
+      "Bash(node final.mjs)"
     ]
   }
 }

@@ -1,0 +1,3206 @@
+/* ============================================================
+   Página Para negocios — Empanadas D'Lujo
+   Bloques apilados; cada bloque usa el prefijo .neg-
+   Contenedor 1280 px · columnas 45/55 · gap 64 px
+   Paleta  #281c02 · #c1121f · #ffb21b · #fff2cf
+   ============================================================ */
+
+.neg-main {
+  --neg-red: #c1121f;
+  --neg-red-deep: #9c1610;
+  --neg-red-dark: #7f150e;
+  --neg-ink: #281c02;
+  --neg-body: #5a4a2d;
+  --neg-dark: #2a1e0c;
+  --neg-max: 1280px;
+  --neg-gap: 64px;
+  --neg-pad-y: clamp(2.5rem, 6vw, 6.5rem);
+  overflow-x: hidden;
+  background: #fdfaf3;
+  font-family: 'DM Sans', 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* El header es sticky: deja su altura libre al saltar por ancla */
+.neg-main section[id] {
+  scroll-margin-top: 125px;
+}
+
+/* ── Piezas compartidas entre bloques ────────────────────────── */
+
+/* Rótulo sin pastilla: solo ícono + texto */
+.neg-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--neg-red);
+}
+
+.neg-eyebrow__icon {
+  font-size: 1.1rem;
+  color: var(--color-gold);
+}
+
+/* Rótulo con pastilla */
+.neg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 1.05rem;
+  background: var(--color-light-yellow);
+  border-radius: 50px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--neg-ink);
+}
+
+.neg-badge__icon {
+  width: 18px;
+  height: 18px;
+  font-size: 1rem;
+  color: var(--color-gold);
+}
+
+.neg-badge--rojo {
+  color: var(--neg-red);
+}
+
+.neg-title {
+  margin: 1.5rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.85rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--neg-ink);
+}
+
+.neg-rule {
+  display: block;
+  width: 52px;
+  height: 4px;
+  margin: 1.4rem 0 0;
+  border-radius: 2px;
+  background: var(--neg-red);
+}
+
+.neg-text {
+  margin: 1.4rem 0 0;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.7;
+  color: var(--neg-body);
+}
+
+.neg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.35rem;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.94rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.neg-btn:hover {
+  transform: translateY(-2px);
+}
+
+.neg-btn--primary {
+  background: var(--color-gold);
+  color: var(--neg-ink);
+  box-shadow: 0 2px 8px rgba(255, 178, 27, 0.35);
+}
+
+.neg-btn--primary:hover {
+  background: #f2a50f;
+  box-shadow: 0 8px 20px rgba(255, 178, 27, 0.4);
+}
+
+.neg-btn--outline {
+  background: #fff;
+  border-color: var(--neg-red);
+  color: var(--neg-red);
+}
+
+.neg-btn--outline:hover {
+  background: #fff5f4;
+  box-shadow: 0 8px 20px rgba(193, 18, 31, 0.16);
+}
+
+/* Marcador de foto pendiente */
+.neg-foto-vacia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1rem;
+  border: 2px dashed rgba(40, 28, 2, 0.2);
+  background: rgba(40, 28, 2, 0.04);
+  color: #8a7550;
+  text-align: center;
+}
+
+.neg-foto-vacia--compacta {
+  padding: 0.35rem;
+  border-width: 1px;
+}
+
+.neg-foto-vacia__icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.6;
+}
+
+.neg-foto-vacia--compacta .neg-foto-vacia__icon {
+  width: 18px;
+  height: 18px;
+}
+
+.neg-foto-vacia__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* ── Bloque 1 · Portada ──────────────────────────────────────── */
+.neg-hero__inner {
+  max-width: var(--neg-max);
+  margin: 0 auto;
+  padding: var(--neg-pad-y) 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  column-gap: var(--neg-gap);
+  align-items: center;
+}
+
+.neg-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Condiciones de compra */
+.neg-hero__condiciones {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 2.25rem 0 0;
+  padding: 0;
+}
+
+.neg-condicion {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--neg-ink);
+}
+
+/* Sin esto el texto largo no envuelve y desborda la fila */
+.neg-condicion > span {
+  min-width: 0;
+}
+
+.neg-condicion__icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: var(--neg-ink);
+}
+
+.neg-condicion:not(:last-child)::after {
+  content: '·';
+  margin-left: 0.7rem;
+  color: rgba(40, 28, 2, 0.4);
+}
+
+/* Tarjeta de imagen con sellos */
+.neg-hero__card {
+  position: relative;
+  aspect-ratio: 6 / 7;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.neg-hero__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Sin fotografía autorizada: fondo neutro y marcador */
+.neg-hero__card--vacia {
+  background: #f3ead7;
+}
+
+.neg-hero__card--vacia .neg-hero__img {
+  display: none;
+}
+
+/* Centrado en el espacio que dejan libre los sellos de la derecha */
+.neg-hero__placeholder {
+  position: absolute;
+  top: 50%;
+  left: 34%;
+  transform: translate(-50%, -50%);
+  width: min(300px, 56%);
+  text-align: center;
+  color: #8a7550;
+}
+
+.neg-hero__placeholder-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  color: #a89066;
+}
+
+.neg-hero__placeholder-title {
+  margin: 1rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7d6844;
+}
+
+.neg-hero__placeholder-sub {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.neg-sellos {
+  position: absolute;
+  top: 50%;
+  right: clamp(16px, 3%, 32px);
+  transform: translateY(-50%);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.neg-sello {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 1.15rem 0.7rem 0.8rem;
+  background: var(--neg-dark);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(40, 28, 2, 0.28);
+}
+
+.neg-sello__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 178, 27, 0.7);
+  border-radius: 50%;
+  color: var(--color-gold);
+}
+
+.neg-sello__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.neg-sello__label {
+  min-width: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #fffdf3;
+}
+
+/* ── Bloque 2 · Desde el origen ──────────────────────────────── */
+.neg-origen__inner {
+  max-width: var(--neg-max);
+  margin: 0 auto;
+  padding: var(--neg-pad-y) 1.5rem;
+}
+
+.neg-origen__top {
+  display: grid;
+  grid-template-columns: minmax(0, 48fr) minmax(0, 52fr);
+  column-gap: var(--neg-gap);
+  align-items: center;
+}
+
+.neg-origen__media {
+  position: relative;
+}
+
+.neg-origen__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 13;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.neg-foto-vacia.neg-origen__img {
+  aspect-ratio: 16 / 13;
+  border-radius: 16px;
+}
+
+/* Panel de ingredientes: tres columnas divididas por filetes */
+.neg-origen__panel {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 2.5rem 0 0;
+  padding: 0;
+  background: #fdf6e8;
+  border: 1px solid rgba(200, 178, 132, 0.4);
+  border-radius: 14px;
+}
+
+/* Filas fijas: la descripción absorbe el alto sobrante para que las
+   secuencias de miniaturas queden alineadas entre las tres columnas. */
+.neg-ingrediente {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 1.75rem;
+}
+
+.neg-ingrediente + .neg-ingrediente {
+  border-left: 1px solid rgba(200, 178, 132, 0.5);
+}
+
+.neg-ingrediente__head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.neg-ingrediente__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--neg-red-deep);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.neg-ingrediente__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--neg-ink);
+}
+
+.neg-ingrediente__desc {
+  margin: 0.85rem 0 0 0;
+  padding-left: calc(32px + 0.85rem);
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--neg-body);
+}
+
+/* Secuencia de cuatro miniaturas con flechas entre ellas */
+.neg-pasos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 18px;
+  margin-top: 1.35rem;
+}
+
+.neg-paso {
+  margin: 0;
+  min-width: 0;
+}
+
+.neg-paso__foto {
+  position: relative;
+}
+
+/* Flecha dibujada en el hueco entre miniaturas, centrada con la imagen */
+.neg-paso--con-flecha .neg-paso__foto::before {
+  content: '';
+  position: absolute;
+  left: -13px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid #b09a72;
+  border-right: 2px solid #b09a72;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.neg-paso__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.neg-foto-vacia.neg-paso__img {
+  aspect-ratio: 5 / 6;
+  border-radius: 6px;
+}
+
+.neg-paso__label {
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--neg-ink);
+}
+
+/* Franja de cierre */
+.neg-origen__cierre {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1.5rem 0 0;
+  padding: 1.5rem 2rem;
+  background: #fdf4e2;
+  border-radius: 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--neg-ink);
+}
+
+.neg-origen__cierre-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 74px;
+  height: 74px;
+  border: 2px solid rgba(255, 178, 27, 0.8);
+  border-radius: 50%;
+  color: var(--neg-red-deep);
+}
+
+.neg-origen__cierre-icon svg {
+  width: 38px;
+  height: 38px;
+  stroke-width: 1.5;
+}
+
+/* ── Bloque 3 · Sabor y producción ───────────────────────────── */
+.neg-sabor__inner {
+  max-width: var(--neg-max);
+  margin: 0 auto;
+  padding: var(--neg-pad-y) 1.5rem;
+}
+
+.neg-sabor__head .neg-text {
+  max-width: 62ch;
+}
+
+.neg-sabor__paneles {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+/* Círculo con flechas que enlaza los dos paneles */
+.neg-sabor__conector {
+  position: absolute;
+  top: 33%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border: 2px solid var(--color-gold);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--neg-red-deep);
+  z-index: 2;
+}
+
+.neg-sabor__conector svg {
+  width: 28px;
+  height: 28px;
+}
+
+.neg-sabor__conector::before,
+.neg-sabor__conector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 26px;
+  border-top: 2px dashed var(--color-gold);
+}
+
+.neg-sabor__conector::before {
+  right: 100%;
+  margin-right: 6px;
+}
+
+.neg-sabor__conector::after {
+  left: 100%;
+  margin-left: 6px;
+}
+
+/* Paneles */
+.neg-panel {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  min-width: 0;
+}
+
+.neg-panel__head {
+  margin: 0;
+  padding: 0.7rem 1.25rem;
+  background: var(--neg-red-dark);
+  border-radius: 12px 12px 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #fff;
+}
+
+.neg-panel__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  padding: 6px;
+  background: rgba(255, 178, 27, 0.9);
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+}
+
+.neg-panel__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Panel de producción: una imagen grande y tres detalles */
+.neg-panel__media--grid {
+  display: grid;
+  grid-template-rows: 1fr 0.42fr;
+  gap: 6px;
+}
+
+.neg-panel__tiras {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  min-height: 0;
+}
+
+.neg-panel__tira {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Fondo opaco: sobre el marco dorado, el marcador translúcido haría ver
+   el panel entero como un bloque de color. */
+.neg-foto-vacia.neg-panel__img,
+.neg-foto-vacia.neg-panel__tira {
+  background: #f7f2e6;
+  border-color: rgba(40, 28, 2, 0.18);
+  border-radius: 6px;
+}
+
+/* Firma manuscrita sobre la fotografía */
+.neg-panel__firma {
+  position: absolute;
+  top: 12%;
+  right: 8%;
+  margin: 0;
+  font-family: 'Segoe Script', 'Brush Script MT', 'Bradley Hand', cursive;
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.9vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  color: #e2761b;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.75);
+}
+
+.neg-panel__cuerpo {
+  padding-top: 1.5rem;
+}
+
+.neg-panel__cuerpo--dos {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.42fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.neg-punto {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.neg-punto__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: var(--neg-ink);
+}
+
+.neg-punto__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.neg-punto__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--neg-ink);
+}
+
+.neg-punto__desc {
+  margin: 0.85rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--neg-body);
+}
+
+.neg-punto__desc--fuerte {
+  font-weight: 600;
+  color: var(--neg-ink);
+}
+
+.neg-punto__desc--separado {
+  margin-top: 1.1rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed rgba(193, 18, 31, 0.35);
+}
+
+.neg-nota {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin: 1.1rem 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px dashed rgba(193, 18, 31, 0.35);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--neg-ink);
+}
+
+.neg-nota__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--neg-red-deep);
+  color: var(--color-gold);
+  font-size: 0.72rem;
+}
+
+/* Tarjeta de capacidad */
+.neg-capacidad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem 1rem;
+  background: #fdf4e2;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.neg-capacidad__icon {
+  color: var(--neg-red-deep);
+}
+
+.neg-capacidad__icon svg {
+  width: 34px;
+  height: 34px;
+}
+
+.neg-capacidad__texto {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  color: var(--neg-ink);
+}
+
+.neg-capacidad__pre {
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.neg-capacidad__cifra {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.neg-capacidad__unidad {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.neg-capacidad__sub {
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--neg-body);
+}
+
+.neg-legal {
+  margin: 1rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: #857157;
+}
+
+/* Cierre con comillas */
+.neg-sabor__cierre {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 2.5rem 0 0;
+  padding: 1.75rem 2rem;
+  background: #fdf4e2;
+  border-radius: 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.35vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--neg-ink);
+}
+
+.neg-sabor__cierre-em {
+  font-style: normal;
+  color: var(--neg-red);
+}
+
+.neg-sabor__q {
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  color: var(--color-gold);
+}
+
+.neg-sabor__q--close {
+  align-self: flex-end;
+}
+
+/* ── Bloque 4 · Elige según cómo vendes ──────────────────────── */
+.neg-formatos__inner {
+  max-width: var(--neg-max);
+  margin: 0 auto;
+  padding: var(--neg-pad-y) 1.5rem;
+}
+
+/* La cabecera ocupa media caja, como en el diseño */
+.neg-formatos__head .neg-title {
+  max-width: 26ch;
+}
+
+.neg-formatos__head .neg-text {
+  max-width: 62ch;
+}
+
+.neg-formatos__grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+}
+
+/* Tarjeta: texto a la izquierda, fotografía a sangre a la derecha */
+.neg-escenario {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
+  background: #fdf6e8;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.neg-escenario__cuerpo {
+  padding: 1.5rem;
+}
+
+.neg-escenario__head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.neg-escenario__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--neg-red-deep);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.neg-escenario__icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--neg-red-deep);
+}
+
+.neg-escenario__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.neg-escenario__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--neg-ink);
+}
+
+.neg-escenario__desc {
+  margin: 0.85rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--neg-body);
+}
+
+.neg-escenario__sub {
+  margin: 1.1rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--neg-red);
+}
+
+.neg-refs {
+  /* Anidada dentro de la <ol> de escenarios, el navegador la marcaría con
+     viñeta hueca; se fuerza el punto lleno. */
+  list-style-type: disc;
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--neg-ink);
+}
+
+.neg-refs li + li {
+  margin-top: 0.2rem;
+}
+
+.neg-evaluar {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.neg-evaluar__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--neg-ink);
+}
+
+.neg-evaluar__item + .neg-evaluar__item {
+  margin-top: 0.3rem;
+}
+
+.neg-evaluar__check {
+  flex-shrink: 0;
+  margin-top: 0.18rem;
+  font-size: 0.9rem;
+  color: var(--color-gold);
+}
+
+.neg-escenario__media {
+  position: relative;
+}
+
+.neg-escenario__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.neg-foto-vacia.neg-escenario__img {
+  border: none;
+  min-height: 200px;
+}
+
+.neg-escenario__estrella {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: calc(100% - 20px);
+  padding: 0.45rem 0.7rem;
+  background: var(--color-gold);
+  border-radius: 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--neg-ink);
+  box-shadow: 0 4px 10px rgba(40, 28, 2, 0.22);
+}
+
+/* Nota orientativa y llamada final */
+.neg-formatos__nota {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 1.5rem 0 0;
+  padding: 1.25rem 1.75rem;
+  background: #fdf4e2;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--neg-body);
+}
+
+.neg-formatos__nota strong {
+  color: var(--neg-ink);
+}
+
+.neg-formatos__nota-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border: 2px solid var(--neg-ink);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  color: var(--neg-ink);
+}
+
+.neg-formatos__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.neg-btn--ancho {
+  gap: 1.5rem;
+  min-width: 360px;
+}
+
+/* ── Bloque 5 · Tirando calculadora ──────────────────────────── */
+.neg-calc__inner {
+  max-width: var(--neg-max);
+  margin: 0 auto;
+  padding: var(--neg-pad-y) 1.5rem;
+}
+
+.neg-calc__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 36fr) minmax(0, 64fr);
+  column-gap: var(--neg-gap);
+  align-items: start;
+}
+
+/* Tarjeta de ejemplo base */
+.neg-ejemplo {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
+  padding: 1.25rem;
+  background: #fff;
+  border: 1px solid rgba(200, 178, 132, 0.5);
+  border-radius: 14px;
+}
+
+.neg-ejemplo__media {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.neg-ejemplo__tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  padding: 0.4rem 0.8rem;
+  background: var(--neg-red-dark);
+  border-radius: 0 0 8px 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.neg-ejemplo__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+}
+
+.neg-foto-vacia.neg-ejemplo__img {
+  border: none;
+}
+
+.neg-ejemplo__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--neg-red);
+}
+
+.neg-ejemplo__formato {
+  margin: 0.4rem 0 0;
+  font-size: 0.78rem;
+  color: var(--neg-body);
+}
+
+.neg-tarifa {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(200, 178, 132, 0.5);
+}
+
+.neg-tarifa__head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.5rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--neg-red);
+}
+
+.neg-tarifa__fila {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.neg-tarifa__campo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.neg-tarifa__label {
+  font-size: 0.64rem;
+  line-height: 1.3;
+  color: var(--neg-body);
+}
+
+.neg-tarifa__valor {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  font-weight: 700;
+  color: var(--neg-ink);
+}
+
+.neg-tarifa__div {
+  flex-shrink: 0;
+  padding-bottom: 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--neg-red);
+}
+
+.neg-ejemplo__nota {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--neg-body);
+}
+
+.neg-ejemplo__nota-icon,
+.neg-calc__legal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--color-gold);
+  border-radius: 50%;
+  font-size: 0.6rem;
+  color: var(--color-gold);
+}
+
+/* Pasos */
+.neg-calc__pasos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.neg-paso-calc + .neg-paso-calc {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(200, 178, 132, 0.5);
+}
+
+.neg-paso-calc__head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.neg-paso-calc__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--neg-red-deep);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.neg-paso-calc__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.05rem, 1.4vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--neg-red);
+}
+
+.neg-paso-calc__intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 0.85rem;
+  padding-left: calc(34px + 0.85rem);
+}
+
+.neg-paso-calc__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: #fdf4e2;
+  border-radius: 10px;
+  color: var(--neg-ink);
+}
+
+.neg-paso-calc__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.neg-paso-calc__lead {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--neg-ink);
+}
+
+.neg-paso-calc__desc {
+  margin: 0.3rem 0 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--neg-body);
+}
+
+.neg-paso-calc__desc--suelto {
+  margin-top: 0.75rem;
+  padding-left: calc(34px + 0.85rem);
+}
+
+/* Paso 1 · las dos cuentas */
+.neg-cuentas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 1rem 0 0 calc(34px + 0.85rem);
+  background: #fff;
+  border: 1px solid rgba(200, 178, 132, 0.5);
+  border-radius: 12px;
+}
+
+.neg-cuenta {
+  padding: 1rem 1.25rem;
+}
+
+.neg-cuenta + .neg-cuenta {
+  border-left: 1px solid rgba(200, 178, 132, 0.5);
+}
+
+.neg-cuenta__label {
+  font-size: 0.78rem;
+  color: var(--neg-body);
+}
+
+.neg-cuenta__op {
+  margin: 0.3rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+  font-weight: 600;
+  color: var(--neg-ink);
+}
+
+.neg-cuenta__pie {
+  font-size: 0.78rem;
+  color: var(--neg-body);
+}
+
+/* Paso 2 · rejilla de costos */
+/* Ocho celdas en tres columnas dejan un hueco: las separaciones van como
+   borde de cada celda, no como fondo del contenedor, para que ese hueco
+   no quede pintado. */
+.neg-costos {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 1rem 0 0 calc(34px + 0.85rem);
+  padding: 0;
+  background: #fdfaf3;
+  border: 1px solid rgba(200, 178, 132, 0.45);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.neg-costo {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.9rem 1rem;
+  border-top: 1px solid rgba(200, 178, 132, 0.45);
+  border-left: 1px solid rgba(200, 178, 132, 0.45);
+}
+
+.neg-costo:nth-child(-n + 3) {
+  border-top: none;
+}
+
+.neg-costo:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.neg-costo__icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--neg-red-deep);
+}
+
+.neg-costo__icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.neg-costo__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.neg-costo__title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--neg-ink);
+}
+
+.neg-costo__dep {
+  margin-top: 0.15rem;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: var(--neg-body);
+}
+
+/* Paso 3 · fórmula */
+.neg-formula {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0 0 calc(34px + 0.85rem);
+  padding: 1.15rem 1rem;
+  background: #fdfaf3;
+  border: 1px solid rgba(200, 178, 132, 0.5);
+  border-radius: 12px;
+}
+
+.neg-formula__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.neg-formula__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  color: var(--neg-red-deep);
+}
+
+.neg-formula__icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.neg-formula__icon--total {
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: var(--neg-ink);
+}
+
+.neg-formula__icon--total svg {
+  width: 20px;
+  height: 20px;
+}
+
+.neg-formula__title {
+  margin-top: 0.35rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--neg-ink);
+}
+
+.neg-formula__sub {
+  font-size: 0.66rem;
+  line-height: 1.3;
+  color: var(--neg-body);
+}
+
+.neg-formula__op {
+  flex-shrink: 0;
+  padding-top: 0.6rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--neg-ink);
+}
+
+/* Paso 4 · comparación */
+.neg-comparacion {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 1rem 0 0 calc(34px + 0.85rem);
+  padding: 0;
+  background: rgba(200, 178, 132, 0.45);
+  border: 1px solid rgba(200, 178, 132, 0.45);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.neg-comparacion__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #fdfaf3;
+}
+
+.neg-comparacion__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid rgba(255, 178, 27, 0.8);
+  border-radius: 50%;
+  color: var(--neg-red-deep);
+}
+
+.neg-comparacion__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.neg-comparacion__title {
+  display: block;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--neg-ink);
+}
+
+.neg-comparacion__desc {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--neg-body);
+}
+
+/* Franja destacada y pie */
+.neg-calc__destacado {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 2.5rem 0 0;
+  padding: 1.5rem 2rem;
+  background: #fdf4e2;
+  border-radius: 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--neg-ink);
+}
+
+.neg-calc__destacado-em {
+  font-style: normal;
+  color: var(--neg-red);
+}
+
+.neg-calc__destacado-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+  border: 2px solid var(--neg-red-deep);
+  border-radius: 50%;
+  font-size: 1.6rem;
+  color: var(--neg-red-deep);
+}
+
+.neg-calc__pie {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
+  gap: 2rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.neg-calc__legal {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--neg-body);
+}
+
+.neg-calc__legal strong {
+  color: var(--neg-ink);
+}
+
+.neg-calc__accion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.neg-calc__accion-nota {
+  font-size: 0.76rem;
+  text-align: center;
+  color: var(--neg-body);
+}
+
+/* ── Bloque 6 · Antes de elegir un proveedor ─────────────────── */
+.neg-prov__inner {
+  max-width: var(--neg-max);
+  margin: 0 auto;
+  padding: var(--neg-pad-y) 1.5rem;
+}
+
+.neg-prov__top {
+  display: grid;
+  grid-template-columns: minmax(0, 52fr) minmax(0, 48fr);
+  column-gap: var(--neg-gap);
+  align-items: center;
+}
+
+.neg-prov__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.neg-foto-vacia.neg-prov__img {
+  aspect-ratio: 16 / 11;
+  border-radius: 14px;
+}
+
+/* Los cinco criterios */
+.neg-prov__criterios {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+}
+
+.neg-criterio {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  background: #fffdf7;
+  border: 1px solid rgba(200, 178, 132, 0.5);
+  border-radius: 12px;
+}
+
+.neg-criterio__head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.neg-criterio__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--neg-red-deep);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.neg-criterio__icon {
+  display: flex;
+  color: var(--color-gold);
+}
+
+.neg-criterio__icon svg {
+  width: 34px;
+  height: 34px;
+}
+
+.neg-criterio__title {
+  margin: 1rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(0.98rem, 1.15vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--neg-red);
+}
+
+.neg-criterio__desc {
+  margin: 0.6rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--neg-body);
+}
+
+.neg-criterio__sub {
+  margin: 1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(193, 18, 31, 0.3);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--neg-red);
+}
+
+.neg-criterio__lista {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding: 0;
+}
+
+.neg-criterio__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--neg-ink);
+}
+
+.neg-criterio__item + .neg-criterio__item {
+  margin-top: 0.5rem;
+}
+
+.neg-criterio__check {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  color: var(--color-gold);
+}
+
+/* Objeciones y proveedor actual */
+.neg-prov__dudas {
+  display: grid;
+  grid-template-columns: minmax(0, 80fr) minmax(0, 20fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.neg-objeciones {
+  padding: 1.5rem;
+  background: #fdf6e8;
+  border-radius: 12px;
+}
+
+.neg-objeciones__title {
+  margin: 0 0 1.25rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--neg-red);
+}
+
+.neg-objeciones__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.neg-objecion {
+  min-width: 0;
+}
+
+.neg-objecion + .neg-objecion {
+  border-left: 1px solid rgba(200, 178, 132, 0.6);
+  padding-left: 1.25rem;
+}
+
+.neg-objecion__head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  list-style: none;
+  cursor: default;
+}
+
+/* Oculta el triángulo nativo del <details> */
+.neg-objecion__head::-webkit-details-marker {
+  display: none;
+}
+
+.neg-objecion__icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--neg-red-deep);
+}
+
+.neg-objecion__icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.neg-objecion__title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--neg-ink);
+}
+
+/* La flecha solo tiene sentido cuando el bloque se puede plegar */
+.neg-objecion__chevron {
+  display: none;
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--neg-body);
+}
+
+.neg-objecion__desc {
+  margin: 0.6rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--neg-body);
+}
+
+.neg-proveedor-actual {
+  padding: 1.5rem 1.25rem;
+  background: #fdf6e8;
+  border-radius: 12px;
+}
+
+.neg-proveedor-actual__icon {
+  display: flex;
+  color: var(--neg-red-deep);
+}
+
+.neg-proveedor-actual__icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.neg-proveedor-actual__title {
+  margin: 0.75rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--neg-ink);
+}
+
+.neg-proveedor-actual__desc {
+  margin: 0.6rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--neg-body);
+}
+
+/* Cierre y nota */
+.neg-prov__cierre {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1.5rem 0 0;
+  padding: 1.5rem 2rem;
+  background: #fffdf7;
+  border: 1px solid rgba(200, 178, 132, 0.5);
+  border-radius: 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--neg-ink);
+}
+
+.neg-prov__cierre-texto {
+  flex: 1;
+}
+
+.neg-prov__cierre-em {
+  font-style: normal;
+  color: var(--neg-red);
+}
+
+.neg-prov__cierre-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 62px;
+  height: 62px;
+  border: 2px solid var(--neg-red-deep);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  color: var(--neg-red-deep);
+}
+
+.neg-prov__cierre-deco {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.25rem;
+  color: var(--color-gold);
+  opacity: 0.85;
+}
+
+.neg-prov__cierre-deco svg {
+  width: 52px;
+  height: 52px;
+}
+
+.neg-prov__nota {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin: 1.25rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--neg-body);
+}
+
+.neg-prov__nota strong {
+  color: var(--neg-ink);
+}
+
+.neg-prov__nota-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--neg-ink);
+  border-radius: 50%;
+  font-size: 0.7rem;
+  color: var(--neg-ink);
+}
+
+/* ── Bloque 7 · Recursos para negocios (fondo oscuro) ────────── */
+
+/* Variante oscura de las piezas compartidas */
+.neg-oscuro .neg-eyebrow,
+.neg-oscuro .neg-eyebrow__icon {
+  color: var(--color-gold);
+}
+
+.neg-oscuro .neg-title {
+  color: #fffdf3;
+}
+
+.neg-oscuro .neg-rule {
+  background: var(--color-gold);
+}
+
+.neg-oscuro .neg-text {
+  color: rgba(255, 253, 240, 0.72);
+}
+
+.neg-oscuro .neg-text--fuerte {
+  font-weight: 600;
+  color: #fffdf3;
+}
+
+.neg-recursos {
+  background:
+    radial-gradient(80% 60% at 50% 0%, #2c1f07 0%, rgba(44, 31, 7, 0) 70%),
+    #1e1502;
+}
+
+.neg-recursos__inner {
+  max-width: var(--neg-max);
+  margin: 0 auto;
+  padding: var(--neg-pad-y) 1.5rem;
+}
+
+.neg-recursos__head .neg-text {
+  max-width: 70ch;
+}
+
+/* Tarjetas de recurso */
+.neg-recursos__grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+}
+
+.neg-recurso {
+  display: flex;
+  flex-direction: column;
+  background: #fdf6e8;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.neg-recurso__media {
+  position: relative;
+}
+
+.neg-recurso__num {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--color-gold);
+  color: var(--neg-ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.neg-recurso__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.neg-foto-vacia.neg-recurso__img {
+  aspect-ratio: 16 / 9;
+  border: none;
+}
+
+.neg-recurso__cuerpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem;
+}
+
+.neg-recurso__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.neg-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.neg-chip--categoria {
+  background: var(--color-light-yellow);
+  color: var(--neg-ink);
+}
+
+.neg-chip__icon {
+  display: flex;
+  color: var(--color-gold);
+}
+
+.neg-chip__icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.neg-chip--estado {
+  border-color: var(--neg-red);
+  color: var(--neg-red);
+}
+
+.neg-recurso__title {
+  margin: 0.85rem 0 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--neg-red);
+}
+
+.neg-recurso__desc {
+  margin: 0.7rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--neg-body);
+}
+
+.neg-recurso__sub {
+  margin: 1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(200, 178, 132, 0.6);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--neg-red);
+}
+
+.neg-recurso__temas {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding: 0;
+}
+
+.neg-recurso__tema {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--neg-ink);
+}
+
+.neg-recurso__tema + .neg-recurso__tema {
+  margin-top: 0.35rem;
+}
+
+/* Separación mínima con el rótulo de tipo, que va anclado al fondo */
+.neg-recurso__temas {
+  margin-bottom: 1.1rem;
+}
+
+.neg-recurso__check {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  color: var(--color-gold);
+}
+
+.neg-recurso__tipo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Al fondo de la tarjeta: así los tres quedan a la misma altura aunque
+     las descripciones tengan distinto largo. */
+  margin: auto 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(200, 178, 132, 0.6);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--neg-ink);
+}
+
+/* Próximos temas */
+.neg-proximos {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 178, 27, 0.35);
+  border-radius: 12px;
+}
+
+.neg-proximos__title {
+  margin: 0 0 1.25rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(0.95rem, 1.15vw, 1.15rem);
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-gold);
+}
+
+.neg-proximos__grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+}
+
+.neg-proximo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.neg-proximo + .neg-proximo {
+  border-left: 1px solid rgba(255, 178, 27, 0.28);
+}
+
+.neg-proximo__icon {
+  display: flex;
+  color: var(--color-gold);
+}
+
+.neg-proximo__icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.neg-proximo__label {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: rgba(255, 253, 240, 0.82);
+}
+
+/* Cierre */
+.neg-recursos__cierre {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 1.35rem 1.75rem;
+  border: 1px solid rgba(255, 178, 27, 0.35);
+  border-radius: 12px;
+}
+
+.neg-recursos__cierre-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 62px;
+  height: 62px;
+  border: 2px solid var(--color-gold);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  color: var(--color-gold);
+}
+
+.neg-recursos__cierre-texto {
+  flex: 1;
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.45;
+  color: #fffdf3;
+}
+
+.neg-recursos__cierre-texto em {
+  font-style: normal;
+  color: var(--color-gold);
+}
+
+.neg-recursos__cierre .neg-btn {
+  flex-shrink: 0;
+}
+
+/* ── Bloque 8 · Cómo empezar ─────────────────────────────────── */
+.neg-empezar__inner {
+  max-width: var(--neg-max);
+  margin: 0 auto;
+  padding: var(--neg-pad-y) 1.5rem;
+}
+
+.neg-empezar__top {
+  display: grid;
+  grid-template-columns: minmax(0, 48fr) minmax(0, 52fr);
+  column-gap: var(--neg-gap);
+  align-items: center;
+}
+
+.neg-empezar__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+}
+
+.neg-foto-vacia.neg-empezar__img {
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+}
+
+/* Las tres formas de empezar */
+.neg-empezar__opciones {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+}
+
+.neg-opcion {
+  padding: 1.5rem;
+  background: #fffdf7;
+  border: 1px solid rgba(200, 178, 132, 0.55);
+  border-radius: 14px;
+}
+
+/* La opción de volumen es la recomendada */
+.neg-opcion--destacada {
+  background: linear-gradient(180deg, #fffaf8 0%, #fdf3ee 100%);
+  border: 2px solid var(--neg-red-deep);
+}
+
+.neg-opcion__head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.neg-opcion__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--neg-red-deep);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.neg-opcion__etiqueta {
+  padding: 0.35rem 0.8rem;
+  background: var(--color-light-yellow);
+  border-radius: 6px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--neg-ink);
+}
+
+.neg-opcion--destacada .neg-opcion__etiqueta {
+  background: var(--neg-red-dark);
+  color: #fff;
+}
+
+.neg-opcion__titular {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.neg-opcion__icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--neg-red-deep);
+}
+
+.neg-opcion__icon svg {
+  width: 46px;
+  height: 46px;
+}
+
+.neg-opcion__title {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--neg-ink);
+}
+
+.neg-opcion__desc {
+  margin: 1rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--neg-body);
+}
+
+.neg-opcion__puntos {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(200, 178, 132, 0.55);
+}
+
+.neg-opcion__punto {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--neg-ink);
+}
+
+.neg-opcion__punto + .neg-opcion__punto {
+  margin-top: 0.45rem;
+}
+
+.neg-opcion__check {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  color: var(--color-gold);
+}
+
+/* Aviso de operación */
+.neg-empezar__aviso {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 1.5rem 0 0;
+  padding: 1.25rem 1.75rem;
+  background: #fffdf7;
+  border: 1px solid rgba(200, 178, 132, 0.55);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--neg-body);
+}
+
+.neg-empezar__aviso strong {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--neg-ink);
+}
+
+.neg-empezar__aviso-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border: 2px solid rgba(255, 178, 27, 0.8);
+  border-radius: 50%;
+  color: var(--neg-red-deep);
+}
+
+.neg-empezar__aviso-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* Llamada final sobre granate */
+.neg-empezar__cta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 1.5rem 1.75rem;
+  background: var(--neg-red-dark);
+  border-radius: 12px;
+}
+
+.neg-empezar__cta-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 62px;
+  height: 62px;
+  border: 2px solid rgba(255, 253, 243, 0.85);
+  border-radius: 50%;
+  /* Ícono macizo sobre granate: por debajo de este tamaño se lee como mancha */
+  font-size: 1.9rem;
+  color: #fffdf3;
+}
+
+.neg-empezar__cta-texto {
+  flex: 1;
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.45;
+  color: #fffdf3;
+}
+
+.neg-empezar__cta-texto em {
+  font-style: normal;
+  color: var(--color-gold);
+}
+
+.neg-empezar__cta-acciones {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1rem;
+}
+
+.neg-btn--flecha {
+  gap: 1.25rem;
+}
+
+.neg-btn--claro {
+  background: transparent;
+  border-color: rgba(255, 253, 243, 0.85);
+  color: #fffdf3;
+}
+
+.neg-btn--claro:hover {
+  background: rgba(255, 253, 243, 0.12);
+}
+
+/* Resumen de condiciones */
+.neg-empezar__resumen {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: 1.15rem 1.5rem;
+  background: #fffdf7;
+  border: 1px solid rgba(200, 178, 132, 0.55);
+  border-radius: 12px;
+}
+
+.neg-resumen {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.neg-resumen__icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--neg-red-deep);
+}
+
+.neg-resumen__icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.neg-resumen__label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--neg-ink);
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .neg-main section[id] {
+    scroll-margin-top: 140px;
+  }
+
+  .neg-hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2rem;
+  }
+
+  .neg-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .neg-btn {
+    width: 100%;
+  }
+
+  /* En una columna las condiciones se apilan y no llevan separador */
+  .neg-hero__condiciones {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .neg-condicion {
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 0.88rem;
+  }
+
+  .neg-condicion__icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .neg-condicion:not(:last-child)::after {
+    content: none;
+  }
+
+  /* Los sellos pasan a una fila al pie de la tarjeta */
+  .neg-hero__card {
+    aspect-ratio: 5 / 6;
+  }
+
+  .neg-hero__placeholder {
+    left: 50%;
+    width: min(320px, 78%);
+  }
+
+  /* Bloque 2: una columna y el panel de ingredientes apilado */
+  .neg-origen__top {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.75rem;
+  }
+
+  .neg-origen__panel {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 1.75rem;
+  }
+
+  .neg-ingrediente {
+    padding: 1.35rem;
+  }
+
+  .neg-ingrediente + .neg-ingrediente {
+    border-left: none;
+    border-top: 1px solid rgba(200, 178, 132, 0.5);
+  }
+
+  .neg-ingrediente__desc {
+    padding-left: 0;
+  }
+
+  .neg-pasos {
+    gap: 0 14px;
+  }
+
+  .neg-paso--con-flecha .neg-paso__foto::before {
+    left: -10px;
+    width: 6px;
+    height: 6px;
+    border-width: 1.5px;
+  }
+
+  .neg-paso__label {
+    font-size: 0.66rem;
+  }
+
+  .neg-origen__cierre {
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .neg-origen__cierre-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .neg-origen__cierre-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Bloque 3: los paneles se apilan y el conector desaparece */
+  .neg-sabor__paneles {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+
+  .neg-sabor__conector {
+    display: none;
+  }
+
+  .neg-panel__cuerpo--dos {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.1rem;
+  }
+
+  /* En una columna la capacidad se lee mejor en horizontal */
+  .neg-capacidad {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.9rem 1rem;
+    text-align: left;
+  }
+
+  .neg-capacidad__icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .neg-capacidad__texto {
+    display: block;
+  }
+
+  .neg-capacidad__cifra {
+    font-size: 1.15rem;
+  }
+
+  .neg-capacidad__pre,
+  .neg-capacidad__unidad,
+  .neg-capacidad__sub {
+    display: inline;
+    font-size: 0.88rem;
+  }
+
+  .neg-capacidad__cifra,
+  .neg-capacidad__unidad,
+  .neg-capacidad__sub {
+    margin-left: 0.3rem;
+  }
+
+  .neg-sabor__cierre {
+    gap: 0.85rem;
+    padding: 1.25rem 1.1rem;
+    text-align: left;
+  }
+
+  .neg-sabor__q {
+    font-size: 1.2rem;
+  }
+
+  /* Bloque 4: las tarjetas se apilan y conservan la foto al costado */
+  .neg-formatos__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.1rem;
+  }
+
+  .neg-escenario {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.4fr);
+  }
+
+  .neg-escenario__cuerpo {
+    padding: 1.15rem;
+  }
+
+  /* Cabecera compacta: si no, el título se parte en cuatro líneas */
+  .neg-escenario__head {
+    gap: 0.5rem;
+  }
+
+  .neg-escenario__num {
+    width: 26px;
+    height: 26px;
+    font-size: 0.8rem;
+  }
+
+  .neg-escenario__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .neg-escenario__title {
+    font-size: 0.98rem;
+  }
+
+  .neg-foto-vacia.neg-escenario__img {
+    min-height: 0;
+  }
+
+  .neg-escenario__estrella {
+    right: 6px;
+    bottom: 6px;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.6rem;
+  }
+
+  .neg-formatos__nota {
+    gap: 0.9rem;
+    padding: 1.1rem 1.15rem;
+    font-size: 0.85rem;
+  }
+
+  .neg-formatos__nota-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  .neg-btn--ancho {
+    min-width: 0;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  /* Bloque 5: una columna y rejillas más estrechas */
+  .neg-calc__grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.75rem;
+  }
+
+  .neg-ejemplo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .neg-ejemplo__img {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Sin sangría: en móvil el ancho manda */
+  .neg-paso-calc__intro,
+  .neg-paso-calc__desc--suelto,
+  .neg-cuentas,
+  .neg-costos,
+  .neg-formula,
+  .neg-comparacion {
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  .neg-cuentas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .neg-cuenta + .neg-cuenta {
+    border-left: none;
+    border-top: 1px solid rgba(200, 178, 132, 0.5);
+  }
+
+  .neg-costo {
+    padding: 0.7rem 0.6rem;
+  }
+
+  .neg-costo__icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .neg-costo__title {
+    font-size: 0.76rem;
+  }
+
+  .neg-costo__dep {
+    font-size: 0.66rem;
+  }
+
+  /* Seis conceptos no entran a 390 px sin pisarse: se desplaza en horizontal
+     y cada uno conserva un ancho legible. */
+  .neg-formula {
+    justify-content: flex-start;
+    gap: 0.35rem;
+    padding: 0.9rem 0.75rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    overscroll-behavior-x: contain;
+  }
+
+  .neg-formula__item {
+    flex: 0 0 auto;
+    width: 78px;
+  }
+
+  .neg-formula__icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .neg-formula__icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .neg-formula__title {
+    font-size: 0.6rem;
+  }
+
+  .neg-formula__sub {
+    font-size: 0.55rem;
+  }
+
+  .neg-formula__op {
+    padding-top: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  .neg-comparacion__item {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem 0.6rem;
+  }
+
+  .neg-comparacion__title {
+    font-size: 0.76rem;
+  }
+
+  .neg-comparacion__desc {
+    font-size: 0.66rem;
+  }
+
+  .neg-calc__destacado {
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .neg-calc__destacado-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .neg-calc__pie {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .neg-calc__accion .neg-btn {
+    width: 100%;
+  }
+
+  /* Bloque 6 */
+  .neg-prov__top {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.5rem;
+  }
+
+  .neg-prov__criterios {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+  }
+
+  /* En una columna, número e ícono acompañan al título */
+  .neg-criterio {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0 0.85rem;
+    padding: 1.1rem;
+  }
+
+  .neg-criterio__head {
+    grid-row: 1 / 3;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-self: start;
+  }
+
+  .neg-criterio__icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .neg-criterio__title {
+    margin-top: 0;
+    align-self: center;
+  }
+
+  .neg-criterio__desc {
+    grid-column: 2;
+  }
+
+  .neg-criterio__sub,
+  .neg-criterio__lista {
+    grid-column: 1 / -1;
+  }
+
+  .neg-prov__dudas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .neg-objeciones {
+    padding: 1.15rem;
+  }
+
+  .neg-objeciones__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  /* Plegadas: cada objeción es una fila pulsable */
+  .neg-objecion {
+    padding: 0.75rem 0;
+  }
+
+  .neg-objecion + .neg-objecion {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid rgba(200, 178, 132, 0.6);
+  }
+
+  .neg-objecion__head {
+    cursor: pointer;
+  }
+
+  .neg-objecion__chevron {
+    display: block;
+    transition: transform 0.2s ease;
+  }
+
+  .neg-objecion[open] .neg-objecion__chevron {
+    transform: rotate(90deg);
+  }
+
+  .neg-prov__cierre {
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .neg-prov__cierre-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.15rem;
+  }
+
+  .neg-prov__cierre-deco {
+    display: none;
+  }
+
+  /* Bloque 7: tarjetas con la foto al costado y listas en una columna */
+  .neg-recursos__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+
+  .neg-recurso {
+    flex-direction: row;
+  }
+
+  .neg-recurso__media {
+    flex: 0 0 34%;
+  }
+
+  .neg-recurso__img,
+  .neg-foto-vacia.neg-recurso__img {
+    height: 100%;
+    aspect-ratio: auto;
+    min-height: 150px;
+  }
+
+  .neg-recurso__num {
+    top: 8px;
+    left: 8px;
+    width: 26px;
+    height: 26px;
+    font-size: 0.82rem;
+  }
+
+  .neg-recurso__cuerpo {
+    padding: 1rem;
+  }
+
+  /* Con la foto al costado no caben los dos distintivos en una línea:
+     se apilan antes que reducir el texto a un tamaño ilegible. */
+  .neg-recurso__chips {
+    gap: 0.4rem;
+  }
+
+  .neg-proximos__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  /* En una columna cada tema es una fila con su ícono al lado */
+  .neg-proximo {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.6rem 0;
+    text-align: left;
+  }
+
+  .neg-proximo + .neg-proximo {
+    border-left: none;
+    border-top: 1px solid rgba(255, 178, 27, 0.22);
+  }
+
+  .neg-proximo__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .neg-recursos__cierre {
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .neg-recursos__cierre-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.15rem;
+  }
+
+  .neg-recursos__cierre-texto {
+    flex: 1 1 60%;
+  }
+
+  .neg-recursos__cierre .neg-btn {
+    flex: 1 0 100%;
+  }
+
+  /* Bloque 8 */
+  .neg-empezar__top {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.5rem;
+  }
+
+  .neg-empezar__opciones {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+
+  .neg-opcion {
+    padding: 1.15rem;
+  }
+
+  /* El ícono se recoloca junto a la etiqueta, como en el diseño móvil */
+  .neg-opcion__head {
+    justify-content: flex-start;
+  }
+
+  .neg-opcion__titular {
+    margin-top: 0.85rem;
+  }
+
+  .neg-opcion__icon svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .neg-empezar__aviso {
+    gap: 0.9rem;
+    padding: 1.1rem 1.15rem;
+    font-size: 0.85rem;
+  }
+
+  .neg-empezar__aviso-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .neg-empezar__aviso-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .neg-empezar__cta {
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .neg-empezar__cta-icon {
+    display: none;
+  }
+
+  .neg-empezar__cta-texto {
+    flex: 1 0 100%;
+    text-align: center;
+  }
+
+  .neg-empezar__cta-acciones {
+    flex: 1 0 100%;
+    flex-direction: column;
+  }
+
+  .neg-empezar__cta-acciones .neg-btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Cuatro datos siguen en fila, apilando ícono y texto */
+  .neg-empezar__resumen {
+    gap: 0.5rem;
+    padding: 1rem 0.75rem;
+  }
+
+  .neg-resumen {
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: center;
+  }
+
+  .neg-resumen__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .neg-resumen__label {
+    font-size: 0.66rem;
+  }
+
+  .neg-sellos {
+    top: auto;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+    transform: none;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .neg-sello {
+    flex: 1;
+    min-width: 0;
+    gap: 0.4rem;
+    padding: 0.55rem 0.5rem;
+  }
+
+  .neg-sello__icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .neg-sello__icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Un tercio del ancho deja poco sitio: "Elaboración" es la palabra
+     más larga y marca el tamaño máximo posible. */
+  .neg-sello__label {
+    font-size: 0.64rem;
+    line-height: 1.3;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: 480px) {
+  .neg-hero__inner,
+  .neg-origen__inner,
+  .neg-sabor__inner,
+  .neg-formatos__inner,
+  .neg-calc__inner,
+  .neg-prov__inner,
+  .neg-recursos__inner,
+  .neg-empezar__inner {
+    padding: 1.75rem 1rem 2.5rem;
+  }
+
+  /* Con el ícono al lado quedan ~58 px de texto y "Elaboración" no entra:
+     apilado, el texto dispone del ancho completo del sello. */
+  .neg-sello {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.6rem 0.4rem;
+    text-align: center;
+  }
+
+  .neg-sello__label {
+    font-size: 0.7rem;
+  }
+
+  .neg-hero__placeholder-title {
+    font-size: 1.25rem;
+  }
+
+  .neg-hero__placeholder-sub {
+    font-size: 0.85rem;
+  }
+}

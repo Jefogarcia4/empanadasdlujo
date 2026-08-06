@@ -24,16 +24,6 @@ export const PAGE_PATHS = {
 
 // Secciones que aún no tienen contenido: se renderizan con EnConstruccionPage.
 export const EN_CONSTRUCCION = {
-  negocios: {
-    title: 'Para negocios',
-    intro:
-      'Estamos preparando el espacio para dueños de puestos de fritos, cafeterías, tiendas y servicios de catering que quieren vender nuestras empanadas.',
-    bullets: [
-      'Rentabilidad y margen por paquete',
-      'Combos de arranque para probar sin invertir de más',
-      'Condiciones de precio por mayor desde 10 paquetes',
-    ],
-  },
   proceso: {
     title: 'Proceso y calidad',
     intro:
