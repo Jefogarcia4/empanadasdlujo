@@ -1,0 +1,153 @@
+/* Página placeholder para las secciones del menú que aún no tienen contenido. */
+.wip {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.25rem 4rem;
+  background: var(--color-background);
+}
+
+.wip__card {
+  width: 100%;
+  max-width: 640px;
+  background: var(--color-surface);
+  border: 1px solid rgba(40, 28, 2, 0.08);
+  border-top: 4px solid var(--color-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.wip__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-light-yellow);
+  color: var(--color-dark-brown);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.wip__title {
+  margin-top: 1.25rem;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-dark-brown);
+}
+
+.wip__intro {
+  margin-top: 0.75rem;
+  color: var(--color-text-light);
+  font-size: 1rem;
+}
+
+.wip__list-title {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+.wip__list {
+  list-style: none;
+  margin: 0.85rem auto 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  text-align: left;
+  max-width: 420px;
+}
+
+.wip__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--color-background);
+  border: 1px solid rgba(40, 28, 2, 0.06);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.92rem;
+  color: var(--color-text);
+}
+
+.wip__check {
+  flex-shrink: 0;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--color-gold);
+}
+
+.wip__actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.wip__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.wip__btn:hover {
+  transform: translateY(-2px);
+}
+
+.wip__btn--primary {
+  background: var(--color-gold);
+  color: var(--color-dark-brown);
+  box-shadow: 0 2px 6px rgba(255, 178, 27, 0.3);
+}
+
+.wip__btn--primary:hover {
+  box-shadow: 0 6px 16px rgba(255, 178, 27, 0.35);
+}
+
+.wip__btn--ghost {
+  background: transparent;
+  border-color: rgba(40, 28, 2, 0.18);
+  color: var(--color-dark-brown);
+}
+
+.wip__btn--ghost:hover {
+  background: var(--color-light-yellow);
+}
+
+@media (max-width: 480px) {
+  .wip {
+    padding: 2rem 0.875rem 3rem;
+  }
+
+  .wip__card {
+    padding: 2rem 1.25rem;
+  }
+
+  .wip__title {
+    font-size: 1.6rem;
+  }
+
+  .wip__btn {
+    width: 100%;
+  }
+}

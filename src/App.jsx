@@ -15,7 +15,9 @@ import CarritoWhatsAppPage from './components/CarritoWhatsAppPage';
 import MisPedidosPage from './components/MisPedidosPage';
 import CombosShowcase from './components/CombosShowcase';
 import AdminApp from './components/admin/AdminApp';
+import EnConstruccionPage from './components/EnConstruccionPage';
 import CatalogoFiltros, { CatalogoVacio } from './components/CatalogoFiltros';
+import { PAGE_PATHS, EN_CONSTRUCCION } from './config/navigation';
 import {
   TODOS,
   TODOS_TAMANOS,
@@ -29,13 +31,16 @@ import { fetchProducts, fetchCombos } from './services/api';
 import './styles/App.css';
 import './styles/Landing.css';
 
+// Quita la barra final y normaliza a minúsculas para comparar con PAGE_PATHS.
+function normalizePath(pathname) {
+  const clean = pathname.replace(/\/+$/, '').toLowerCase();
+  return clean === '' ? '/' : clean;
+}
+
 function parseRoute() {
   const path = window.location.pathname;
   if (/^\/admin\/?$/i.test(path)) {
     return { page: 'admin', pedidoId: null, carritoToken: null };
-  }
-  if (/^\/mis-pedidos\/?$/i.test(path)) {
-    return { page: 'mis_pedidos', pedidoId: null, carritoToken: null };
   }
   const match = path.match(/^\/pedido\/(\d+)\/?$/i);
   if (match) {
@@ -47,12 +52,10 @@ function parseRoute() {
   if (carritoMatch) {
     return { page: 'carrito_whatsapp', pedidoId: null, carritoToken: carritoMatch[1] };
   }
-  // Acceso temporal por URL a la landing mientras se prueba antes de publicarla
-  // como inicio del sitio (el menú Inicio/Vitrina está oculto).
-  if (/^\/inicio\/?$/i.test(path)) {
-    return { page: 'landing', pedidoId: null, carritoToken: null };
-  }
-  return { page: 'tienda', pedidoId: null, carritoToken: null };
+  // Páginas del menú principal (Inicio, Productos, secciones en construcción…).
+  const normalized = normalizePath(path);
+  const entry = Object.entries(PAGE_PATHS).find(([, p]) => p === normalized);
+  return { page: entry ? entry[0] : 'tienda', pedidoId: null, carritoToken: null };
 }
 
 function App() {
@@ -81,14 +84,13 @@ function App() {
     if (page === 'pedido_detail' && opts?.pedidoId) {
       setSelectedPedidoId(opts.pedidoId);
       window.history.pushState({}, '', `/pedido/${opts.pedidoId}`);
-    } else if (page === 'mis_pedidos') {
-      window.history.pushState({}, '', '/mis-pedidos');
-    } else if (
-      (currentPage === 'pedido_detail' || currentPage === 'carrito_whatsapp' || currentPage === 'mis_pedidos' || currentPage === 'landing') &&
-      page !== 'pedido_detail' &&
-      page !== 'landing'
-    ) {
-      window.history.pushState({}, '', '/');
+    } else {
+      // Las páginas sin ruta propia (carrito, detalle de producto) se muestran
+      // sobre la raíz del sitio.
+      const path = PAGE_PATHS[page] ?? '/';
+      if (path !== normalizePath(window.location.pathname)) {
+        window.history.pushState({}, '', path);
+      }
     }
     setCurrentPage(page);
   };
@@ -146,6 +148,20 @@ function App() {
 
   if (currentPage === 'admin') {
     return <AdminApp />;
+  }
+
+  if (EN_CONSTRUCCION[currentPage]) {
+    return (
+      <CartProvider>
+        <div className="app">
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          <EnConstruccionPage page={currentPage} onNavigate={handleNavigate} />
+          <WhatsAppFab />
+          {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
+          {/* <Footer onNavigate={handleNavigate} /> */}
+        </div>
+      </CartProvider>
+    );
   }
 
   if (currentPage === 'pedido_detail') {
