@@ -10,7 +10,11 @@
       "Bash(git stash *)",
       "Bash(ls src *)",
       "Bash(ls app *)",
-      "PowerShell(npx eslint src/components/Header.jsx src/components/EnConstruccionPage.jsx src/App.jsx src/config/navigation.js)"
+      "PowerShell(npx eslint src/components/Header.jsx src/components/EnConstruccionPage.jsx src/App.jsx src/config/navigation.js)",
+      "Bash(git rev-list *)",
+      "PowerShell(gh --version)",
+      "PowerShell(gh run list --limit 8)",
+      "PowerShell(try { $r = Invoke-RestMethod -Uri \"https://api.github.com/repos/Jefogarcia4/empanadasdlujo/actions/runs?per_page=6\" -Headers @{ 'User-Agent' = 'claude-code' }; $r.workflow_runs | Select-Object -Property name, event, status, conclusion, head_branch, created_at, @{n='sha';e={$_.head_sha.Substring\\(0,7\\)}} | Format-Table -AutoSize | Out-String -Width 200 } catch { \"ERROR: $\\($_.Exception.Message\\)\" })"
     ]
   }
 }
