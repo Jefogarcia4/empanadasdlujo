@@ -20,6 +20,7 @@ import NosotrosPage from './components/nosotros/NosotrosPage';
 import NegociosPage from './components/negocios/NegociosPage';
 import CatalogoFiltros, { CatalogoVacio } from './components/CatalogoFiltros';
 import VitrinaIntro from './components/VitrinaIntro';
+import VitrinaCondiciones from './components/VitrinaCondiciones';
 import VitrinaAyuda from './components/VitrinaAyuda';
 import { PAGE_PATHS, EN_CONSTRUCCION } from './config/navigation';
 import {
@@ -332,6 +333,8 @@ function App() {
           {!loadingProducts && !errorProducts && (
             <>
               <VitrinaIntro />
+
+              <VitrinaCondiciones />
 
               <CatalogoFiltros
                 categorias={categorias}

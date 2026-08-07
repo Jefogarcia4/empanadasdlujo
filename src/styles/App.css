@@ -814,6 +814,141 @@ body {
   }
 }
 
+/* ── Franja de condiciones de compra (vcond) ───────────────── */
+.vcond {
+  max-width: 1280px;
+  margin: 0 auto 1.5rem;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+.vcond__track {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* Sin barra visible: el avance es automático y se puede deslizar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.vcond__track::-webkit-scrollbar { display: none; }
+
+.vcond__track:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.vcond__card {
+  flex: 0 0 calc((100% - 32px) / 3);
+  scroll-snap-align: start;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.85rem 1rem;
+  background: #fffdf6;
+  border: 1px solid #f0e4cd;
+  border-radius: 12px;
+}
+
+.vcond__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fdf3e0;
+  border: 1px solid #f6e3c2;
+  color: #c2261a;
+  font-size: 1.05rem;
+}
+
+.vcond__icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.vcond__text { min-width: 0; }
+
+.vcond__title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #241d12;
+}
+
+.vcond__desc {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #6f6250;
+}
+
+.vcond__dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 0.4rem;
+}
+
+/* El botón mide 28 px de alto para tener área táctil; la barra visible va dentro */
+.vcond__dot {
+  display: flex;
+  align-items: center;
+  width: 22px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: width 0.2s ease;
+}
+
+.vcond__dot::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: #e6d9bf;
+  transition: background 0.2s ease;
+}
+
+.vcond__dot.is-active { width: 34px; }
+.vcond__dot.is-active::before { background: var(--color-gold); }
+
+.vcond__dot:hover::before { background: #d8c69f; }
+.vcond__dot.is-active:hover::before { background: var(--color-gold); }
+
+@media (max-width: 1024px) {
+  .vcond__card { flex-basis: calc((100% - 16px) / 2); }
+}
+
+@media (max-width: 640px) {
+  .vcond {
+    margin-bottom: 1.1rem;
+  }
+
+  .vcond__track { gap: 12px; }
+
+  /* Se asoma la siguiente tarjeta para que se note que hay más */
+  .vcond__card {
+    flex-basis: 86%;
+    padding: 0.8rem 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vcond__track { scroll-behavior: auto; }
+  .vcond__dot,
+  .vcond__dot::before { transition: none; }
+}
+
 /* ── Cierre de la vitrina: ayuda para elegir (vayuda) ──────── */
 .vayuda {
   --vayuda-gold: var(--color-gold);
