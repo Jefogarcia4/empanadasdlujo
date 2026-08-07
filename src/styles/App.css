@@ -814,6 +814,267 @@ body {
   }
 }
 
+/* ── Cierre de la vitrina: ayuda para elegir (vayuda) ──────── */
+.vayuda {
+  --vayuda-gold: var(--color-gold);
+  --vayuda-ink: #fffdf3;
+  --vayuda-muted: rgba(255, 253, 240, 0.72);
+  --vayuda-line: rgba(255, 253, 240, 0.14);
+
+  max-width: 1280px;
+  margin: 2.5rem auto 0;
+  padding: 3.5rem 2rem 2rem;
+  background:
+    radial-gradient(80% 60% at 50% 0%, #2c1f07 0%, rgba(44, 31, 7, 0) 70%),
+    #14100a;
+  border-radius: 18px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  color: var(--vayuda-ink);
+}
+
+/* 33 % de texto / 67 % de rutas */
+.vayuda__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 33fr) minmax(0, 67fr);
+  gap: 2.5rem;
+}
+
+.vayuda__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--vayuda-gold);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.vayuda__eyebrow svg {
+  font-size: 1.35rem;
+}
+
+.vayuda__title {
+  margin-top: 1.1rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 2.15rem;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--vayuda-ink);
+}
+
+.vayuda__lead {
+  margin-top: 1.5rem;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--vayuda-muted);
+}
+
+.vayuda__rutas {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.vayuda__ruta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.1rem 0;
+}
+
+.vayuda__ruta + .vayuda__ruta {
+  border-top: 1px solid var(--vayuda-line);
+}
+
+.vayuda__ruta-icon {
+  display: flex;
+  width: 52px;
+  height: 52px;
+  color: var(--vayuda-gold);
+}
+
+.vayuda__ruta-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.vayuda__ruta-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.18rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--vayuda-ink);
+}
+
+.vayuda__ruta-desc {
+  margin-top: 0.35rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--vayuda-muted);
+}
+
+/* Acciones: mismo componente para el botón interno y los dos enlaces */
+.vayuda__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 18px;
+  background: transparent;
+  border: 1.5px solid var(--vayuda-gold);
+  border-radius: 8px;
+  color: var(--vayuda-gold);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.vayuda__action svg {
+  font-size: 1.05rem;
+}
+
+.vayuda__action:hover {
+  background: var(--vayuda-gold);
+  color: #14100a;
+}
+
+/* El foco dibuja un contorno exterior sin alterar el tamaño del componente */
+.vayuda__action:focus-visible {
+  outline: 2px dashed var(--vayuda-gold);
+  outline-offset: 3px;
+}
+
+.vayuda__action:active {
+  background: var(--vayuda-gold);
+  color: #14100a;
+  box-shadow: inset 0 2px 5px rgba(20, 16, 10, 0.25);
+}
+
+.vayuda__action:disabled,
+.vayuda__action[aria-disabled='true'] {
+  cursor: default;
+  border-color: var(--vayuda-line);
+  background: transparent;
+  color: rgba(255, 253, 240, 0.35);
+}
+
+.vayuda__action.is-running {
+  border-color: var(--vayuda-gold);
+  background: rgba(255, 178, 27, 0.14);
+  color: var(--vayuda-gold);
+}
+
+.vayuda__spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 178, 27, 0.3);
+  border-top-color: var(--vayuda-gold);
+  border-radius: 50%;
+  animation: pcard-spin 0.7s linear infinite;
+}
+
+.vayuda__note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--vayuda-line);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--vayuda-ink);
+}
+
+.vayuda__note-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--vayuda-gold);
+  border-radius: 50%;
+  color: var(--vayuda-gold);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 1024px) {
+  .vayuda {
+    padding: 2.5rem 1.5rem 1.75rem;
+  }
+
+  .vayuda__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+
+  .vayuda__title {
+    font-size: 1.9rem;
+  }
+}
+
+/* Móvil: la acción baja a lo ancho de la ruta */
+@media (max-width: 640px) {
+  .vayuda {
+    margin-top: 1.75rem;
+    padding: 1.75rem 1.25rem 1.5rem;
+    border-radius: 14px;
+  }
+
+  .vayuda__eyebrow {
+    font-size: 0.85rem;
+  }
+
+  .vayuda__title {
+    margin-top: 0.85rem;
+    font-size: 1.45rem;
+  }
+
+  .vayuda__lead {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .vayuda__ruta {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 0.85rem 1rem;
+    padding: 1.25rem 0;
+  }
+
+  .vayuda__ruta-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .vayuda__ruta-title {
+    font-size: 1.02rem;
+  }
+
+  .vayuda__ruta-desc {
+    font-size: 0.85rem;
+  }
+
+  .vayuda__action {
+    grid-column: 1 / -1;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .vayuda__note {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    font-size: 0.85rem;
+  }
+}
+
 /* Category Filter */
 .category-filter {
   display: flex;

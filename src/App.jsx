@@ -19,6 +19,7 @@ import NosotrosPage from './components/nosotros/NosotrosPage';
 import NegociosPage from './components/negocios/NegociosPage';
 import CatalogoFiltros, { CatalogoVacio } from './components/CatalogoFiltros';
 import VitrinaIntro from './components/VitrinaIntro';
+import VitrinaAyuda from './components/VitrinaAyuda';
 import { PAGE_PATHS, EN_CONSTRUCCION } from './config/navigation';
 import {
   TODOS,
@@ -156,6 +157,18 @@ function App() {
     setCategoria(TODOS);
     setBusqueda('');
     setTamano(TODOS_TAMANOS);
+  };
+
+  // "Ver combos" del bloque de ayuda: activa la categoría Combos, restablece el
+  // tamaño, descarta una búsqueda que dejaría la lista vacía y lleva el foco al
+  // catálogo.
+  const verCombos = () => {
+    setCategoria(COMBOS);
+    setTamano(TODOS_TAMANOS);
+    if (filtrarCombos(combos, busqueda).length === 0) setBusqueda('');
+    document
+      .querySelector('.vitrina-block')
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   if (currentPage === 'admin') {
@@ -336,6 +349,8 @@ function App() {
                   onSelectProduct={handleSelectProduct}
                 />
               )}
+
+              <VitrinaAyuda onVerCombos={verCombos} onNavigate={handleNavigate} />
             </>
           )}
         </main>
