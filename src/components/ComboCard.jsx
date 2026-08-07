@@ -1,6 +1,7 @@
 import { FaCheck } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { trackAddToCart } from '../services/metaPixel';
+import { comboIncludes } from '../utils/combos';
 
 // Tema por posición: inicial (dorado) → familiar (naranja) → premium (rojo).
 // El 4º reutiliza el primero si algún día hay más combos.
@@ -70,36 +71,6 @@ const formatPrice = (n) =>
     maximumFractionDigits: 0,
   }).format(n ?? 0);
 
-const formatWeight = (w) => {
-  if (!w) return null;
-  return w >= 1000 ? `${(w / 1000).toLocaleString('es-CO')} kg` : `${w} g`;
-};
-
-// Línea legible cuando el API sí entrega componentes.
-function componentLabel(c) {
-  const nombre = [c.producto, c.sabor].filter(Boolean).join(' ');
-  const detalle = [
-    c.unitsPerPackage ? `${c.unitsPerPackage} und` : null,
-    c.weight ? `de ${c.weight}g` : null,
-  ]
-    .filter(Boolean)
-    .join(' ');
-  return `${c.quantity}x ${nombre}${detalle ? ` · ${detalle}` : ''}`;
-}
-
-// Convierte la descripción larga ("Incluye A + B + C. Productos congelados...")
-// en items individuales para el checklist.
-function splitIncludes(longDescription) {
-  if (!longDescription) return [];
-  let text = longDescription.replace(/^[\s\S]*?incluye\s*/i, '');
-  text = text.replace(/\.?\s*productos congelados[\s\S]*$/i, '');
-  text = text.replace(/\.\s*$/, '').trim();
-  return text
-    .split(/\s*\+\s*/)
-    .map((s) => s.trim())
-    .filter(Boolean);
-}
-
 function ComboCard({ combo, index = 0 }) {
   const { addToCart, openCart } = useCart();
   const theme = THEMES[index % THEMES.length];
@@ -110,10 +81,7 @@ function ComboCard({ combo, index = 0 }) {
     openCart();
   };
 
-  const includes =
-    combo.components?.length > 0
-      ? combo.components.map(componentLabel)
-      : splitIncludes(combo.longDescription);
+  const includes = comboIncludes(combo);
 
   // "Combo Antojo Casero" → línea 1 "Combo" (suave), línea 2 "Antojo Casero" (fuerte).
   const nameParts = (combo.name || '').trim().split(' ');

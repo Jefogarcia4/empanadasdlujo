@@ -43,7 +43,10 @@
       "Bash(node chips.mjs)",
       "Bash(sed 's/#neg-recursos/#neg-empezar/g; s/neg7-/neg8-/g' neg7.mjs)",
       "Bash(node neg8.mjs)",
-      "Bash(node final.mjs)"
+      "Bash(node final.mjs)",
+      "PowerShell(npx eslint src/components/ProductCard.jsx src/components/ProductGrid.jsx src/components/ComboCard.jsx src/App.jsx src/utils/combos.js src/context/CartContext.jsx)",
+      "PowerShell(npx eslint src/components/ProductCard.jsx src/components/ProductGrid.jsx src/components/ComboCard.jsx src/App.jsx src/utils/combos.js src/config/constants.js src/services/api.js)",
+      "PowerShell(npx vite build)"
     ]
   }
 }

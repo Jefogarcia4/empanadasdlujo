@@ -13,7 +13,6 @@ import ProductDetail from './components/ProductDetail';
 import PedidoDetailPage from './components/PedidoDetailPage';
 import CarritoWhatsAppPage from './components/CarritoWhatsAppPage';
 import MisPedidosPage from './components/MisPedidosPage';
-import CombosShowcase from './components/CombosShowcase';
 import AdminApp from './components/admin/AdminApp';
 import EnConstruccionPage from './components/EnConstruccionPage';
 import NosotrosPage from './components/nosotros/NosotrosPage';
@@ -141,6 +140,16 @@ function App() {
   const resultCount =
     (mostrarProductos ? filteredProducts.length : 0) +
     (mostrarCombos ? filteredCombos.length : 0);
+
+  // Productos y combos comparten la grilla de la vitrina; los combos van al
+  // final porque su tarjeta es más alta.
+  const vitrinaItems = useMemo(
+    () => [
+      ...(mostrarProductos ? filteredProducts : []),
+      ...(mostrarCombos ? filteredCombos : []),
+    ],
+    [mostrarProductos, filteredProducts, mostrarCombos, filteredCombos]
+  );
 
   const limpiarFiltros = () => {
     setCategoria(TODOS);
@@ -326,18 +335,10 @@ function App() {
               {resultCount === 0 && !loadingCombos ? (
                 <CatalogoVacio onLimpiar={limpiarFiltros} />
               ) : (
-                <>
-                  {mostrarCombos && (
-                    <CombosShowcase
-                      combos={filteredCombos}
-                      loading={loadingCombos}
-                      description="Ideales si no quieres pedir 10 paquetes o si vas a lanzar nuevos productos. Precio fijo: agrégalos al carrito como cualquier producto."
-                    />
-                  )}
-                  {mostrarProductos && filteredProducts.length > 0 && (
-                    <ProductGrid products={filteredProducts} onSelectProduct={handleSelectProduct} />
-                  )}
-                </>
+                <ProductGrid
+                  products={vitrinaItems}
+                  onSelectProduct={handleSelectProduct}
+                />
               )}
             </>
           )}

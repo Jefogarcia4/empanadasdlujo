@@ -1,25 +1,24 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react';
-import { DELIVERY_FEE } from '../config/constants';
+import { DELIVERY_FEE, WHOLESALE_THRESHOLD } from '../config/constants';
 
 const CartContext = createContext();
-
-const WHOLESALE_THRESHOLD = 10;
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const addToCart = useCallback((product) => {
+  const addToCart = useCallback((product, quantity = 1) => {
+    const qty = Math.max(1, Math.trunc(Number(quantity)) || 1);
     setCartItems((prev) => {
       const existingItem = prev.find((item) => item.id === product.id);
       if (existingItem) {
         return prev.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + qty }
             : item
         );
       }
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, quantity: qty }];
     });
   }, []);
 

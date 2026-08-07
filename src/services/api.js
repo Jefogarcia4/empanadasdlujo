@@ -19,6 +19,7 @@ function mapProducto(item) {
     flavor: item.sabor,
     weight: item.gramajeG,
     unitsPerPackage: item.unidadesPorPaquete,
+    shortDescription: item.descripcionCorta ?? null,
     price: precioWeb?.precioPaquete ?? 0,
     suggestedRetailUnit: precioWeb?.precioPorUnidad ?? 0,
     estimatedMargin: precioWeb?.margen ?? null,
