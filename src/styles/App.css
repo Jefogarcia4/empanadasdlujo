@@ -517,22 +517,301 @@ body {
   font-size: 16px;
 }
 
-/* ── Tienda Section Header ─────────────────────────────────── */
-.tienda-section-header {
-  text-align: center;
-  margin-bottom: 1.75rem;
+/* ── Encabezado de la vitrina (vintro) ─────────────────────── */
+.vintro {
+  --vintro-red: #c2261a;
+  --vintro-ink: #241d12;
+  --vintro-muted: #5f5747;
+  --vintro-line: #ecdfc7;
+
+  max-width: 1280px;
+  margin: 0 auto 1.75rem;
+  padding: 2rem 2.25rem 1.5rem;
+  background: #fdf8ec;
+  border: 1px solid var(--vintro-line);
+  border-radius: 18px;
+  font-family: 'DM Sans', system-ui, sans-serif;
 }
 
-.tienda-section-header__title {
-  font-size: 1.75rem;
-  font-weight: 900;
-  color: var(--color-dark-brown);
-  margin-bottom: 0.35rem;
+.vintro__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: 1.5rem;
+  align-items: center;
 }
 
-.tienda-section-header__sub {
+.vintro__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px 6px 6px;
+  background: #fdefc8;
+  border-radius: 9px;
+  color: var(--vintro-red);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.vintro__eyebrow-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--color-gold);
+  color: #fff;
+  font-size: 0.92rem;
+}
+
+.vintro__title {
+  margin-top: 1rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--vintro-ink);
+}
+
+.vintro__rule {
+  display: block;
+  width: 52px;
+  height: 3px;
+  margin: 0.9rem 0 1.1rem;
+  border-radius: 2px;
+  background: var(--vintro-red);
+}
+
+.vintro__lead {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--vintro-muted);
+}
+
+/* Espacio de la imagen: mientras no exista la foto definitiva se dibuja la
+   ilustración de línea, para que el bloque no quede vacío. */
+.vintro__art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 190px;
+}
+
+.vintro__photo {
+  max-width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+}
+
+.vintro__artwork {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  color: var(--color-gold);
+  opacity: 0.75;
+}
+
+/* Las tres condiciones de compra */
+.vintro__features {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 1.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--vintro-line);
+}
+
+.vintro__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0 1.5rem;
+}
+
+.vintro__feature:first-child { padding-left: 0; }
+.vintro__feature:last-child { padding-right: 0; }
+.vintro__feature + .vintro__feature { border-left: 1px solid var(--vintro-line); }
+
+.vintro__feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #fdf1dc;
+  border: 1px solid #f6e3c2;
+  color: var(--vintro-red);
+  font-size: 1.6rem;
+}
+
+.vintro__feature-text {
+  min-width: 0;
+}
+
+.vintro__feature-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--vintro-muted);
+}
+
+.vintro__feature-title {
+  margin-top: 0.3rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--vintro-ink);
+}
+
+.vintro__feature-title strong {
+  color: var(--vintro-red);
+  font-weight: 700;
+}
+
+.vintro__feature-desc {
+  margin-top: 0.45rem;
   font-size: 0.9rem;
-  color: var(--color-text-light);
+  line-height: 1.5;
+  color: var(--vintro-muted);
+}
+
+/* La versión corta solo se usa en móvil */
+.vintro__feature-desc--short { display: none; }
+
+.vintro__note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 1.5rem;
+  padding: 0.85rem 1.1rem;
+  background: #fdf3d8;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--vintro-ink);
+}
+
+.vintro__note-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+/* Tableta: la ilustración pierde peso y las condiciones pasan a una columna */
+@media (max-width: 1024px) {
+  .vintro {
+    padding: 1.75rem;
+  }
+
+  .vintro__title {
+    font-size: 2.1rem;
+  }
+
+  .vintro__features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 0;
+  }
+
+  .vintro__feature:nth-child(odd) { padding-left: 0; }
+  .vintro__feature:nth-child(even) { padding-right: 0; }
+  .vintro__feature:nth-child(odd) { border-left: none; }
+}
+
+/* Móvil: sin ilustración y condiciones apiladas con separadores */
+@media (max-width: 640px) {
+  .vintro {
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+    border-radius: 14px;
+  }
+
+  .vintro__main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vintro__art {
+    display: none;
+  }
+
+  .vintro__eyebrow {
+    font-size: 0.82rem;
+    padding: 5px 12px 5px 5px;
+  }
+
+  .vintro__eyebrow-icon {
+    width: 23px;
+    height: 23px;
+  }
+
+  .vintro__title {
+    margin-top: 0.85rem;
+    font-size: 1.5rem;
+  }
+
+  .vintro__rule {
+    width: 44px;
+    margin: 0.7rem 0 0.85rem;
+  }
+
+  .vintro__lead {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .vintro__features {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin-top: 1.1rem;
+    padding-top: 0;
+  }
+
+  .vintro__feature {
+    gap: 0.85rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--vintro-line);
+    border-left: none !important;
+  }
+
+  .vintro__feature-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 1.2rem;
+  }
+
+  .vintro__feature-title {
+    font-size: 1.02rem;
+  }
+
+  .vintro__feature-desc {
+    display: none;
+  }
+
+  .vintro__feature-desc--short {
+    display: block;
+    font-size: 0.85rem;
+  }
+
+  .vintro__note {
+    margin-top: 1rem;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.82rem;
+  }
 }
 
 /* Category Filter */
@@ -772,6 +1051,49 @@ body {
 }
 
 .pcard__img-placeholder svg { font-size: 1.4rem; }
+
+/* Respaldo visual del combo sin foto (ícono + ahorro), en el lugar de la imagen */
+.combo-art {
+  --art-a: #ffd67a;
+  --art-b: #ffb21b;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(150deg, var(--art-a) 0%, var(--art-b) 100%);
+  color: var(--color-dark-brown);
+}
+
+.combo-art--familiar { --art-a: #ffc873; --art-b: #f28c28; }
+
+.combo-art--premium {
+  --art-a: #d1553c;
+  --art-b: #a3170a;
+  color: #fff;
+}
+
+.combo-art__icon {
+  display: flex;
+  width: 56px;
+  height: 56px;
+  opacity: 0.9;
+}
+
+.combo-art__icon svg { width: 100%; height: 100%; }
+
+.combo-art__savings {
+  background: rgba(255, 255, 255, 0.92);
+  color: #7d1206;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(40, 28, 2, 0.12);
+}
 
 .pcard__name {
   font-family: 'Inter', system-ui, sans-serif;
@@ -1926,14 +2248,6 @@ body {
     font-size: 0.88rem;
   }
 
-  .tienda-section-header__title {
-    font-size: 1.35rem;
-  }
-
-  .tienda-section-header__sub {
-    font-size: 0.85rem;
-  }
-
   .tienda-bulk {
     padding: 2rem 1.25rem;
   }
@@ -2020,10 +2334,6 @@ body {
   /* El precio especial del combo pasa debajo del contenido incluido */
   .pcard__combo-body {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .tienda-section-header__title {
-    font-size: 1.2rem;
   }
 
   .tienda-bulk__title {

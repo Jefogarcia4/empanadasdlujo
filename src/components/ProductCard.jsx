@@ -10,6 +10,7 @@ import { useCart } from '../context/CartContext';
 import { WHOLESALE_THRESHOLD } from '../config/constants';
 import { trackAddToCart } from '../services/metaPixel';
 import { comboIncludes, comboPackages } from '../utils/combos';
+import ComboArtwork from './ComboArtwork';
 
 const formatPrice = (n) =>
   new Intl.NumberFormat('es-CO', {
@@ -123,6 +124,8 @@ function ProductCard({ product, onSelectProduct }) {
       >
         {product.image ? (
           <img src={product.image} alt={product.name} className="pcard__img" />
+        ) : isCombo ? (
+          <ComboArtwork combo={product} />
         ) : (
           <div className="pcard__img-placeholder">
             <FaCamera aria-hidden="true" />
@@ -197,11 +200,6 @@ function ProductCard({ product, onSelectProduct }) {
               </>
             ) : (
               <>
-                <div className="pcard__price">
-                  <span className="pcard__price-label">Precio regular</span>
-                  <span className="pcard__price-value">{formatPrice(product.price)}</span>
-                  <span className="pcard__price-note">por paquete</span>
-                </div>
                 {hasWholesale && (
                   <div className="pcard__price pcard__price--bulk">
                     <span className="pcard__price-label pcard__price-label--bulk">
@@ -219,6 +217,11 @@ function ProductCard({ product, onSelectProduct }) {
                     </span>
                   </div>
                 )}
+                <div className="pcard__price">
+                  <span className="pcard__price-label">Precio regular</span>
+                  <span className="pcard__price-value">{formatPrice(product.price)}</span>
+                  <span className="pcard__price-note">por paquete</span>
+                </div>
               </>
             )}
           </div>

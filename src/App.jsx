@@ -18,6 +18,7 @@ import EnConstruccionPage from './components/EnConstruccionPage';
 import NosotrosPage from './components/nosotros/NosotrosPage';
 import NegociosPage from './components/negocios/NegociosPage';
 import CatalogoFiltros, { CatalogoVacio } from './components/CatalogoFiltros';
+import VitrinaIntro from './components/VitrinaIntro';
 import { PAGE_PATHS, EN_CONSTRUCCION } from './config/navigation';
 import {
   TODOS,
@@ -313,12 +314,7 @@ function App() {
           {errorProducts && <p className="products-status products-status--error">Error al cargar productos: {errorProducts}</p>}
           {!loadingProducts && !errorProducts && (
             <>
-              <div className="tienda-section-header">
-                <h2 className="tienda-section-header__title">
-                  Vitrina digital
-                </h2>
-                <p className="tienda-section-header__sub">Congelados listos para freír · Alta rotación · Excelente margen</p>
-              </div>
+              <VitrinaIntro />
 
               <CatalogoFiltros
                 categorias={categorias}
