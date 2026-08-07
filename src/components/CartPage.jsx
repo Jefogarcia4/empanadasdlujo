@@ -11,6 +11,7 @@ import {
   FaTimes,
 } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
+import CartProgress from './CartProgress';
 import { sendOrderViaWhatsAppAPI, sendOrderConfirmationToClient } from '../services/whatsapp';
 import { createPedido } from '../services/pedidos';
 import { trackLead } from '../services/metaPixel';
@@ -411,6 +412,8 @@ function CartPage({ onNavigate, initialForm, onOrderCreated }) {
             </div>
           ) : (
             <>
+              <CartProgress onSeguir={() => onNavigate('tienda')} />
+
               <ul className="cart-page__list">
                 {cartItemsPricing.map((item) => (
                   <li key={item.id} className="cart-page__item">

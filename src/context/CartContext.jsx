@@ -56,6 +56,10 @@ export function CartProvider({ children }) {
       (sum, it) => sum + (it.isCombo ? 0 : it.quantity),
       0
     );
+    const comboUnits = cartItems.reduce(
+      (sum, it) => sum + (it.isCombo ? it.quantity : 0),
+      0
+    );
     const qualifiesWholesale = totalQty >= WHOLESALE_THRESHOLD;
 
     const items = cartItems.map((item) => {
@@ -86,6 +90,9 @@ export function CartProvider({ children }) {
       discount,
       hasDiscount: discount > 0,
       qualifiesWholesale,
+      // Paquetes que avanzan hacia el mayorista vs. combos (que no suman).
+      eligiblePackages: totalQty,
+      comboUnits,
     };
   }, [cartItems]);
 
@@ -102,6 +109,8 @@ export function CartProvider({ children }) {
     discount: pricing.discount,
     hasDiscount: pricing.hasDiscount,
     qualifiesWholesale: pricing.qualifiesWholesale,
+    eligiblePackages: pricing.eligiblePackages,
+    comboUnits: pricing.comboUnits,
     addToCart,
     removeFromCart,
     updateQuantity,

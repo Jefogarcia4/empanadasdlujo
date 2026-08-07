@@ -1,0 +1,225 @@
+/* Estado de compra y progreso hacia el precio mayorista.
+   Comparte look entre el carrito lateral y la página de carrito. */
+.cprog {
+  --cprog-red: #a3170a;
+  --cprog-deep: #7d1206;
+  --cprog-ok: #1f8a4d;
+  --cprog-ink: #241d12;
+  --cprog-muted: #6f6250;
+  --cprog-line: #f0e4cd;
+  --cprog-track: #ece3d3;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1rem 1.1rem;
+  background: #fffdf7;
+  border: 1px solid var(--cprog-line);
+  border-radius: 12px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  color: var(--cprog-ink);
+}
+
+.cprog__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.cprog__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fdf3e0;
+  border: 1px solid #f6e3c2;
+  color: var(--cprog-red);
+  font-size: 1.25rem;
+}
+
+.cprog__headline { min-width: 0; }
+
+.cprog__title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.cprog__desc {
+  margin-top: 0.25rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--cprog-muted);
+}
+
+.cprog__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--cprog-line);
+}
+
+.cprog__label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--cprog-muted);
+}
+
+/* Compra mínima */
+.cprog__min {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--cprog-red);
+}
+
+.cprog__min.is-ok { color: var(--cprog-ok); }
+
+.cprog__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px dashed var(--cprog-red);
+  border-radius: 50%;
+  font-size: 0.7rem;
+}
+
+.cprog__min.is-ok .cprog__mark {
+  border-style: solid;
+  border-color: var(--cprog-ok);
+  color: var(--cprog-ok);
+}
+
+/* Progreso mayorista */
+.cprog__count {
+  margin-top: 0.3rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.cprog__bar {
+  height: 8px;
+  margin-top: 0.45rem;
+  background: var(--cprog-track);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cprog__bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-gold);
+  transition: width 0.35s ease;
+}
+
+.cprog__msg {
+  margin-top: 0.45rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--cprog-muted);
+}
+
+/* Bajo la compra mínima el avance se marca en rojo */
+.cprog--pendiente .cprog__bar-fill { background: var(--cprog-red); }
+
+/* Umbral alcanzado: la tarjeta se vuelve el estado premiado */
+.cprog--completo {
+  background: linear-gradient(160deg, #8f1508 0%, #6d0f04 100%);
+  border-color: transparent;
+  color: #fffdf3;
+}
+
+.cprog--completo .cprog__icon {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 253, 243, 0.25);
+  color: var(--color-gold);
+}
+
+.cprog--completo .cprog__desc,
+.cprog--completo .cprog__label,
+.cprog--completo .cprog__msg {
+  color: rgba(255, 253, 240, 0.78);
+}
+
+.cprog--completo .cprog__rows { border-top-color: rgba(255, 253, 243, 0.18); }
+.cprog--completo .cprog__bar { background: rgba(255, 253, 243, 0.2); }
+.cprog--completo .cprog__bar-fill { background: var(--color-gold); }
+.cprog--completo .cprog__count { color: #fffdf3; }
+
+.cprog--completo .cprog__min,
+.cprog--completo .cprog__min.is-ok { color: var(--color-gold); }
+
+.cprog--completo .cprog__min.is-ok .cprog__mark {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* Aviso de combos: no suman al progreso */
+.cprog__combo {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--cprog-red);
+}
+
+.cprog__combo svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.cprog--completo .cprog__combo { color: var(--color-gold); }
+
+.cprog__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  background: transparent;
+  border: 1.5px solid var(--cprog-red);
+  border-radius: 10px;
+  color: var(--cprog-red);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.cprog__cta:hover {
+  background: var(--cprog-red);
+  color: #fff;
+}
+
+/* Con ancho suficiente, mínimo y progreso van lado a lado */
+@media (min-width: 720px) {
+  .cprog__rows {
+    display: grid;
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cprog__bar-fill { transition: none; }
+}
