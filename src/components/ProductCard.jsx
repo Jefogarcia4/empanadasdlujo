@@ -110,16 +110,16 @@ function ProductCard({ product, onSelectProduct }) {
       </ul>
 
       <div className="pcard__prices">
-        <div className="pcard__price-col">
-          <span className="pcard__price-label">Precio por menor:</span>
-          <span className="pcard__price-value">{formatPrice(product.price)}</span>
-        </div>
         {hasWholesale && (
           <div className="pcard__price-col pcard__price-col--mayor">
             <span className="pcard__price-label">Precio por mayor:</span>
             <span className="pcard__price-value">{formatPrice(product.wholesalePrice)}</span>
           </div>
         )}
+        <div className="pcard__price-col">
+          <span className="pcard__price-label">Precio por menor:</span>
+          <span className="pcard__price-value">{formatPrice(product.price)}</span>
+        </div>
       </div>
 
       {!isMasa && (
