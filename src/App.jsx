@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo } from 'react';
+﻿import { useState, useEffect, useMemo } from 'react';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import ProductGrid from './components/ProductGrid';
 import Cart from './components/Cart';
 import CartFab from './components/CartFab';
+import CartProgressToast from './components/CartProgressToast';
 import WhatsAppFab from './components/WhatsAppFab';
 import Footer from './components/Footer';
 import Catalogo from './components/Catalogo';
@@ -278,6 +279,7 @@ function App() {
           <Cart onNavigate={handleNavigate} />
           <WhatsAppFab />
           <CartFab />
+          <CartProgressToast />
           {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
           {/* <Footer onNavigate={handleNavigate} /> */}
         </div>
@@ -294,6 +296,7 @@ function App() {
           <Cart onNavigate={handleNavigate} />
           <WhatsAppFab />
           <CartFab />
+          <CartProgressToast />
           {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
           {/* <Footer onNavigate={handleNavigate} /> */}
         </div>
@@ -310,6 +313,7 @@ function App() {
           <Cart onNavigate={handleNavigate} />
           <WhatsAppFab />
           <CartFab />
+          <CartProgressToast />
           {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
           {/* <Footer onNavigate={handleNavigate} /> */}
         </div>
@@ -357,6 +361,7 @@ function App() {
         <Cart onNavigate={handleNavigate} />
         <WhatsAppFab />
         <CartFab />
+        <CartProgressToast />
         {/* Footer deshabilitado temporalmente — descomentar para reactivar */}
           {/* <Footer onNavigate={handleNavigate} /> */}
       </div>

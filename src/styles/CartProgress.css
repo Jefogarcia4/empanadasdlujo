@@ -223,3 +223,167 @@
 @media (prefers-reduced-motion: reduce) {
   .cprog__bar-fill { transition: none; }
 }
+
+/* ── Aviso flotante del progreso ───────────────────────────── */
+/* Va abajo a la izquierda: los FAB de carrito y WhatsApp ocupan la derecha. */
+.cprog-toast {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 160;
+
+  display: flex;
+  align-items: stretch;
+  width: min(400px, calc(100vw - 48px));
+  background: #fffdf7;
+  border: 1px solid #f0e4cd;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(40, 28, 2, 0.18);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.cprog-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.cprog-toast__body {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+  padding: 0.8rem 0.4rem 0.8rem 0.9rem;
+  background: transparent;
+  border: none;
+  font: inherit;
+  text-align: left;
+  color: #241d12;
+  cursor: pointer;
+}
+
+.cprog-toast__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fdf3e0;
+  border: 1px solid #f6e3c2;
+  color: #a3170a;
+  font-size: 1.15rem;
+}
+
+.cprog-toast__text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  flex: 1;
+}
+
+.cprog-toast__title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.cprog-toast__bar {
+  display: block;
+  height: 6px;
+  background: #ece3d3;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cprog-toast__bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-gold);
+  transition: width 0.35s ease;
+}
+
+.cprog-toast__count {
+  font-size: 0.74rem;
+  color: #6f6250;
+}
+
+.cprog-toast__close {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  padding-top: 0.7rem;
+  background: transparent;
+  border: none;
+  color: #a2957c;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.cprog-toast__close:hover { color: #241d12; }
+
+/* Bajo la compra mínima el avance se marca en rojo */
+.cprog-toast--pendiente .cprog-toast__bar-fill { background: #a3170a; }
+
+/* Umbral alcanzado */
+.cprog-toast--completo {
+  background: linear-gradient(160deg, #8f1508 0%, #6d0f04 100%);
+  border-color: transparent;
+}
+
+.cprog-toast--completo .cprog-toast__body { color: #fffdf3; }
+
+.cprog-toast--completo .cprog-toast__icon {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 253, 243, 0.25);
+  color: var(--color-gold);
+}
+
+.cprog-toast--completo .cprog-toast__bar { background: rgba(255, 253, 243, 0.2); }
+.cprog-toast--completo .cprog-toast__count { color: rgba(255, 253, 240, 0.78); }
+.cprog-toast--completo .cprog-toast__close { color: rgba(255, 253, 240, 0.65); }
+.cprog-toast--completo .cprog-toast__close:hover { color: #fffdf3; }
+
+/* En móvil el FAB del carrito ocupa la esquina: el aviso deja ese espacio libre */
+@media (max-width: 640px) {
+  .cprog-toast {
+    left: 12px;
+    right: 96px;
+    bottom: 14px;
+    width: auto;
+    border-radius: 12px;
+  }
+
+  .cprog-toast__body {
+    gap: 0.6rem;
+    padding: 0.7rem 0.3rem 0.7rem 0.7rem;
+  }
+
+  .cprog-toast__icon {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+
+  .cprog-toast__title { font-size: 0.82rem; }
+  .cprog-toast__count { font-size: 0.7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cprog-toast { transition: opacity 0.25s ease; transform: none; }
+  .cprog-toast__bar-fill { transition: none; }
+}

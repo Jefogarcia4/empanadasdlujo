@@ -1,6 +1,5 @@
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
-import CartProgress from './CartProgress';
 
 /* ── Iconos de línea (estilo de la maqueta) ── */
 const Icon = ({ children, size = 22, className }) => (
@@ -158,8 +157,6 @@ function Cart({ onNavigate }) {
             </div>
           ) : (
             <>
-              <CartProgress />
-
               <div className="cart-modal__items">
                 {cartItemsPricing.map((item) => (
                   <div key={item.id} className="cart-item">

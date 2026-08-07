@@ -77,11 +77,32 @@ export function buildCartProgress({ eligiblePackages = 0, comboUnits = 0 }) {
     progressMsg = `Te faltan ${missingForWholesale} paquetes elegibles para acceder a precios mayoristas.`;
   }
 
+  // Versión de una línea para el aviso flotante.
+  let short;
+  if (wholesaleMet) {
+    short = '¡Precio mayorista aplicado!';
+  } else if (!minMet) {
+    short = `Te ${plural(missingForMin, 'falta', 'faltan')} ${missingForMin} ${plural(
+      missingForMin,
+      'paquete',
+      'paquetes'
+    )} para la compra mínima`;
+  } else if (packages === 0) {
+    short = 'Agrega paquetes para avanzar al precio mayorista';
+  } else {
+    short = `Te ${plural(missingForWholesale, 'falta', 'faltan')} ${missingForWholesale} ${plural(
+      missingForWholesale,
+      'paquete',
+      'paquetes'
+    )} para el precio mayorista`;
+  }
+
   return {
     key,
     icon,
     title,
     desc,
+    short,
     packages,
     combos,
     minMet,

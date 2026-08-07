@@ -46,7 +46,9 @@
       "Bash(node final.mjs)",
       "PowerShell(npx eslint src/components/ProductCard.jsx src/components/ProductGrid.jsx src/components/ComboCard.jsx src/App.jsx src/utils/combos.js src/context/CartContext.jsx)",
       "PowerShell(npx eslint src/components/ProductCard.jsx src/components/ProductGrid.jsx src/components/ComboCard.jsx src/App.jsx src/utils/combos.js src/config/constants.js src/services/api.js)",
-      "PowerShell(npx vite build)"
+      "PowerShell(npx vite build)",
+      "PowerShell($p = 'src/App.jsx'; $c = Get-Content $p -Raw -Encoding utf8; $c = $c.Replace\\(\"          <CartFab />`r`n\", \"          <CartFab />`r`n          <CartProgressToast />`r`n\"\\); $c = $c.Replace\\(\"        <CartFab />`r`n\", \"        <CartFab />`r`n        <CartProgressToast />`r`n\"\\); $c = $c.Replace\\(\"import CartFab from './components/CartFab';\", \"import CartFab from './components/CartFab';`r`nimport CartProgressToast from './components/CartProgressToast';\"\\); Set-Content $p $c -Encoding utf8 -NoNewline; Select-String -Path $p -Pattern \"CartProgressToast\" | ForEach-Object { $_.LineNumber.ToString\\(\\) + ': ' + $_.Line })",
+      "Bash(perl -0pi -e 's/^        <CartProgressToast \\\\/>\\\\r?\\\\n          <CartProgressToast \\\\/>/          <CartProgressToast \\\\/>/gm' src/App.jsx)"
     ]
   }
 }
