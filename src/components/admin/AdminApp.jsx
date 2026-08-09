@@ -4,10 +4,12 @@ import AdminLogin from './AdminLogin';
 import AdminPage from './AdminPage';
 import AdminLogsPage from './AdminLogsPage';
 import AdminClientesPage from './AdminClientesPage';
+import AdminProductosPage from './AdminProductosPage';
 import '../../styles/Admin.css';
 
 const TABS = [
   { key: 'pedidos', label: 'Pedidos' },
+  { key: 'productos', label: 'Productos' },
   { key: 'clientes', label: 'Clientes' },
   { key: 'logs', label: 'Logs WhatsApp' },
 ];
@@ -58,6 +60,7 @@ function AdminApp() {
       </header>
 
       {view === 'pedidos' && <AdminPage onSessionExpired={handleLogout} />}
+      {view === 'productos' && <AdminProductosPage onSessionExpired={handleLogout} />}
       {view === 'clientes' && <AdminClientesPage onSessionExpired={handleLogout} />}
       {view === 'logs' && <AdminLogsPage onSessionExpired={handleLogout} />}
     </div>
