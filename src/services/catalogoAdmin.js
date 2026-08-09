@@ -17,6 +17,23 @@ function handleUnauthorized() {
   throw new Error('SESSION_EXPIRED');
 }
 
+// El API responde texto plano en los BadRequest y ProblemDetails en los de validación.
+async function lanzarError(response, errorMsg) {
+  const raw = await response.text().catch(() => '');
+  let detalle = raw;
+  try {
+    const data = JSON.parse(raw);
+    detalle =
+      data?.title ||
+      data?.message ||
+      Object.values(data?.errors ?? {}).flat().join(' ') ||
+      raw;
+  } catch {
+    /* respuesta no-JSON: se usa el texto tal cual */
+  }
+  throw new Error(`${errorMsg}: ${detalle || `HTTP ${response.status}`}`);
+}
+
 async function request(path, { method = 'GET', body, errorMsg } = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     method,
@@ -25,23 +42,7 @@ async function request(path, { method = 'GET', body, errorMsg } = {}) {
   });
 
   if (response.status === 401) handleUnauthorized();
-
-  if (!response.ok) {
-    // El API responde texto plano en los BadRequest y ProblemDetails en los de validación.
-    const raw = await response.text().catch(() => '');
-    let detalle = raw;
-    try {
-      const data = JSON.parse(raw);
-      detalle =
-        data?.title ||
-        data?.message ||
-        Object.values(data?.errors ?? {}).flat().join(' ') ||
-        raw;
-    } catch {
-      /* respuesta no-JSON: se usa el texto tal cual */
-    }
-    throw new Error(`${errorMsg}: ${detalle || `HTTP ${response.status}`}`);
-  }
+  if (!response.ok) await lanzarError(response, errorMsg);
 
   if (response.status === 204) return null;
   const text = await response.text();
@@ -181,6 +182,33 @@ export async function upsertPrecios(precios) {
     body: { precios },
     errorMsg: 'No se pudieron guardar los precios',
   });
+}
+
+// ─── Imágenes ─────────────────────────────────────────────────────────────
+
+export const IMAGEN_MAX_MB = 5;
+export const IMAGEN_TIPOS = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+// Sube el archivo al API y devuelve { url, archivo, bytes }. La URL resultante es la
+// que se guarda en el SKU. Ojo: NO se fija Content-Type a mano — el navegador tiene
+// que ponerlo con el boundary del multipart.
+export async function subirImagenProducto(file) {
+  const form = new FormData();
+  form.append('archivo', file);
+
+  const response = await fetch(`${API_BASE_URL}/api/imagenes/productos`, {
+    method: 'POST',
+    headers: authHeaders(),
+    body: form,
+  });
+
+  if (response.status === 401) handleUnauthorized();
+  if (response.status === 413) {
+    throw new Error(`La imagen supera el máximo de ${IMAGEN_MAX_MB} MB.`);
+  }
+  if (!response.ok) await lanzarError(response, 'No se pudo subir la imagen');
+
+  return response.json();
 }
 
 // Saca el SKU de una lista de precios (deja de venderse a ese precio).

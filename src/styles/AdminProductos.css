@@ -409,18 +409,24 @@
 .pform__input--mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.02em; }
 .pform__input--nuevo { margin-top: 0.35rem; }
 
-/* Imagen + preview */
+/* Imagen: preview + carga de archivo + URL manual */
 .pform__imagen {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr;
   gap: 1rem;
-  align-items: end;
+  align-items: start;
   margin-top: 0.9rem;
+  padding: 0.9rem;
+  border: 1px dashed var(--admin-border);
+  border-radius: 12px;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
+.pform__imagen--drag { border-color: var(--admin-primary); background: rgba(200, 16, 46, 0.04); }
 
 .pform__preview {
-  width: 84px;
-  height: 84px;
+  position: relative;
+  width: 110px;
+  height: 110px;
   border-radius: 10px;
   border: 1px solid var(--admin-border);
   background: var(--admin-bg);
@@ -428,6 +434,35 @@
   flex: none;
 }
 .pform__preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.pform__preview-cargando {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.pform__imagen-ctrl { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+
+.pform__imagen-acciones { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.pform__imagen-acciones .admin-btn { display: inline-flex; align-items: center; gap: 0.45rem; }
+
+.pform__imagen-quitar {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 0.82rem;
+  color: var(--admin-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.pform__imagen-quitar:hover { color: #b3261e; }
+
+.pform__imagen-url { margin-top: 0.35rem; }
+
+.pform__imagen-error { font-size: 0.76rem; color: #b3261e; }
 
 .pform__preview-vacia {
   width: 100%;
@@ -702,8 +737,9 @@
   .prod__bulk-actions { justify-content: space-between; }
 
   .pform__grid { grid-template-columns: 1fr; }
-  .pform__imagen { grid-template-columns: 1fr; }
-  .pform__preview { width: 100%; height: 140px; }
+  .pform__imagen { grid-template-columns: 1fr; justify-items: center; }
+  .pform__imagen-ctrl { width: 100%; }
+  .pform__imagen-acciones .admin-btn { flex: 1; justify-content: center; }
 
   .pform__footer { flex-direction: column; align-items: stretch; }
   .pform__footer-actions { margin-left: 0; }
