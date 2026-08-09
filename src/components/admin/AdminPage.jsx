@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { FaSyncAlt } from 'react-icons/fa';
-import { fetchOrdenes } from '../../services/admin';
+import { FaExclamationTriangle, FaSyncAlt, FaTrashAlt } from 'react-icons/fa';
+import { deleteOrdenesAnuladas, fetchOrdenes } from '../../services/admin';
 import { fetchProducts } from '../../services/api';
+import { getSession } from '../../services/auth';
 import AdminOrderRow, { ESTADOS, ESTADO_META } from './AdminOrderRow';
 
 const FILTROS = ['TODOS', ...ESTADOS];
@@ -20,6 +21,13 @@ function AdminPage({ onSessionExpired }) {
   const [filtro, setFiltro] = useState('TODOS');
   const [status, setStatus] = useState('loading');
   const [error, setError] = useState(null);
+  const [confirmandoBorrado, setConfirmandoBorrado] = useState(false);
+  const [eliminando, setEliminando] = useState(false);
+  const [errorBorrado, setErrorBorrado] = useState(null);
+
+  // El borrado definitivo de pedidos queda reservado al rol Admin (el API responde 403
+  // a los demás usuarios); para 'ventas' el botón ni siquiera se muestra.
+  const puedeEliminar = getSession()?.role === 'Admin';
 
   const handleSessionExpired = useCallback(() => {
     onSessionExpired?.();
@@ -52,6 +60,32 @@ function AdminPage({ onSessionExpired }) {
     setOrdenes((prev) =>
       prev.map((o) => (o.idOrden === idOrden ? { ...o, estado: nuevoEstado } : o))
     );
+  };
+
+  const handleEliminarAnulados = async () => {
+    setEliminando(true);
+    setErrorBorrado(null);
+    try {
+      const { ids = [], eliminadas = 0 } = await deleteOrdenesAnuladas();
+
+      if (ids.length) {
+        const borrados = new Set(ids);
+        setOrdenes((prev) => prev.filter((o) => !borrados.has(o.idOrden)));
+      } else if (eliminadas > 0) {
+        cargar();
+      }
+
+      setConfirmandoBorrado(false);
+      if (filtro === 'ANULADA') setFiltro('TODOS');
+    } catch (err) {
+      if (err.message === 'SESSION_EXPIRED') {
+        handleSessionExpired();
+        return;
+      }
+      setErrorBorrado(err.message || 'No se pudieron eliminar los pedidos.');
+    } finally {
+      setEliminando(false);
+    }
   };
 
   const conteos = useMemo(() => {
@@ -115,9 +149,20 @@ function AdminPage({ onSessionExpired }) {
               </button>
             ))}
           </div>
-          <button type="button" className="admin__refresh" onClick={cargar}>
-            <FaSyncAlt aria-hidden="true" /> Actualizar
-          </button>
+          <div className="admin__toolbar-right">
+            {puedeEliminar && (conteos.ANULADA ?? 0) > 0 && (
+              <button
+                type="button"
+                className="admin__danger"
+                onClick={() => { setErrorBorrado(null); setConfirmandoBorrado(true); }}
+              >
+                <FaTrashAlt aria-hidden="true" /> Eliminar anulados ({conteos.ANULADA})
+              </button>
+            )}
+            <button type="button" className="admin__refresh" onClick={cargar}>
+              <FaSyncAlt aria-hidden="true" /> Actualizar
+            </button>
+          </div>
         </div>
 
         {status === 'loading' && <p className="admin__status">Cargando pedidos…</p>}
@@ -160,6 +205,70 @@ function AdminPage({ onSessionExpired }) {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {confirmandoBorrado && (
+          <div
+            className="admin-modal__backdrop"
+            onClick={() => { if (!eliminando) setConfirmandoBorrado(false); }}
+          >
+            <div
+              className="admin-modal admin-modal--confirm"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Eliminar pedidos anulados"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="admin-modal__header">
+                <h3 className="admin-modal__title">Eliminar pedidos anulados</h3>
+                <button
+                  type="button"
+                  className="admin-modal__close"
+                  onClick={() => setConfirmandoBorrado(false)}
+                  disabled={eliminando}
+                  aria-label="Cerrar"
+                >
+                  ×
+                </button>
+              </div>
+
+              <div className="admin-modal__body">
+                <p className="admin-confirm__texto">
+                  Se borrarán <strong>{conteos.ANULADA} {conteos.ANULADA === 1 ? 'pedido' : 'pedidos'}</strong>
+                  {' '}en estado Anulada, junto con todo su detalle.
+                </p>
+
+                <p className="admin-confirm__alerta">
+                  <FaExclamationTriangle aria-hidden="true" />
+                  <span>
+                    Esta acción no se puede deshacer. Los logs de WhatsApp de esos pedidos se
+                    conservan, pero quedarán apuntando a un pedido que ya no existe.
+                  </span>
+                </p>
+
+                {errorBorrado && <p className="admin-form__error">{errorBorrado}</p>}
+
+                <div className="admin-modal__actions">
+                  <button
+                    type="button"
+                    className="admin-btn admin-btn--ghost"
+                    onClick={() => setConfirmandoBorrado(false)}
+                    disabled={eliminando}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-btn admin-btn--peligro"
+                    onClick={handleEliminarAnulados}
+                    disabled={eliminando}
+                  >
+                    {eliminando ? 'Eliminando…' : `Sí, eliminar ${conteos.ANULADA}`}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
     </main>

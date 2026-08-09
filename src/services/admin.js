@@ -46,6 +46,26 @@ export async function updateEstadoOrden(idOrden, estado) {
   return true;
 }
 
+// Borra definitivamente todas las órdenes anuladas. Irreversible y solo para el rol
+// Admin (el API responde 403 a los demás). Devuelve { eliminadas, ids }.
+export async function deleteOrdenesAnuladas() {
+  const response = await fetch(`${API_BASE_URL}/api/ordenes/anuladas`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  });
+
+  if (response.status === 401) handleUnauthorized();
+  if (response.status === 403) {
+    throw new Error('Tu usuario no tiene permiso para eliminar pedidos.');
+  }
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    const msg = data?.title || data?.message || `HTTP ${response.status}`;
+    throw new Error(`No se pudieron eliminar los pedidos anulados: ${msg}`);
+  }
+  return response.json();
+}
+
 // Lista de clientes registrados. Filtro opcional por activo (true/false).
 // Cada item incluye totalPedidos y ultimoPedido (los calcula el API).
 export async function fetchClientes(activo) {
