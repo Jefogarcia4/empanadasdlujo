@@ -54,13 +54,14 @@ async function request(path, { method = 'GET', body, errorMsg } = {}) {
 // Une en una sola estructura lo que el API expone en endpoints separados:
 // cada item queda con sus datos maestros y un mapa de precios por idLista.
 export async function fetchCatalogoAdmin() {
-  const [skus, productos, categorias, sabores, listas, precios] = await Promise.all([
+  const [skus, productos, categorias, sabores, listas, precios, combos] = await Promise.all([
     request('/api/skus', { errorMsg: 'No se pudieron cargar los productos' }),
     request('/api/productos', { errorMsg: 'No se pudieron cargar los productos' }),
     request('/api/categorias', { errorMsg: 'No se pudieron cargar las categorías' }),
     request('/api/sabores', { errorMsg: 'No se pudieron cargar los sabores' }),
     request('/api/listasprecios', { errorMsg: 'No se pudieron cargar las listas de precios' }),
     request('/api/preciossku', { errorMsg: 'No se pudieron cargar los precios' }),
+    request('/api/combos', { errorMsg: 'No se pudieron cargar los combos' }),
   ]);
 
   const productoPorId = new Map(productos.map((p) => [p.idProducto, p]));
@@ -99,11 +100,41 @@ export async function fetchCatalogoAdmin() {
 
   return {
     items,
+    combos,
     productos,
     categorias,
     sabores,
     listas: [...listas].sort((a, b) => a.idLista - b.idLista),
   };
+}
+
+// ─── Combos ───────────────────────────────────────────────────────────────
+// El combo tiene precio fijo (no participa de las listas de precios) y una lista
+// de SKUs que incluye. El PUT reemplaza los componentes por completo.
+
+export async function crearCombo(combo) {
+  return request('/api/combos', {
+    method: 'POST',
+    body: combo,
+    errorMsg: 'No se pudo crear el combo',
+  });
+}
+
+export async function actualizarCombo(idCombo, combo) {
+  return request(`/api/combos/${idCombo}`, {
+    method: 'PUT',
+    body: combo,
+    errorMsg: 'No se pudo guardar el combo',
+  });
+}
+
+export async function setComboActivo(idCombo, activo) {
+  await request(`/api/combos/${idCombo}/activo`, {
+    method: 'PATCH',
+    body: { activo },
+    errorMsg: 'No se pudo cambiar la disponibilidad del combo',
+  });
+  return true;
 }
 
 // ─── Escritura ────────────────────────────────────────────────────────────

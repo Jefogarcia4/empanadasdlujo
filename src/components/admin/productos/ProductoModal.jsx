@@ -1,17 +1,15 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { FaImage, FaMagic, FaTrashAlt, FaUpload } from 'react-icons/fa';
+import { useEffect, useMemo, useState } from 'react';
+import { FaMagic, FaTrashAlt } from 'react-icons/fa';
 import {
-  IMAGEN_MAX_MB,
-  IMAGEN_TIPOS,
   crearCategoria,
   crearProducto,
   crearSabor,
   createSkuCompleto,
   eliminarPrecio,
-  subirImagenProducto,
   updateSku,
   upsertPrecios,
 } from '../../../services/catalogoAdmin';
+import ImagenUploader from './ImagenUploader';
 import { formatCOP, parsePrecio, sugerirPrecioUnidad } from './utils';
 
 // Valor centinela del <select> cuando el admin quiere dar de alta un maestro nuevo.
@@ -109,11 +107,6 @@ function ProductoModal({ modo, item, catalogo, onCerrar, onGuardado, onSessionEx
   const [guardando, setGuardando] = useState(false);
   const [error, setError] = useState(null);
   const [confirmandoSalida, setConfirmandoSalida] = useState(false);
-  const [imagenRota, setImagenRota] = useState(false);
-  const [subiendoImagen, setSubiendoImagen] = useState(false);
-  const [errorImagen, setErrorImagen] = useState(null);
-  const [arrastrando, setArrastrando] = useState(false);
-  const inputArchivoRef = useRef(null);
   // Snapshot inmutable del estado inicial: sirve para saber si hay cambios sin guardar.
   const [inicial] = useState(() => ({
     form: esCrear ? vacio() : desdeItem(item),
@@ -162,43 +155,6 @@ function ProductoModal({ modo, item, catalogo, onCerrar, onGuardado, onSessionEx
       idProducto: valor === NUEVO ? NUEVO : '',
       nombreProductoNueva: '',
     }));
-  };
-
-  // Sube el archivo al API y deja la URL resultante en el formulario. Se valida en el
-  // cliente para dar respuesta inmediata; el API vuelve a validar por firma del archivo.
-  const procesarArchivo = async (file) => {
-    if (!file) return;
-    setErrorImagen(null);
-
-    if (!IMAGEN_TIPOS.includes(file.type)) {
-      setErrorImagen('Formato no soportado. Usa JPG, PNG, WebP o GIF.');
-      return;
-    }
-    if (file.size > IMAGEN_MAX_MB * 1024 * 1024) {
-      setErrorImagen(`La imagen pesa ${(file.size / 1024 / 1024).toFixed(1)} MB y el máximo es ${IMAGEN_MAX_MB} MB.`);
-      return;
-    }
-
-    setSubiendoImagen(true);
-    try {
-      const { url } = await subirImagenProducto(file);
-      setCampo('urlImage', url);
-      setImagenRota(false);
-    } catch (err) {
-      if (err.message === 'SESSION_EXPIRED') {
-        onSessionExpired?.();
-        return;
-      }
-      setErrorImagen(err.message || 'No se pudo subir la imagen.');
-    } finally {
-      setSubiendoImagen(false);
-    }
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setArrastrando(false);
-    if (!subiendoImagen) procesarArchivo(e.dataTransfer.files?.[0]);
   };
 
   const unidades = Number(form.unidadesPorPaquete) || 0;
@@ -389,8 +345,6 @@ function ProductoModal({ modo, item, catalogo, onCerrar, onGuardado, onSessionEx
     }
   };
 
-  const urlPreview = form.urlImage.trim();
-
   return (
     <div className="admin-modal__backdrop" onClick={intentarCerrar}>
       <div
@@ -527,82 +481,12 @@ function ProductoModal({ modo, item, catalogo, onCerrar, onGuardado, onSessionEx
                 </div>
               </div>
 
-              <div
-                className={`pform__imagen${arrastrando ? ' pform__imagen--drag' : ''}`}
-                onDragOver={(e) => { e.preventDefault(); setArrastrando(true); }}
-                onDragLeave={() => setArrastrando(false)}
-                onDrop={handleDrop}
-              >
-                <div className="pform__preview">
-                  {urlPreview && !imagenRota ? (
-                    <img src={urlPreview} alt="Vista previa" onError={() => setImagenRota(true)} />
-                  ) : (
-                    <div className="pform__preview-vacia">
-                      <FaImage aria-hidden="true" />
-                      <span>{imagenRota ? 'No se pudo cargar' : 'Sin imagen'}</span>
-                    </div>
-                  )}
-                  {subiendoImagen && (
-                    <div className="pform__preview-cargando">
-                      <span className="precio-cell__spinner" aria-hidden="true" />
-                    </div>
-                  )}
-                </div>
-
-                <div className="pform__imagen-ctrl">
-                  <span className="pform__label">Imagen del producto</span>
-
-                  <div className="pform__imagen-acciones">
-                    <button
-                      type="button"
-                      className="admin-btn admin-btn--ghost"
-                      onClick={() => inputArchivoRef.current?.click()}
-                      disabled={subiendoImagen}
-                    >
-                      <FaUpload aria-hidden="true" /> {subiendoImagen ? 'Subiendo…' : 'Subir imagen'}
-                    </button>
-
-                    {form.urlImage && !subiendoImagen && (
-                      <button
-                        type="button"
-                        className="pform__imagen-quitar"
-                        onClick={() => { setCampo('urlImage', ''); setImagenRota(false); setErrorImagen(null); }}
-                      >
-                        Quitar
-                      </button>
-                    )}
-
-                    <input
-                      ref={inputArchivoRef}
-                      type="file"
-                      className="visually-hidden"
-                      accept={IMAGEN_TIPOS.join(',')}
-                      onChange={(e) => {
-                        procesarArchivo(e.target.files?.[0]);
-                        e.target.value = ''; // permite volver a elegir el mismo archivo
-                      }}
-                    />
-                  </div>
-
-                  <span className="pform__hint">
-                    Arrastra una imagen aquí o súbela · JPG, PNG, WebP o GIF · máx {IMAGEN_MAX_MB} MB
-                  </span>
-
-                  <label className="pform__field pform__imagen-url">
-                    <span className="pform__hint">…o escribe la ruta / URL a mano</span>
-                    <input
-                      className="pform__input"
-                      type="text"
-                      maxLength={255}
-                      placeholder="/img_products/emp_carne.jpg"
-                      value={form.urlImage}
-                      onChange={(e) => { setCampo('urlImage', e.target.value); setImagenRota(false); }}
-                    />
-                  </label>
-
-                  {errorImagen && <span className="pform__imagen-error">{errorImagen}</span>}
-                </div>
-              </div>
+              <ImagenUploader
+                url={form.urlImage}
+                onChange={(valor) => setCampo('urlImage', valor)}
+                onSessionExpired={onSessionExpired}
+                etiqueta="Imagen del producto"
+              />
             </section>
 
             {/* ── Precios ────────────────────────────────────── */}

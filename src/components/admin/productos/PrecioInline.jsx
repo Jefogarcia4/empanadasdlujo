@@ -3,13 +3,18 @@ import { FaCheck, FaPlus } from 'react-icons/fa';
 import { formatCOP, parsePrecio } from './utils';
 
 /**
- * Celda de precio editable en la tabla. Click (o Enter) abre un input con el valor
- * actual; Enter guarda, Escape cancela y salir del campo también guarda si cambió.
- * `onGuardar` recibe el nuevo precio de paquete y devuelve una promesa.
+ * Celda de precio editable. Click (o Enter) abre un input con el valor actual;
+ * Enter guarda, Escape cancela y salir del campo también guarda si cambió.
+ * `onGuardar` recibe el nuevo precio y devuelve una promesa.
+ *
+ * Sirve tanto para el precio de un SKU en una lista como para el precio fijo de un
+ * combo: `subtitulo` es la línea pequeña de contexto (precio por unidad, ahorro…).
  */
-function PrecioInline({ precio, lista, codigoSku, onGuardar }) {
+function PrecioInline({ valor, subtitulo, etiqueta, onGuardar, textoVacio = 'Asignar' }) {
+  const definido = valor != null;
+
   const [editando, setEditando] = useState(false);
-  const [valor, setValor] = useState('');
+  const [texto, setTexto] = useState('');
   const [estado, setEstado] = useState('idle'); // idle | guardando | ok | error
   const [error, setError] = useState(null);
   const inputRef = useRef(null);
@@ -31,13 +36,13 @@ function PrecioInline({ precio, lista, codigoSku, onGuardar }) {
   const abrir = () => {
     cancelado.current = false;
     setError(null);
-    setValor(precio ? String(Math.round(precio.precioPaquete)) : '');
+    setTexto(definido ? String(Math.round(valor)) : '');
     setEditando(true);
   };
 
   const confirmar = async () => {
     if (cancelado.current || enviando.current) return;
-    const nuevo = parsePrecio(valor);
+    const nuevo = parsePrecio(texto);
 
     if (nuevo === null || nuevo < 0) {
       setError('Precio inválido');
@@ -45,7 +50,7 @@ function PrecioInline({ precio, lista, codigoSku, onGuardar }) {
       inputRef.current?.focus();
       return;
     }
-    if (precio && nuevo === Math.round(precio.precioPaquete)) {
+    if (definido && nuevo === Math.round(valor)) {
       setEditando(false);
       return;
     }
@@ -91,12 +96,12 @@ function PrecioInline({ precio, lista, codigoSku, onGuardar }) {
           className={`precio-cell__input${estado === 'error' ? ' precio-cell__input--error' : ''}`}
           type="text"
           inputMode="numeric"
-          value={valor}
+          value={texto}
           disabled={estado === 'guardando'}
-          onChange={(e) => setValor(e.target.value)}
+          onChange={(e) => setTexto(e.target.value)}
           onKeyDown={handleKeyDown}
           onBlur={confirmar}
-          aria-label={`Precio ${lista.nombre} de ${codigoSku}`}
+          aria-label={etiqueta}
         />
         {estado === 'guardando' && <span className="precio-cell__spinner" aria-label="Guardando" />}
         {error && <span className="precio-cell__error">{error}</span>}
@@ -104,12 +109,12 @@ function PrecioInline({ precio, lista, codigoSku, onGuardar }) {
     );
   }
 
-  if (!precio) {
+  if (!definido) {
     return (
       <button type="button" className="precio-cell precio-cell--vacia" onClick={abrir}>
         <FaPlus aria-hidden="true" />
-        <span>Asignar</span>
-        <span className="visually-hidden">precio {lista.nombre} a {codigoSku}</span>
+        <span>{textoVacio}</span>
+        <span className="visually-hidden">{etiqueta}</span>
       </button>
     );
   }
@@ -119,13 +124,10 @@ function PrecioInline({ precio, lista, codigoSku, onGuardar }) {
       type="button"
       className={`precio-cell precio-cell--valor${estado === 'ok' ? ' precio-cell--ok' : ''}`}
       onClick={abrir}
-      title={`Editar precio ${lista.nombre} de ${codigoSku}`}
+      title={`Editar ${etiqueta}`}
     >
-      <span className="precio-cell__monto">{formatCOP(precio.precioPaquete)}</span>
-      <span className="precio-cell__unidad">
-        {formatCOP(precio.precioPorUnidad)} / und
-        {precio.margen != null && ` · ${precio.margen}%`}
-      </span>
+      <span className="precio-cell__monto">{formatCOP(valor)}</span>
+      {subtitulo && <span className="precio-cell__unidad">{subtitulo}</span>}
       {estado === 'ok' && <FaCheck className="precio-cell__check" aria-hidden="true" />}
     </button>
   );

@@ -57,7 +57,10 @@
       "Bash(curl -s -o /dev/null -w \"http=%{http_code} type=%{content_type} bytes=%{size_download}\\\\n\" \"http://localhost:5099/uploads/productos/05acf0f9341146cbb348617678aecd5b.png\")",
       "Bash(printf 'MZ\\\\x90\\\\x00 esto no es una imagen')",
       "Bash(curl -s -u \"admin:Admin@DLujo2025!\" -X POST -F \"archivo=@falso.jpg\" \"http://localhost:5099/api/imagenes/productos\")",
-      "Bash(curl -s -u \"admin:Admin@DLujo2025!\" -X POST \"http://localhost:5099/api/imagenes/productos\" -F \"otro=1\")"
+      "Bash(curl -s -u \"admin:Admin@DLujo2025!\" -X POST \"http://localhost:5099/api/imagenes/productos\" -F \"otro=1\")",
+      "Bash(curl -s -o /dev/null -m 2 \"http://localhost:5099/swagger/v1/swagger.json\")",
+      "Bash(curl -s \"http://localhost:5099/swagger/v1/swagger.json\")",
+      "Bash(curl -s -u \"admin:Admin@DLujo2025!\" -m 45 \"http://localhost:5099/api/combos\")"
     ]
   }
 }

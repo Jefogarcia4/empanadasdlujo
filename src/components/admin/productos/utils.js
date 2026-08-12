@@ -37,6 +37,30 @@ export function sugerirPrecioUnidad(precioPaquete, unidadesPorPaquete) {
   return Math.round(paquete / unidades);
 }
 
+// El PUT de combos reemplaza el registro completo: arma el DTO entero a partir del
+// combo que ya tenemos en memoria y aplica solo los campos que cambian.
+export function payloadCombo(combo, overrides = {}) {
+  return {
+    nombre: combo.nombre,
+    subcategoria: combo.subcategoria ?? null,
+    descripcionCorta: combo.descripcionCorta ?? null,
+    descripcionLarga: combo.descripcionLarga ?? null,
+    precioNormal: combo.precioNormal,
+    precioCombo: combo.precioCombo,
+    pesoTotalG: combo.pesoTotalG ?? null,
+    unidadesTotales: combo.unidadesTotales ?? null,
+    activo: combo.activo,
+    orden: combo.orden ?? null,
+    urlImage: combo.urlImage ?? null,
+    badgeDescripcion: combo.badgeDescripcion ?? null,
+    componentes: (combo.componentes ?? []).map((c) => ({
+      codigoSku: c.codigoSku,
+      cantidadPaquetes: c.cantidadPaquetes,
+    })),
+    ...overrides,
+  };
+}
+
 // Texto de la presentación: "500 g · 12 und".
 export function describirPresentacion(item) {
   const partes = [];

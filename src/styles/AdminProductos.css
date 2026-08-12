@@ -45,6 +45,44 @@
 .prod__header-actions .admin-btn { display: inline-flex; align-items: center; gap: 0.45rem; }
 .prod__header-actions .admin__refresh { display: inline-flex; align-items: center; gap: 0.45rem; }
 
+/* ─── Selector productos / combos ───────────────────────── */
+.prod__vistas {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  margin-bottom: 1.25rem;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+}
+
+.prod__vista {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--admin-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.prod__vista:hover { background: var(--admin-bg); }
+.prod__vista--activa { background: var(--admin-primary); color: #fff; }
+.prod__vista--activa:hover { background: var(--admin-primary); }
+
+.prod__vista-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
+}
+.prod__vista--activa .prod__vista-count { background: rgba(255, 255, 255, 0.25); }
+
 /* ─── Tarjetas de resumen ───────────────────────────────── */
 .prod__stats {
   display: grid;
@@ -202,6 +240,80 @@
 
 .prod-row__presentacion { color: var(--admin-muted); white-space: nowrap; }
 .prod-row__precio { min-width: 8.5rem; }
+.prod-row__incluye { min-width: 13rem; }
+
+.prod-row__sin-vinculo { font-size: 0.8rem; color: var(--admin-muted); font-style: italic; }
+
+/* ─── Combos: contenido de la fila ──────────────────────── */
+.pcombo__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  color: var(--admin-text);
+}
+.pcombo__lista li { line-height: 1.4; }
+.pcombo__lista strong { color: var(--admin-primary); }
+
+.pcombo__lista-mas { display: block; font-size: 0.74rem; color: var(--admin-muted); }
+.pcombo__totales { display: block; margin-top: 0.2rem; font-size: 0.72rem; color: var(--admin-muted); }
+
+.pcombo__ahorro-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: #d8f5e0;
+  color: #1f7a3d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.pcombo__ahorro-chip small { font-size: 0.7rem; font-weight: 600; opacity: 0.8; }
+.pcombo__ahorro-chip--nulo { background: var(--admin-bg); color: var(--admin-muted); }
+
+/* ─── Combos: editor de componentes ─────────────────────── */
+.pcombo__comp-head,
+.pcombo__comp-row {
+  display: grid;
+  grid-template-columns: 1fr 6rem 7rem 2.2rem;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.55rem 0.75rem;
+}
+
+.pcombo__comp-head {
+  background: var(--admin-bg);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--admin-muted);
+  font-weight: 600;
+}
+
+.pcombo__comp-row { border-top: 1px solid var(--admin-border); }
+.pcombo__comp-subtotal { font-size: 0.85rem; font-weight: 600; text-align: right; white-space: nowrap; }
+
+.pcombo__agregar { margin-top: 0.75rem; display: inline-flex; align-items: center; gap: 0.45rem; }
+
+.pcombo__ahorro {
+  margin-top: 0.85rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 8px;
+  background: #d8f5e0;
+  border: 1px solid #b6e6c6;
+  color: #1f7a3d;
+  font-size: 0.85rem;
+}
+.pcombo__ahorro--negativo { background: #fff5f5; border-color: #f0c8c5; color: #8f1d17; }
+
+/* El input numérico con botón de cálculo no lleva el prefijo de moneda. */
+.pcombo__input-plano { padding-left: 0.7rem !important; }
+
+.pcombo__desc { margin-top: 0.9rem; }
+
+.pform__textarea { resize: vertical; font-family: inherit; line-height: 1.45; }
 
 /* ─── Celda de precio editable ──────────────────────────── */
 .precio-cell {
@@ -713,7 +825,9 @@
 
 /* ─── Responsive ────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .pform__precios-head { display: none; }
+  .pform__precios-head,
+  .pcombo__comp-head { display: none; }
+
   .pform__precios-row {
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem 0.75rem;
@@ -721,6 +835,14 @@
   }
   .pform__precios-lista { grid-column: 1 / -1; }
   .pform__quitar { justify-self: end; }
+
+  .pcombo__comp-row {
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 0.75rem;
+    padding: 0.75rem;
+  }
+  .pcombo__comp-row > select { grid-column: 1 / -1; }
+  .pcombo__comp-subtotal { text-align: left; }
 }
 
 @media (max-width: 760px) {
